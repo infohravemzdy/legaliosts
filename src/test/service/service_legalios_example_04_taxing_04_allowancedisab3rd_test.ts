@@ -1,15 +1,28 @@
 ﻿import { expect } from 'chai';
+import { TestIntParams, TestIntScenario } from '../TestStructs';
 import {
   initSut,
   logTestNumExamples,
-  TestIntParams,
-  TestIntScenario,
   getTaxingResults,
 } from './service_legalios_example_base_test';
 
 // 04_Taxing_04_AllowanceDisab3rd
-describe('Service Taxing For Year 2011-2022 AllowanceDisab3rd', () => {
+describe('Service Taxing For Year 2010-2022 AllowanceDisab3rd', () => {
   const scenarios = [
+    new TestIntScenario("2010", [
+      new TestIntParams( "2010-1", 2010, 1, 2010, 1, 1345 ),
+      new TestIntParams( "2010-2", 2010, 2, 2010, 2, 1345 ),
+      new TestIntParams( "2010-3", 2010, 3, 2010, 3, 1345 ),
+      new TestIntParams( "2010-4", 2010, 4, 2010, 4, 1345 ),
+      new TestIntParams( "2010-5", 2010, 5, 2010, 5, 1345 ),
+      new TestIntParams( "2010-6", 2010, 6, 2010, 6, 1345 ),
+      new TestIntParams( "2010-7", 2010, 7, 2010, 7, 1345 ),
+      new TestIntParams( "2010-8", 2010, 8, 2010, 8, 1345 ),
+      new TestIntParams( "2010-9", 2010, 9, 2010, 9, 1345 ),
+      new TestIntParams( "2010-10", 2010, 10, 2010, 10, 1345 ),
+      new TestIntParams( "2010-11", 2010, 11, 2010, 11, 1345 ),
+      new TestIntParams( "2010-12", 2010, 12, 2010, 12, 1345 ),
+    ]),
     new TestIntScenario('2011', [
       new TestIntParams('2011-1', 2011, 1, 2011, 1, 1345),
       new TestIntParams('2011-2', 2011, 2, 2011, 2, 1345),

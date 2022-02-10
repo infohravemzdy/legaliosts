@@ -12,13 +12,13 @@ export interface IPropsTaxing extends IProps {
   AllowanceChild3rd(): number;
   FactorAdvances(): bigDecimal;
   FactorWithhold(): bigDecimal;
-  FactorSolitary(): bigDecimal;
+  FactorSolidary(): bigDecimal;
   MinAmountOfTaxBonus(): number;
   MaxAmountOfTaxBonus(): number;
   MarginIncomeOfTaxBonus(): number;
   MarginIncomeOfRounding(): number;
   MarginIncomeOfWithhold(): number;
-  MarginIncomeOfSolitary(): number;
+  MarginIncomeOfSolidary(): number;
   MarginIncomeOfWthEmp(): number;
   MarginIncomeOfWthAgr(): number;
 }

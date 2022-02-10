@@ -1,6 +1,7 @@
 ﻿import { HistoryConstSalary2016 } from './HistoryConstSalary2016';
 import { HistoryConstTaxing2015 } from '../providers_period2015/HistoryConstTaxing2015';
 import bigDecimal = require('js-big-decimal');
+import { HistoryConstTaxing2018 } from '../providers_period2018/HistoryConstTaxing2018';
 
 // ALLOWANCE_PAYER                  Částka slevy na poplatníka
 //
@@ -22,7 +23,9 @@ import bigDecimal = require('js-big-decimal');
 //
 // FACTOR_WITHHOLD                  Sazba daně na srážkový příjem
 //
-// FACTOR_SOLITARY                  Sazba daně na solidární zvýšení
+// FACTOR_SOLIDARY                  Sazba daně na solidární zvýšení
+//
+// FACTOR_TAXRATE2                  Sazba daně pro druhé pásmo daně
 //
 // MIN_AMOUNT_OF_TAXBONUS           Minimální částka pro daňový bonus
 //
@@ -34,11 +37,14 @@ import bigDecimal = require('js-big-decimal');
 //
 // MARGIN_INCOME_OF_WITHHOLD        Maximální výše příjmu pro srážkový příjem
 //
-// MARGIN_INCOME_OF_SOLITARY        Minimální výše příjmu pro solidární zvýšení daně
+// MARGIN_INCOME_OF_SOLIDARY        Minimální výše příjmu pro solidární zvýšení daně
+//
+// MARGIN_INCOME_OF_TAXRATE2        Minimální výše příjmu pro druhé pásmo daně
 //
 // MARGIN_INCOME_OF_WHT_AGR         hranice příjmu pro srážkovou daň pro zaměstnace v pracovním poměru (nepodepsal prohlášení)
 //
 // MARGIN_INCOME_OF_WHT_EMP         hranice příjmu pro srážkovou daň pro zaměstnace na dohodu (nepodepsal prohlášení)
+
 export class HistoryConstTaxing2016var05 {
   public static readonly ALLOWANCE_CHILD_2ND: number = 1417;
   public static readonly ALLOWANCE_CHILD_3RD: number = 1717;
@@ -56,13 +62,15 @@ export class HistoryConstTaxing2016 {
   public static readonly ALLOWANCE_CHILD_3RD: number = HistoryConstTaxing2015.ALLOWANCE_CHILD_3RD;
   public static readonly FACTOR_ADVANCES: bigDecimal = HistoryConstTaxing2015.FACTOR_ADVANCES;
   public static readonly FACTOR_WITHHOLD: bigDecimal = HistoryConstTaxing2015.FACTOR_WITHHOLD;
-  public static readonly FACTOR_SOLITARY: bigDecimal = HistoryConstTaxing2015.FACTOR_SOLITARY;
+  public static readonly FACTOR_SOLIDARY: bigDecimal = HistoryConstTaxing2015.FACTOR_SOLIDARY;
+  public static readonly FACTOR_TAXRATE2: bigDecimal = HistoryConstTaxing2015.FACTOR_TAXRATE2;
   public static readonly MIN_AMOUNT_OF_TAXBONUS: number = HistoryConstTaxing2015.MIN_AMOUNT_OF_TAXBONUS;
   public static readonly MAX_AMOUNT_OF_TAXBONUS: number = HistoryConstTaxing2015.MAX_AMOUNT_OF_TAXBONUS;
   public static readonly MARGIN_INCOME_OF_TAXBONUS: number = HistoryConstSalary2016.MIN_MONTHLY_WAGE / 2;
   public static readonly MARGIN_INCOME_OF_ROUNDING: number = HistoryConstTaxing2015.MARGIN_INCOME_OF_ROUNDING;
   public static readonly MARGIN_INCOME_OF_WITHHOLD: number = HistoryConstTaxing2015.MARGIN_INCOME_OF_WITHHOLD;
-  public static readonly MARGIN_INCOME_OF_SOLITARY: number = 4 * 27006;
+  public static readonly MARGIN_INCOME_OF_SOLIDARY: number = 4 * 27006;
+  public static readonly MARGIN_INCOME_OF_TAXRATE2: number = HistoryConstTaxing2015.MARGIN_INCOME_OF_TAXRATE2;
   public static readonly MARGIN_INCOME_OF_WHT_EMP: number = HistoryConstTaxing2015.MARGIN_INCOME_OF_WHT_EMP;
   public static readonly MARGIN_INCOME_OF_WHT_AGR: number = HistoryConstTaxing2015.MARGIN_INCOME_OF_WHT_AGR;
 }

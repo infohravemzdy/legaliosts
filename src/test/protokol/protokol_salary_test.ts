@@ -3,12 +3,10 @@ import { FactorySalary } from '../../proj/factories/FactorySalary';
 import { IPropsSalary } from '../../proj/service_interfaces/IPropsSalary';
 import { PROTOKOL_TEST_FOLDER } from './protokol_base_test';
 import { exportSalaryPropsDecFile, exportSalaryPropsIntFile } from './protokol_salary_base_test';
+import { TestYearScenario } from '../TestStructs';
 
-describe('Protokol Salary For Year 2011-2022', () => {
-  class TestIntScenario {
-    constructor(readonly title: string, readonly minYear: number, readonly maxYear: number) {}
-  }
-  const testExamples = [new TestIntScenario('2011-2022', 2011, 2022)];
+describe('Protokol Salary For Year 2010-2022', () => {
+  const testExamples = [new TestYearScenario('2010-2022', 2010, 2022)];
   // 02_Salary_01_WorkingShiftWeek
   describe('WorkingShiftWeek', () => {
     testExamples.forEach((tt) => {

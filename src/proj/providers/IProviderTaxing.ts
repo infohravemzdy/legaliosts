@@ -14,13 +14,13 @@ export interface IProviderTaxing extends IPropsProvider<IPropsTaxing> {
   AllowanceChild3rd(period: IPeriod): number;
   FactorAdvances(period: IPeriod): bigDecimal;
   FactorWithhold(period: IPeriod): bigDecimal;
-  FactorSolitary(period: IPeriod): bigDecimal;
+  FactorSolidary(period: IPeriod): bigDecimal;
   MinAmountOfTaxBonus(period: IPeriod): number;
   MaxAmountOfTaxBonus(period: IPeriod): number;
   MarginIncomeOfTaxBonus(period: IPeriod): number;
   MarginIncomeOfRounding(period: IPeriod): number;
   MarginIncomeOfWithhold(period: IPeriod): number;
-  MarginIncomeOfSolitary(period: IPeriod): number;
+  MarginIncomeOfSolidary(period: IPeriod): number;
   MarginIncomeOfWthEmp(period: IPeriod): number;
   MarginIncomeOfWthAgr(period: IPeriod): number;
 }

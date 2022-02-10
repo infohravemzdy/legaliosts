@@ -3,12 +3,10 @@ import { FactorySocial } from '../../proj/factories/FactorySocial';
 import { IPropsSocial } from '../../proj/service_interfaces/IPropsSocial';
 import { PROTOKOL_TEST_FOLDER } from './protokol_base_test';
 import { exportSocialPropsDecFile, exportSocialPropsIntFile } from './protokol_social_base_test';
+import { TestYearScenario } from '../TestStructs';
 
-describe('Protokol Social For Year 2011-2022', () => {
-  class TestIntScenario {
-    constructor(readonly title: string, readonly minYear: number, readonly maxYear: number) {}
-  }
-  const testExamples = [new TestIntScenario('2011-2022', 2011, 2022)];
+describe('Protokol Social For Year 2010-2022', () => {
+  const testExamples = [new TestYearScenario('2010-2022', 2010, 2022)];
   // 03_Social_01_MaxAnnualsBasis
   describe('MaxAnnualsBasis', () => {
     testExamples.forEach((tt) => {

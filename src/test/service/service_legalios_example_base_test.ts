@@ -12,92 +12,11 @@ import { IProps } from '../../proj/service_interfaces/IProps';
 import * as path from 'path';
 import * as fs from 'fs';
 import {assert, expect} from 'chai';
-import {__TEST_PROTOKOL_FILE__} from "../protokol/protokol_base_test";
+import { TestDecScenario, TestIntScenario } from '../TestStructs';
+
+export const __TEST_EXAMPLE_FILE__: boolean = true;
 
 export const EXAMPLE_TEST_FOLDER = './test_expected';
-
-export class TestIntParams {
-  constructor(
-    readonly title: string,
-    readonly year: number,
-    readonly month: number,
-    readonly expYear: number,
-    readonly expMonth: number,
-    readonly expected: number,
-  ) {}
-  testBasicResult(
-    result: Result<IBundleProps, HistoryResultError>,
-    bundle: IBundleProps,
-    props: IProps,
-    error: HistoryResultError,
-  ) {
-    it('Result should be OK', () => {
-      assert.equal(result.isOk, true);
-    });
-    it('GetProps should return error = null', () => {
-      assert.equal(error, null);
-    });
-    it('GetProps should return props not be nil', () => {
-      assert.notEqual(bundle, null);
-    });
-    it(`GetProps should return getPeriodYear = ${this.expYear} and getPeriodMonth = ${this.expMonth}`, () => {
-      expect(bundle.PeriodYear()).to.equal(this.expYear);
-      expect(bundle.PeriodMonth()).to.equal(this.expMonth);
-    });
-    it('GetProps should return healthProps not to be nil', () => {
-      assert.notEqual(props, null);
-    });
-  }
-}
-
-export class TestIntScenario {
-  constructor(readonly title: string, readonly tests: TestIntParams[]) {}
-}
-
-export class TestParams {
-  constructor(readonly title: string, readonly year: number, readonly month: number) {}
-}
-
-export class TestScenario {
-  constructor(readonly title: string, readonly tests: TestParams[]) {}
-}
-
-export class TestDecParams {
-  constructor(
-    readonly title: string,
-    readonly year: number,
-    readonly month: number,
-    readonly expYear: number,
-    readonly expMonth: number,
-    readonly expected: bigDecimal,
-  ) {}
-  testBasicResult(
-    result: Result<IBundleProps, HistoryResultError>,
-    bundle: IBundleProps,
-    props: IProps,
-    error: HistoryResultError,
-  ) {
-    it('Result should be OK', () => {
-      assert.equal(result.isOk, true);
-    });
-    it('GetProps should return error = null', () => {
-      assert.equal(error, null);
-    });
-    it('GetProps should return props not be nil', () => {
-      assert.notEqual(bundle, null);
-    });
-    it(`GetProps should return getPeriodYear = ${this.expYear} and getPeriodMonth = ${this.expMonth}`, () => {
-      expect(bundle.PeriodYear()).to.equal(this.expYear);
-      expect(bundle.PeriodMonth()).to.equal(this.expMonth);
-    });
-    it('GetProps should return healthProps not to be nil', () => {
-      assert.notEqual(props, null);
-    });
-  }
-}
-export class TestDecScenario {
-  constructor(readonly title: string, readonly tests: TestDecParams[]) {}
-}
 
 export function initSut(year: number, month: number): [IPeriod, IServiceLegalios] {
   return [Period.getWithYearMonth(year, month), new ServiceLegalios()];
@@ -233,7 +152,7 @@ function logExampleIntValue(protokol: fs.WriteStream, value: number) {
 }
 
 export function logTestNumExamples(fileName: string, examples: TestIntScenario[]) {
-  if (__TEST_PROTOKOL_FILE__ === true) {
+  if (__TEST_EXAMPLE_FILE__ === true) {
     const testLogger = createLoggerFile(EXAMPLE_TEST_FOLDER, fileName);
 
     logTestStart(testLogger);
@@ -254,7 +173,7 @@ function logExampleDecValue(protokol: fs.WriteStream, value: bigDecimal) {
 }
 
 export function logTestDecExamples(fileName: string, examples: TestDecScenario[]) {
-  if (__TEST_PROTOKOL_FILE__ === true) {
+  if (__TEST_EXAMPLE_FILE__ === true) {
     const testLogger = createLoggerFile(EXAMPLE_TEST_FOLDER, fileName);
 
     logTestStart(testLogger);

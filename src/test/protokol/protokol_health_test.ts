@@ -3,12 +3,10 @@ import { FactoryHealth } from '../../proj/factories/FactoryHealth';
 import { IPropsHealth } from '../../proj/service_interfaces/IPropsHealth';
 import { PROTOKOL_TEST_FOLDER } from './protokol_base_test';
 import { exportHealthPropsDecFile, exportHealthPropsIntFile } from './protokol_health_base_test';
+import { TestYearScenario } from '../TestStructs';
 
-describe('Protokol Health For Year 2011-2022', () => {
-  class TestIntScenario {
-    constructor(readonly title: string, readonly minYear: number, readonly maxYear: number) {}
-  }
-  const testExamples = [new TestIntScenario('2011-2022', 2011, 2022)];
+describe('Protokol Health For Year 2010-2022', () => {
+  const testExamples = [new TestYearScenario('2010-2022', 2010, 2022)];
   // 01_Health_01_MinMonthlyBasis
   describe('MinMonthlyBasis', () => {
     testExamples.forEach((tt) => {

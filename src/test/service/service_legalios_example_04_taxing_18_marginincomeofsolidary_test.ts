@@ -1,15 +1,28 @@
 ﻿import { expect } from 'chai';
+import { TestIntParams, TestIntScenario } from '../TestStructs';
 import {
   initSut,
   logTestNumExamples,
-  TestIntParams,
-  TestIntScenario,
   getTaxingResults,
 } from './service_legalios_example_base_test';
 
-// 04_Taxing_17_MarginIncomeOfSolitary
-describe('Service Taxing For Year 2011-2022 MarginIncomeOfSolitary', () => {
+// 04_Taxing_18_MarginIncomeOfSolidary
+describe('Service Taxing For Year 2010-2022 MarginIncomeOfSolidary', () => {
   const scenarios = [
+    new TestIntScenario("2010", [
+      new TestIntParams( "2010-1", 2010, 1, 2010, 1, 0 ),
+      new TestIntParams( "2010-2", 2010, 2, 2010, 2, 0 ),
+      new TestIntParams( "2010-3", 2010, 3, 2010, 3, 0 ),
+      new TestIntParams( "2010-4", 2010, 4, 2010, 4, 0 ),
+      new TestIntParams( "2010-5", 2010, 5, 2010, 5, 0 ),
+      new TestIntParams( "2010-6", 2010, 6, 2010, 6, 0 ),
+      new TestIntParams( "2010-7", 2010, 7, 2010, 7, 0 ),
+      new TestIntParams( "2010-8", 2010, 8, 2010, 8, 0 ),
+      new TestIntParams( "2010-9", 2010, 9, 2010, 9, 0 ),
+      new TestIntParams( "2010-10", 2010, 10, 2010, 10, 0 ),
+      new TestIntParams( "2010-11", 2010, 11, 2010, 11, 0 ),
+      new TestIntParams( "2010-12", 2010, 12, 2010, 12, 0 ),
+    ]),
     new TestIntScenario('2011', [
       new TestIntParams('2011-1', 2011, 1, 2011, 1, 0),
       new TestIntParams('2011-2', 2011, 2, 2011, 2, 0),
@@ -179,7 +192,7 @@ describe('Service Taxing For Year 2011-2022 MarginIncomeOfSolitary', () => {
       new TestIntParams('2022-12', 2022, 12, 2022, 12, 0),
     ]),
   ];
-  logTestNumExamples('04_Taxing_17_MarginIncomeOfSolitary.txt', scenarios);
+  logTestNumExamples('04_Taxing_18_MarginIncomeOfSolidary.txt', scenarios);
   scenarios.forEach((tx) => {
     describe(`year ${tx.title}`, () => {
       tx.tests.forEach((tt) => {
@@ -189,7 +202,7 @@ describe('Service Taxing For Year 2011-2022 MarginIncomeOfSolitary', () => {
         tt.testBasicResult(result, bundle, props, error);
 
         it(`GetProps should return value = ${tt.expected}`, () => {
-          expect(props.MarginIncomeOfSolitary()).to.equal(tt.expected);
+          expect(props.MarginIncomeOfSolidary()).to.equal(tt.expected);
         });
       });
     });

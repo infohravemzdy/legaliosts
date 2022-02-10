@@ -1,16 +1,29 @@
 ﻿import bigDecimal = require('js-big-decimal');
 import { expect } from 'chai';
+import { TestDecParams, TestDecScenario } from '../TestStructs';
 import {
   initSut,
   logTestDecExamples,
-  TestDecParams,
-  TestDecScenario,
   getSocialResults,
 } from './service_legalios_example_base_test';
 
 // 03_Social_05_FactorEmployeeGarant
-describe('Service Social For Year 2011-2022 FactorEmployeeGarant', () => {
+describe('Service Social For Year 2010-2022 FactorEmployeeGarant', () => {
   const scenarios = [
+    new TestDecScenario("2010", [
+      new TestDecParams( "2010-1", 2010, 1, 2010, 1, new bigDecimal(0.0) ),
+      new TestDecParams( "2010-2", 2010, 2, 2010, 2, new bigDecimal(0.0) ),
+      new TestDecParams( "2010-3", 2010, 3, 2010, 3, new bigDecimal(0.0) ),
+      new TestDecParams( "2010-4", 2010, 4, 2010, 4, new bigDecimal(0.0) ),
+      new TestDecParams( "2010-5", 2010, 5, 2010, 5, new bigDecimal(0.0) ),
+      new TestDecParams( "2010-6", 2010, 6, 2010, 6, new bigDecimal(0.0) ),
+      new TestDecParams( "2010-7", 2010, 7, 2010, 7, new bigDecimal(0.0) ),
+      new TestDecParams( "2010-8", 2010, 8, 2010, 8, new bigDecimal(0.0) ),
+      new TestDecParams( "2010-9", 2010, 9, 2010, 9, new bigDecimal(0.0) ),
+      new TestDecParams( "2010-10", 2010, 10, 2010, 10, new bigDecimal(0.0) ),
+      new TestDecParams( "2010-11", 2010, 11, 2010, 11, new bigDecimal(0.0) ),
+      new TestDecParams( "2010-12", 2010, 12, 2010, 12, new bigDecimal(0.0) ),
+    ]),
     new TestDecScenario('2011', [
       new TestDecParams('2011-1', 2011, 1, 2011, 1, new bigDecimal(0.0)),
       new TestDecParams('2011-2', 2011, 2, 2011, 2, new bigDecimal(0.0)),

@@ -8,5 +8,5 @@ export * from "./service_interfaces/IPropsTaxing";
 export * from "./service_errors/HistoryResultError";
 export * from "./service_types/period"
 export * from "./service_types/versionid"
-export * from "./factories/BundleProps"
+export * from "./service_types/BundleProps"
 

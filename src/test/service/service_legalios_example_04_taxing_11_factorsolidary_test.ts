@@ -1,16 +1,29 @@
 ﻿import bigDecimal = require('js-big-decimal');
 import { expect } from 'chai';
+import { TestDecParams, TestDecScenario } from '../TestStructs';
 import {
   initSut,
   logTestDecExamples,
-  TestDecParams,
-  TestDecScenario,
   getTaxingResults,
 } from './service_legalios_example_base_test';
 
-// 04_Taxing_11_FactorSolitary
-describe('Service Taxing For Year 2011-2022 FactorSolitary', () => {
+// 04_Taxing_11_FactorSolidary
+describe('Service Taxing For Year 2010-2022 FactorSolidary', () => {
   const scenarios = [
+    new TestDecScenario("2010", [
+      new TestDecParams( "2010-1", 2010, 1, 2010, 1, new bigDecimal(0.0) ),
+      new TestDecParams( "2010-2", 2010, 2, 2010, 2, new bigDecimal(0.0) ),
+      new TestDecParams( "2010-3", 2010, 3, 2010, 3, new bigDecimal(0.0) ),
+      new TestDecParams( "2010-4", 2010, 4, 2010, 4, new bigDecimal(0.0) ),
+      new TestDecParams( "2010-5", 2010, 5, 2010, 5, new bigDecimal(0.0) ),
+      new TestDecParams( "2010-6", 2010, 6, 2010, 6, new bigDecimal(0.0) ),
+      new TestDecParams( "2010-7", 2010, 7, 2010, 7, new bigDecimal(0.0) ),
+      new TestDecParams( "2010-8", 2010, 8, 2010, 8, new bigDecimal(0.0) ),
+      new TestDecParams( "2010-9", 2010, 9, 2010, 9, new bigDecimal(0.0) ),
+      new TestDecParams( "2010-10", 2010, 10, 2010, 10, new bigDecimal(0.0) ),
+      new TestDecParams( "2010-11", 2010, 11, 2010, 11, new bigDecimal(0.0) ),
+      new TestDecParams( "2010-12", 2010, 12, 2010, 12, new bigDecimal(0.0) ),
+    ]),
     new TestDecScenario('2011', [
       new TestDecParams('2011-1', 2011, 1, 2011, 1, new bigDecimal(0.0)),
       new TestDecParams('2011-2', 2011, 2, 2011, 2, new bigDecimal(0.0)),
@@ -180,7 +193,7 @@ describe('Service Taxing For Year 2011-2022 FactorSolitary', () => {
       new TestDecParams('2022-12', 2022, 12, 2022, 12, new bigDecimal(0.0)),
     ]),
   ];
-  logTestDecExamples('04_Taxing_11_FactorSolitary.txt', scenarios);
+  logTestDecExamples('04_Taxing_11_FactorSolidary.txt', scenarios);
   scenarios.forEach((tx) => {
     describe(`year ${tx.title}`, () => {
       tx.tests.forEach((tt) => {
@@ -190,7 +203,7 @@ describe('Service Taxing For Year 2011-2022 FactorSolitary', () => {
         tt.testBasicResult(result, bundle, props, error);
 
         it(`GetProps should return value = ${tt.expected}`, () => {
-          expect(props.FactorSolitary()).to.eql(tt.expected);
+          expect(props.FactorSolidary()).to.eql(tt.expected);
         });
       });
     });

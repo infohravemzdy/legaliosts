@@ -16,13 +16,13 @@ export class PropsTaxing extends PropsBase implements IPropsTaxing {
     allowanceChild3rd: number,
     factorAdvances: bigDecimal,
     factorWithhold: bigDecimal,
-    factorSolitary: bigDecimal,
+    factorSolidary: bigDecimal,
     minAmountOfTaxBonus: number,
     maxAmountOfTaxBonus: number,
     marginIncomeOfTaxBonus: number,
     marginIncomeOfRounding: number,
     marginIncomeOfWithhold: number,
-    marginIncomeOfSolitary: number,
+    marginIncomeOfSolidary: number,
     marginIncomeOfWthEmp: number,
     marginIncomeOfWthAgr: number,
   ) {
@@ -37,13 +37,13 @@ export class PropsTaxing extends PropsBase implements IPropsTaxing {
     this.allowanceChild3rd = allowanceChild3rd;
     this.factorAdvances = factorAdvances;
     this.factorWithhold = factorWithhold;
-    this.factorSolitary = factorSolitary;
+    this.factorSolidary = factorSolidary;
     this.minAmountOfTaxBonus = minAmountOfTaxBonus;
     this.maxAmountOfTaxBonus = maxAmountOfTaxBonus;
     this.marginIncomeOfTaxBonus = marginIncomeOfTaxBonus;
     this.marginIncomeOfRounding = marginIncomeOfRounding;
     this.marginIncomeOfWithhold = marginIncomeOfWithhold;
-    this.marginIncomeOfSolitary = marginIncomeOfSolitary;
+    this.marginIncomeOfSolidary = marginIncomeOfSolidary;
     this.marginIncomeOfWthEmp = marginIncomeOfWthEmp;
     this.marginIncomeOfWthAgr = marginIncomeOfWthAgr;
   }
@@ -57,13 +57,13 @@ export class PropsTaxing extends PropsBase implements IPropsTaxing {
   allowanceChild3rd: number;
   factorAdvances: bigDecimal;
   factorWithhold: bigDecimal;
-  factorSolitary: bigDecimal;
+  factorSolidary: bigDecimal;
   minAmountOfTaxBonus: number;
   maxAmountOfTaxBonus: number;
   marginIncomeOfTaxBonus: number;
   marginIncomeOfRounding: number;
   marginIncomeOfWithhold: number;
-  marginIncomeOfSolitary: number;
+  marginIncomeOfSolidary: number;
   marginIncomeOfWthEmp: number;
   marginIncomeOfWthAgr: number;
 
@@ -97,8 +97,8 @@ export class PropsTaxing extends PropsBase implements IPropsTaxing {
   FactorWithhold(): bigDecimal {
     return this.factorWithhold;
   }
-  FactorSolitary(): bigDecimal {
-    return this.factorSolitary;
+  FactorSolidary(): bigDecimal {
+    return this.factorSolidary;
   }
   MinAmountOfTaxBonus(): number {
     return this.minAmountOfTaxBonus;
@@ -115,8 +115,8 @@ export class PropsTaxing extends PropsBase implements IPropsTaxing {
   MarginIncomeOfWithhold(): number {
     return this.marginIncomeOfWithhold;
   }
-  MarginIncomeOfSolitary(): number {
-    return this.marginIncomeOfSolitary;
+  MarginIncomeOfSolidary(): number {
+    return this.marginIncomeOfSolidary;
   }
   MarginIncomeOfWthEmp(): number {
     return this.marginIncomeOfWthEmp;

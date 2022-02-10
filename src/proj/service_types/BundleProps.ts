@@ -1,4 +1,4 @@
-import { IPeriod } from '../service_types/period';
+import { IPeriod } from './period';
 import { IBundleProps } from '../service_interfaces/IBundleProps';
 import { IPropsSalary } from '../service_interfaces/IPropsSalary';
 import { IPropsHealth } from '../service_interfaces/IPropsHealth';

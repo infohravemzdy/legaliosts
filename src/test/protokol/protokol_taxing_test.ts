@@ -3,12 +3,10 @@ import { FactoryTaxing } from '../../proj/factories/FactoryTaxing';
 import { IPropsTaxing } from '../../proj/service_interfaces/IPropsTaxing';
 import { PROTOKOL_TEST_FOLDER } from './protokol_base_test';
 import { exportTaxingPropsDecFile, exportTaxingPropsIntFile } from './protokol_taxing_base_test';
+import { TestYearScenario } from '../TestStructs';
 
-describe('Protokol Taxing For Year 2011-2022', () => {
-  class TestIntScenario {
-    constructor(readonly title: string, readonly minYear: number, readonly maxYear: number) {}
-  }
-  const testExamples = [new TestIntScenario('2011-2022', 2011, 2022)];
+describe('Protokol Taxing For Year 2010-2022', () => {
+  const testExamples = [new TestYearScenario('2010-2022', 2010, 2022)];
   // 04_Taxing_01_AllowancePayer
   describe('AllowancePayer', () => {
     testExamples.forEach((tt) => {
@@ -169,29 +167,45 @@ describe('Protokol Taxing For Year 2011-2022', () => {
       );
     });
   });
-  // 04_Taxing_11_FactorSolitary
-  describe('FactorSolitary', () => {
+  // 04_Taxing_11_FactorSolidary
+  describe('FactorSolidary', () => {
     testExamples.forEach((tt) => {
       const factory = new FactoryTaxing();
       exportTaxingPropsDecFile(
         PROTOKOL_TEST_FOLDER,
-        `04_Taxing_11_FactorSolitary.txt`,
+        `04_Taxing_11_FactorSolidary.txt`,
         tt.minYear,
         tt.maxYear,
         factory,
         (prop: IPropsTaxing): bigDecimal => {
-          return prop.FactorSolitary();
+          return prop.FactorSolidary();
         },
       );
     });
   });
-  // 04_Taxing_12_MinAmountOfTaxBonus
+  // 04_Taxing_12_FactorTaxRate2
+  describe('FactorTaxRate2', () => {
+    testExamples.forEach((tt) => {
+      const factory = new FactoryTaxing();
+      exportTaxingPropsDecFile(
+        PROTOKOL_TEST_FOLDER,
+        `04_Taxing_12_FactorTaxRate2.txt`,
+        tt.minYear,
+        tt.maxYear,
+        factory,
+        (prop: IPropsTaxing): bigDecimal => {
+          return prop.FactorSolidary();
+        },
+      );
+    });
+  });
+  // 04_Taxing_13_MinAmountOfTaxBonus
   describe('MinAmountOfTaxBonus', () => {
     testExamples.forEach((tt) => {
       const factory = new FactoryTaxing();
       exportTaxingPropsIntFile(
         PROTOKOL_TEST_FOLDER,
-        `04_Taxing_12_MinAmountOfTaxBonus.txt`,
+        `04_Taxing_13_MinAmountOfTaxBonus.txt`,
         tt.minYear,
         tt.maxYear,
         factory,
@@ -201,13 +215,13 @@ describe('Protokol Taxing For Year 2011-2022', () => {
       );
     });
   });
-  // 04_Taxing_13_MaxAmountOfTaxBonus
+  // 04_Taxing_14_MaxAmountOfTaxBonus
   describe('MaxAmountOfTaxBonus', () => {
     testExamples.forEach((tt) => {
       const factory = new FactoryTaxing();
       exportTaxingPropsIntFile(
         PROTOKOL_TEST_FOLDER,
-        `04_Taxing_13_MaxAmountOfTaxBonus.txt`,
+        `04_Taxing_14_MaxAmountOfTaxBonus.txt`,
         tt.minYear,
         tt.maxYear,
         factory,
@@ -217,13 +231,13 @@ describe('Protokol Taxing For Year 2011-2022', () => {
       );
     });
   });
-  // 04_Taxing_14_MarginIncomeOfTaxBonus
+  // 04_Taxing_15_MarginIncomeOfTaxBonus
   describe('MarginIncomeOfTaxBonus', () => {
     testExamples.forEach((tt) => {
       const factory = new FactoryTaxing();
       exportTaxingPropsIntFile(
         PROTOKOL_TEST_FOLDER,
-        `04_Taxing_14_MarginIncomeOfTaxBonus.txt`,
+        `04_Taxing_15_MarginIncomeOfTaxBonus.txt`,
         tt.minYear,
         tt.maxYear,
         factory,
@@ -233,13 +247,13 @@ describe('Protokol Taxing For Year 2011-2022', () => {
       );
     });
   });
-  // 04_Taxing_15_MarginIncomeOfRounding
+  // 04_Taxing_16_MarginIncomeOfRounding
   describe('MarginIncomeOfRounding', () => {
     testExamples.forEach((tt) => {
       const factory = new FactoryTaxing();
       exportTaxingPropsIntFile(
         PROTOKOL_TEST_FOLDER,
-        `04_Taxing_15_MarginIncomeOfRounding.txt`,
+        `04_Taxing_16_MarginIncomeOfRounding.txt`,
         tt.minYear,
         tt.maxYear,
         factory,
@@ -249,13 +263,13 @@ describe('Protokol Taxing For Year 2011-2022', () => {
       );
     });
   });
-  // 04_Taxing_16_MarginIncomeOfWithhold
+  // 04_Taxing_17_MarginIncomeOfWithhold
   describe('MarginIncomeOfWithhold', () => {
     testExamples.forEach((tt) => {
       const factory = new FactoryTaxing();
       exportTaxingPropsIntFile(
         PROTOKOL_TEST_FOLDER,
-        `04_Taxing_16_MarginIncomeOfWithhold.txt`,
+        `04_Taxing_17_MarginIncomeOfWithhold.txt`,
         tt.minYear,
         tt.maxYear,
         factory,
@@ -265,29 +279,45 @@ describe('Protokol Taxing For Year 2011-2022', () => {
       );
     });
   });
-  // 04_Taxing_17_MarginIncomeOfSolitary
-  describe('MarginIncomeOfSolitary', () => {
+  // 04_Taxing_18_MarginIncomeOfSolidary
+  describe('MarginIncomeOfSolidary', () => {
     testExamples.forEach((tt) => {
       const factory = new FactoryTaxing();
       exportTaxingPropsIntFile(
         PROTOKOL_TEST_FOLDER,
-        `04_Taxing_17_MarginIncomeOfSolitary.txt`,
+        `04_Taxing_18_MarginIncomeOfSolidary.txt`,
         tt.minYear,
         tt.maxYear,
         factory,
         (prop: IPropsTaxing): number => {
-          return prop.MarginIncomeOfSolitary();
+          return prop.MarginIncomeOfSolidary();
         },
       );
     });
   });
-  // 04_Taxing_18_MarginIncomeOfWthEmp
+  // 04_Taxing_19_MarginIncomeOfTaxRate2
+  describe('MarginIncomeOfTaxRate2', () => {
+    testExamples.forEach((tt) => {
+      const factory = new FactoryTaxing();
+      exportTaxingPropsIntFile(
+        PROTOKOL_TEST_FOLDER,
+        `04_Taxing_19_MarginIncomeOfTaxRate2.txt`,
+        tt.minYear,
+        tt.maxYear,
+        factory,
+        (prop: IPropsTaxing): number => {
+          return prop.MarginIncomeOfSolidary();
+        },
+      );
+    });
+  });
+  // 04_Taxing_20_MarginIncomeOfWthEmp
   describe('MarginIncomeOfWthEmp', () => {
     testExamples.forEach((tt) => {
       const factory = new FactoryTaxing();
       exportTaxingPropsIntFile(
         PROTOKOL_TEST_FOLDER,
-        `04_Taxing_18_MarginIncomeOfWthEmp.txt`,
+        `04_Taxing_20_MarginIncomeOfWthEmp.txt`,
         tt.minYear,
         tt.maxYear,
         factory,
@@ -297,13 +327,13 @@ describe('Protokol Taxing For Year 2011-2022', () => {
       );
     });
   });
-  // 04_Taxing_19_MarginIncomeOfWthAgr
+  // 04_Taxing_21_MarginIncomeOfWthAgr
   describe('MarginIncomeOfWthAgr', () => {
     testExamples.forEach((tt) => {
       const factory = new FactoryTaxing();
       exportTaxingPropsIntFile(
         PROTOKOL_TEST_FOLDER,
-        `04_Taxing_19_MarginIncomeOfWthAgr.txt`,
+        `04_Taxing_21_MarginIncomeOfWthAgr.txt`,
         tt.minYear,
         tt.maxYear,
         factory,

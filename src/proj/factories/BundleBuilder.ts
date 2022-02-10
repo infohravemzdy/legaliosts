@@ -5,7 +5,7 @@ import { IPropsSalary } from '../service_interfaces/IPropsSalary';
 import { IPropsHealth } from '../service_interfaces/IPropsHealth';
 import { IPropsSocial } from '../service_interfaces/IPropsSocial';
 import { IPropsTaxing } from '../service_interfaces/IPropsTaxing';
-import { BundleProps } from './BundleProps';
+import { BundleProps } from '../service_types/BundleProps';
 import { IProviderSalary } from '../providers/IProviderSalary';
 import { IProviderHealth } from '../providers/IProviderHealth';
 import { IProviderSocial } from '../providers/IProviderSocial';
@@ -21,7 +21,7 @@ export interface IBundleBuilder {
 }
 
 export class BundleBuilder implements IBundleBuilder {
-  static MIN_VERSION = 2011;
+  static MIN_VERSION = 2010;
 
   readonly SalaryFactory: IProviderFactory<IProviderSalary, IPropsSalary>;
   readonly HealthFactory: IProviderFactory<IProviderHealth, IPropsHealth>;

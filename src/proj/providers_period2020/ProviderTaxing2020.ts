@@ -24,13 +24,13 @@ export class ProviderTaxing2020 extends ProviderBase implements IProviderTaxing 
       this.AllowanceChild3rd(period),
       this.FactorAdvances(period),
       this.FactorWithhold(period),
-      this.FactorSolitary(period),
+      this.FactorSolidary(period),
       this.MinAmountOfTaxBonus(period),
       this.MaxAmountOfTaxBonus(period),
       this.MarginIncomeOfTaxBonus(period),
       this.MarginIncomeOfRounding(period),
       this.MarginIncomeOfWithhold(period),
-      this.MarginIncomeOfSolitary(period),
+      this.MarginIncomeOfSolidary(period),
       this.MarginIncomeOfWthEmp(period),
       this.MarginIncomeOfWthAgr(period),
     );
@@ -66,8 +66,11 @@ export class ProviderTaxing2020 extends ProviderBase implements IProviderTaxing 
   FactorWithhold(period: IPeriod): bigDecimal {
     return HistoryConstTaxing2020.FACTOR_WITHHOLD;
   }
-  FactorSolitary(period: IPeriod): bigDecimal {
-    return HistoryConstTaxing2020.FACTOR_SOLITARY;
+  FactorSolidary(period: IPeriod): bigDecimal {
+    return HistoryConstTaxing2020.FACTOR_SOLIDARY;
+  }
+  FactorTaxRate2(period: IPeriod): bigDecimal {
+    return HistoryConstTaxing2020.FACTOR_TAXRATE2;
   }
   MinAmountOfTaxBonus(period: IPeriod): number {
     return HistoryConstTaxing2020.MIN_AMOUNT_OF_TAXBONUS;
@@ -84,8 +87,11 @@ export class ProviderTaxing2020 extends ProviderBase implements IProviderTaxing 
   MarginIncomeOfWithhold(period: IPeriod): number {
     return HistoryConstTaxing2020.MARGIN_INCOME_OF_WITHHOLD;
   }
-  MarginIncomeOfSolitary(period: IPeriod): number {
-    return HistoryConstTaxing2020.MARGIN_INCOME_OF_SOLITARY;
+  MarginIncomeOfSolidary(period: IPeriod): number {
+    return HistoryConstTaxing2020.MARGIN_INCOME_OF_SOLIDARY;
+  }
+  MarginIncomeOfTaxRate2(period: IPeriod): number {
+    return HistoryConstTaxing2020.MARGIN_INCOME_OF_TAXRATE2;
   }
   MarginIncomeOfWthEmp(period: IPeriod): number {
     return HistoryConstTaxing2020.MARGIN_INCOME_OF_WHT_EMP;

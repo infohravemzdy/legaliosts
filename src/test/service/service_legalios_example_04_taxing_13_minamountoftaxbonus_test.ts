@@ -1,15 +1,28 @@
 ﻿import { expect } from 'chai';
+import { TestIntParams, TestIntScenario } from '../TestStructs';
 import {
   initSut,
   logTestNumExamples,
-  TestIntParams,
-  TestIntScenario,
   getTaxingResults,
 } from './service_legalios_example_base_test';
 
-// 04_Taxing_12_MinAmountOfTaxBonus
-describe('Service Taxing For Year 2011-2022 MinAmountOfTaxBonus', () => {
+// 04_Taxing_13_MinAmountOfTaxBonus
+describe('Service Taxing For Year 2010-2022 MinAmountOfTaxBonus', () => {
   const scenarios = [
+    new TestIntScenario("2010", [
+      new TestIntParams( "2010-1", 2010, 1, 2010, 1, 50 ),
+      new TestIntParams( "2010-2", 2010, 2, 2010, 2, 50 ),
+      new TestIntParams( "2010-3", 2010, 3, 2010, 3, 50 ),
+      new TestIntParams( "2010-4", 2010, 4, 2010, 4, 50 ),
+      new TestIntParams( "2010-5", 2010, 5, 2010, 5, 50 ),
+      new TestIntParams( "2010-6", 2010, 6, 2010, 6, 50 ),
+      new TestIntParams( "2010-7", 2010, 7, 2010, 7, 50 ),
+      new TestIntParams( "2010-8", 2010, 8, 2010, 8, 50 ),
+      new TestIntParams( "2010-9", 2010, 9, 2010, 9, 50 ),
+      new TestIntParams( "2010-10", 2010, 10, 2010, 10, 50 ),
+      new TestIntParams( "2010-11", 2010, 11, 2010, 11, 50 ),
+      new TestIntParams( "2010-12", 2010, 12, 2010, 12, 50 ),
+    ]),
     new TestIntScenario('2011', [
       new TestIntParams('2011-1', 2011, 1, 2011, 1, 50),
       new TestIntParams('2011-2', 2011, 2, 2011, 2, 50),
@@ -179,7 +192,7 @@ describe('Service Taxing For Year 2011-2022 MinAmountOfTaxBonus', () => {
       new TestIntParams('2022-12', 2022, 12, 2022, 12, 50),
     ]),
   ];
-  logTestNumExamples('04_Taxing_12_MinAmountOfTaxBonus.txt', scenarios);
+  logTestNumExamples('04_Taxing_13_MinAmountOfTaxBonus.txt', scenarios);
   scenarios.forEach((tx) => {
     describe(`year ${tx.title}`, () => {
       tx.tests.forEach((tt) => {
