@@ -202,7 +202,7 @@ describe('Service Taxing For Year 2010-2022 MarginIncomeOfTaxRate2', () => {
         tt.testBasicResult(result, bundle, props, error);
 
         it(`GetProps should return value = ${tt.expected}`, () => {
-          expect(props.MarginIncomeOfSolidary()).to.equal(tt.expected);
+          expect(props.MarginIncomeOfTaxRate2()).to.equal(tt.expected);
         });
       });
     });

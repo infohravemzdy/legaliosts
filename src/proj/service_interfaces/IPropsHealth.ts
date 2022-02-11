@@ -1,5 +1,7 @@
 import { IProps } from './IProps';
 import bigDecimal = require('js-big-decimal');
+import { IParticyResult } from './IParticyResult';
+import { WorkHealthTerms } from '../service_types/ContractTerms';
 
 export interface IPropsHealth extends IProps {
   MinMonthlyBasis(): number;
@@ -10,4 +12,13 @@ export interface IPropsHealth extends IProps {
   FactorEmployee(): bigDecimal;
   MarginIncomeEmp(): number;
   MarginIncomeAgr(): number;
+
+  valueEquals(other: IPropsHealth): boolean;
+  hasParticy(term: WorkHealthTerms, incomeTerm: number, incomeSpec: number): boolean;
+  roundedCompoundPaym(basisResult: number): number;
+  roundedEmployeePaym(basisResult: number): number;
+  roundedAugmentEmployeePaym(basisGenerals: number, basisAugment: number): number;
+  roundedAugmentEmployerPaym(basisGenerals: number, baseEmployee: number, baseEmployer: number): number;
+  roundedEmployerPaym(basisResult: number): number;
+  annualsBasisCut<T extends IParticyResult>(particyList: Iterable<T>, incomeList: Iterable<T>, annuityBasis: number): [number, number, Iterable<T>];
 }

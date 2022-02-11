@@ -3,7 +3,7 @@ import { IPeriod } from '../service_types/period';
 import { ProviderBase } from '../providers/ProviderBase';
 import { IProviderHealth } from '../providers/IProviderHealth';
 import { IPropsHealth } from '../service_interfaces/IPropsHealth';
-import { PropsHealth } from '../props/PropsHealth';
+import { PropsHealth2012 } from '../props/PropsHealth2012';
 import {
   HistoryConstHealth2013,
   HistoryConstHealth2013var08,
@@ -16,7 +16,7 @@ export class ProviderHealth2013 extends ProviderBase implements IProviderHealth 
     super(VersionId.get(HistoryConstHealth2013.VERSION_CODE));
   }
   GetProps(period: IPeriod): IPropsHealth {
-    return new PropsHealth(
+    return new PropsHealth2012(
       this.Version(),
       this.MinMonthlyBasis(period),
       this.MaxAnnualsBasis(period),

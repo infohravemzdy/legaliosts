@@ -18,12 +18,12 @@ import bigDecimal = require('js-big-decimal');
 export class HistoryConstSocial2010 {
   public static readonly VERSION_CODE: number = 2010;
 
-  public static readonly MAX_ANNUALS_BASIS: number = 1781280;
+  public static readonly MAX_ANNUALS_BASIS: number = 1707048;
   public static readonly FACTOR_EMPLOYER: bigDecimal = new bigDecimal(25);
-  public static readonly FACTOR_EMPLOYER_HIGHER: bigDecimal = new bigDecimal(26);
+  public static readonly FACTOR_EMPLOYER_HIGHER: bigDecimal = new bigDecimal(0);
   public static readonly FACTOR_EMPLOYEE: bigDecimal = new bigDecimal(6.5);
   public static readonly FACTOR_EMPLOYEE_REDUCE: bigDecimal = new bigDecimal(0);
   public static readonly FACTOR_EMPLOYEE_GARANT: bigDecimal = new bigDecimal(0);
   public static readonly MARGIN_INCOME_EMP: number = 2000;
-  public static readonly MARGIN_INCOME_AGR: number = HistoryConstSocial2010.MARGIN_INCOME_EMP;
+  public static readonly MARGIN_INCOME_AGR: number = 0;
 }

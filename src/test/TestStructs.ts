@@ -3,6 +3,10 @@ import { Result } from '@badrap/result';
 import { HistoryResultError, IBundleProps, IProps } from '../proj';
 import { assert, expect } from 'chai';
 
+export class TestYearsScenario {
+  constructor(readonly minYear: number, readonly maxYear: number) {}
+}
+
 export class TestYearScenario {
   constructor(readonly title: string, readonly minYear: number, readonly maxYear: number) {}
 }

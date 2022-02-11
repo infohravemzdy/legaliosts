@@ -1,9 +1,11 @@
 import { VersionId } from '../service_types/versionid';
-import { PropsBase } from './PropsBase';
 import { IPropsTaxing } from '../service_interfaces/IPropsTaxing';
+import { PropsTaxingBase } from './PropsTaxingBase';
 import bigDecimal = require('js-big-decimal');
+import { WorkTaxingTerms } from '../service_types/ContractTerms';
+import { OperationsDec } from '../service_types/OperationDec';
 
-export class PropsTaxing extends PropsBase implements IPropsTaxing {
+export class PropsTaxing extends PropsTaxingBase implements IPropsTaxing {
   constructor(
     version: VersionId,
     allowancePayer: number,
@@ -17,114 +19,41 @@ export class PropsTaxing extends PropsBase implements IPropsTaxing {
     factorAdvances: bigDecimal,
     factorWithhold: bigDecimal,
     factorSolidary: bigDecimal,
+    factorTaxRate2: bigDecimal,
     minAmountOfTaxBonus: number,
     maxAmountOfTaxBonus: number,
     marginIncomeOfTaxBonus: number,
     marginIncomeOfRounding: number,
     marginIncomeOfWithhold: number,
     marginIncomeOfSolidary: number,
+    marginIncomeOfTaxRate2: number,
     marginIncomeOfWthEmp: number,
     marginIncomeOfWthAgr: number,
-  ) {
-    super(version);
-    this.allowancePayer = allowancePayer;
-    this.allowanceDisab1st = allowanceDisab1st;
-    this.allowanceDisab2nd = allowanceDisab2nd;
-    this.allowanceDisab3rd = allowanceDisab3rd;
-    this.allowanceStudy = allowanceStudy;
-    this.allowanceChild1st = allowanceChild1st;
-    this.allowanceChild2nd = allowanceChild2nd;
-    this.allowanceChild3rd = allowanceChild3rd;
-    this.factorAdvances = factorAdvances;
-    this.factorWithhold = factorWithhold;
-    this.factorSolidary = factorSolidary;
-    this.minAmountOfTaxBonus = minAmountOfTaxBonus;
-    this.maxAmountOfTaxBonus = maxAmountOfTaxBonus;
-    this.marginIncomeOfTaxBonus = marginIncomeOfTaxBonus;
-    this.marginIncomeOfRounding = marginIncomeOfRounding;
-    this.marginIncomeOfWithhold = marginIncomeOfWithhold;
-    this.marginIncomeOfSolidary = marginIncomeOfSolidary;
-    this.marginIncomeOfWthEmp = marginIncomeOfWthEmp;
-    this.marginIncomeOfWthAgr = marginIncomeOfWthAgr;
+  )
+  {
+    super(version,
+      allowancePayer,
+      allowanceDisab1st,
+      allowanceDisab2nd,
+      allowanceDisab3rd,
+      allowanceStudy,
+      allowanceChild1st,
+      allowanceChild2nd,
+      allowanceChild3rd,
+      factorAdvances,
+      factorWithhold,
+      factorSolidary,
+      factorTaxRate2,
+      minAmountOfTaxBonus,
+      maxAmountOfTaxBonus,
+      marginIncomeOfTaxBonus,
+      marginIncomeOfRounding,
+      marginIncomeOfWithhold,
+      marginIncomeOfSolidary,
+      marginIncomeOfTaxRate2,
+      marginIncomeOfWthEmp,
+      marginIncomeOfWthAgr);
   }
-  allowancePayer: number;
-  allowanceDisab1st: number;
-  allowanceDisab2nd: number;
-  allowanceDisab3rd: number;
-  allowanceStudy: number;
-  allowanceChild1st: number;
-  allowanceChild2nd: number;
-  allowanceChild3rd: number;
-  factorAdvances: bigDecimal;
-  factorWithhold: bigDecimal;
-  factorSolidary: bigDecimal;
-  minAmountOfTaxBonus: number;
-  maxAmountOfTaxBonus: number;
-  marginIncomeOfTaxBonus: number;
-  marginIncomeOfRounding: number;
-  marginIncomeOfWithhold: number;
-  marginIncomeOfSolidary: number;
-  marginIncomeOfWthEmp: number;
-  marginIncomeOfWthAgr: number;
-
-  AllowancePayer(): number {
-    return this.allowancePayer;
-  }
-  AllowanceDisab1st(): number {
-    return this.allowanceDisab1st;
-  }
-  AllowanceDisab2nd(): number {
-    return this.allowanceDisab2nd;
-  }
-  AllowanceDisab3rd(): number {
-    return this.allowanceDisab3rd;
-  }
-  AllowanceStudy(): number {
-    return this.allowanceStudy;
-  }
-  AllowanceChild1st(): number {
-    return this.allowanceChild1st;
-  }
-  AllowanceChild2nd(): number {
-    return this.allowanceChild2nd;
-  }
-  AllowanceChild3rd(): number {
-    return this.allowanceChild3rd;
-  }
-  FactorAdvances(): bigDecimal {
-    return this.factorAdvances;
-  }
-  FactorWithhold(): bigDecimal {
-    return this.factorWithhold;
-  }
-  FactorSolidary(): bigDecimal {
-    return this.factorSolidary;
-  }
-  MinAmountOfTaxBonus(): number {
-    return this.minAmountOfTaxBonus;
-  }
-  MaxAmountOfTaxBonus(): number {
-    return this.maxAmountOfTaxBonus;
-  }
-  MarginIncomeOfTaxBonus(): number {
-    return this.marginIncomeOfTaxBonus;
-  }
-  MarginIncomeOfRounding(): number {
-    return this.marginIncomeOfRounding;
-  }
-  MarginIncomeOfWithhold(): number {
-    return this.marginIncomeOfWithhold;
-  }
-  MarginIncomeOfSolidary(): number {
-    return this.marginIncomeOfSolidary;
-  }
-  MarginIncomeOfWthEmp(): number {
-    return this.marginIncomeOfWthEmp;
-  }
-  MarginIncomeOfWthAgr(): number {
-    return this.marginIncomeOfWthAgr;
-  }
-
   public static empty(): IPropsTaxing {
     return new PropsTaxing(
       VersionId.new(),
@@ -139,6 +68,8 @@ export class PropsTaxing extends PropsBase implements IPropsTaxing {
       new bigDecimal(0),
       new bigDecimal(0),
       new bigDecimal(0),
+      new bigDecimal(0),
+      0,
       0,
       0,
       0,
@@ -148,5 +79,81 @@ export class PropsTaxing extends PropsBase implements IPropsTaxing {
       0,
       0,
     );
+  }
+
+  override hasWithholdIncome(termOpt: WorkTaxingTerms, signOpt: TaxDeclSignOption, noneOpt: TaxNoneSignOption, incomeSum: number): boolean {
+    // *****************************************************************************
+    // Tax income for advance from Year 2014 to Year 2017
+    // *****************************************************************************
+    // - withhold tax (non-signed declaration) and income
+    // if (period.Year >= 2018)
+    // -- income from DPP is less than X CZK
+    // -- income from low-income employment is less than X CZK
+    // -- income from statutory employment and non-resident is always withhold tax
+
+    let withholdIncome: boolean = false;
+    if (signOpt !== TaxDeclSignOption.DECL_TAX_NO_SIGNED)
+    {
+      return withholdIncome;
+    }
+    if (noneOpt !== TaxNoneSignOption.NOSIGN_TAX_WITHHOLD)
+    {
+      return withholdIncome;
+    }
+    if (termOpt === WorkTaxingTerms.TAXING_TERM_AGREEM_TASK)
+    {
+      if (this.marginIncomeOfWthAgr === 0 || incomeSum <= this.marginIncomeOfWthAgr)
+      {
+        if (incomeSum > 0)
+        {
+          withholdIncome = true;
+        }
+      }
+    }
+    else if (termOpt === WorkTaxingTerms.TAXING_TERM_EMPLOYMENTS)
+    {
+      if (this.marginIncomeOfWthEmp === 0 || incomeSum <= this.marginIncomeOfWthEmp)
+      {
+        if (incomeSum > 0)
+        {
+          withholdIncome = true;
+        }
+      }
+    }
+    else if (termOpt === WorkTaxingTerms.TAXING_TERM_STATUT_PART)
+    {
+      if (incomeSum > 0)
+      {
+        withholdIncome = true;
+      }
+    }
+    return withholdIncome;
+  }
+  override roundedAdvancesPaym(supersResult: number, basisResult: number): number {
+    const factorAdvances = OperationsDec.divide(this.factorAdvances, PropsTaxingBase.BIG_ZERO);
+    const factorTaxRate2 = OperationsDec.divide(this.factorTaxRate2, PropsTaxingBase.BIG_ZERO);
+
+    let taxRate1Basis: number = basisResult;
+    let taxRate2Basis: number = 0;
+    if (this.marginIncomeOfTaxRate2 !== 0)
+    {
+      taxRate1Basis = Math.min(basisResult, this.marginIncomeOfTaxRate2);
+      taxRate2Basis = Math.max(0, basisResult - this.marginIncomeOfTaxRate2);
+    }
+    let taxRate1Taxing: bigDecimal = PropsTaxingBase.BIG_ZERO;
+    if (basisResult <= this.marginIncomeOfRounding)
+    {
+      taxRate1Taxing = OperationsDec.multiply(new bigDecimal(taxRate1Basis), factorAdvances);
+    }
+    else
+    {
+      taxRate1Taxing = OperationsDec.multiply(new bigDecimal(taxRate1Basis), factorAdvances);
+    }
+    let taxRate2Taxing: bigDecimal = PropsTaxingBase.BIG_ZERO;
+    if (this.marginIncomeOfTaxRate2 !== 0)
+    {
+      taxRate2Taxing = OperationsDec.multiply(new bigDecimal(taxRate2Basis), factorTaxRate2);
+    }
+    return this.intTaxRoundUp(taxRate1Taxing.add(taxRate2Taxing));
   }
 }

@@ -2,6 +2,7 @@ import { IPropsSalary } from '../service_interfaces/IPropsSalary';
 import { IProviderSalary } from '../providers/IProviderSalary';
 import { PropsSalary } from '../props/PropsSalary';
 import { ProviderFactory, IProviderFactory } from './ProviderFactory';
+import { HistoryConstSalary2010 } from '../providers_period2010/HistoryConstSalary2010';
 import { HistoryConstSalary2011 } from '../providers_period2011/HistoryConstSalary2011';
 import { HistoryConstSalary2012 } from '../providers_period2012/HistoryConstSalary2012';
 import { HistoryConstSalary2013 } from '../providers_period2013/HistoryConstSalary2013';
@@ -14,6 +15,7 @@ import { HistoryConstSalary2019 } from '../providers_period2019/HistoryConstSala
 import { HistoryConstSalary2020 } from '../providers_period2020/HistoryConstSalary2020';
 import { HistoryConstSalary2021 } from '../providers_period2021/HistoryConstSalary2021';
 import { HistoryConstSalary2022 } from '../providers_period2022/HistoryConstSalary2022';
+import { ProviderSalary2010 } from '../providers_period2010/ProviderSalary2010';
 import { ProviderSalary2011 } from '../providers_period2011/ProviderSalary2011';
 import { ProviderSalary2012 } from '../providers_period2012/ProviderSalary2012';
 import { ProviderSalary2013 } from '../providers_period2013/ProviderSalary2013';
@@ -36,6 +38,7 @@ export class FactorySalary extends ProviderFactory<IProviderSalary, IPropsSalary
   }
   BuildFactory(): boolean {
     this.Versions = new Map<number, IProviderSalary>();
+    this.Versions.set(HistoryConstSalary2010.VERSION_CODE, new ProviderSalary2010());
     this.Versions.set(HistoryConstSalary2011.VERSION_CODE, new ProviderSalary2011());
     this.Versions.set(HistoryConstSalary2012.VERSION_CODE, new ProviderSalary2012());
     this.Versions.set(HistoryConstSalary2013.VERSION_CODE, new ProviderSalary2013());

@@ -1,5 +1,6 @@
 import bigDecimal = require('js-big-decimal');
-import { assert } from 'chai';
+import {assert, expect} from 'chai';
+import { OperationsRound } from '../../proj/service_types/OperationsRound';
 
 describe('BigDecimal Rounding Test', () => {
   class TestSpecParams {
@@ -28,7 +29,7 @@ describe('BigDecimal Rounding Test', () => {
         const decimalRounds = OperationsRound.decRoundUp(decimalTarget);
 
         it(`rounding value should equal ${tt.testResult}`, () => {
-          assert.equals(decimalRounds.compareTo(decimalResult), 0, `rounding operation failed; expected = ${decimalResult}, actual=${decimalRounds}`)
+          expect(decimalRounds.compareTo(decimalResult)).to.equal(0, `rounding operation failed; expected = ${decimalResult}, actual=${decimalRounds}`);
         });
       });
     });
@@ -56,7 +57,7 @@ describe('BigDecimal Rounding Test', () => {
         const decimalRounds = OperationsRound.decRoundDown(decimalTarget);
 
         it(`rounding value should equal ${tt.testResult}`, () => {
-          assert.equal(decimalRounds.compareTo(decimalResult), 0, `rounding operation failed; expected = ${decimalResult}, actual=${decimalRounds}`)
+          expect(decimalRounds.compareTo(decimalResult)).to.equal(0, `rounding operation failed; expected = ${decimalResult}, actual=${decimalRounds}`);
         });
       });
     });
@@ -84,7 +85,7 @@ describe('BigDecimal Rounding Test', () => {
         const decimalRounds = OperationsRound.decRoundNorm(decimalTarget);
 
         it(`rounding value should equal ${tt.testResult}`, () => {
-          assert.equal(decimalRounds.compareTo(decimalResult), 0, `rounding operation failed; expected = ${decimalResult}, actual=${decimalRounds}`)
+          expect(decimalRounds.compareTo(decimalResult)).to.equal(0,  `rounding operation failed; expected = ${decimalResult}, actual=${decimalRounds}`);
         });
       });
     });
@@ -92,16 +93,16 @@ describe('BigDecimal Rounding Test', () => {
 
   describe("DecNearRoundUp_ShouldReturn_RoundedDecimal", () => {
     const scenarios = [
-      new new TestSpecParams("550", "600"),
-      new new TestSpecParams("250", "300"),
-      new new TestSpecParams("160", "200"),
-      new new TestSpecParams("110", "200"),
-      new new TestSpecParams("100", "100"),
-      new new TestSpecParams("-100", "-100"),
-      new new TestSpecParams("-110", "-200"),
-      new new TestSpecParams("-160", "-200"),
-      new new TestSpecParams("-250", "-300"),
-      new new TestSpecParams("-550", "-600"),
+      new TestSpecParams("550", "600"),
+      new TestSpecParams("250", "300"),
+      new TestSpecParams("160", "200"),
+      new TestSpecParams("110", "200"),
+      new TestSpecParams("100", "100"),
+      new TestSpecParams("-100", "-100"),
+      new TestSpecParams("-110", "-200"),
+      new TestSpecParams("-160", "-200"),
+      new TestSpecParams("-250", "-300"),
+      new TestSpecParams("-550", "-600"),
     ];
 
     scenarios.forEach((tt) => {
@@ -112,7 +113,7 @@ describe('BigDecimal Rounding Test', () => {
         const decimalRounds = OperationsRound.decNearRoundUp(decimalTarget, 100);
 
         it(`rounding value should equal ${tt.testResult}`, () => {
-          assert.equal(decimalRounds.compareTo(decimalResult), 0, `rounding operation failed; expected = ${decimalResult}, actual=${decimalRounds}`)
+          expect(decimalRounds.compareTo(decimalResult)).to.equal(0,  `rounding operation failed; expected = ${decimalResult}, actual=${decimalRounds}`);
         });
       });
     });
@@ -140,7 +141,7 @@ describe('BigDecimal Rounding Test', () => {
         const decimalRounds = OperationsRound.decNearRoundDown(decimalTarget, 100);
 
         it(`rounding value should equal ${tt.testResult}`, () => {
-          assert.equal(decimalRounds.compareTo(decimalResult), 0, `rounding operation failed; expected = ${decimalResult}, actual=${decimalRounds}`)
+          expect(decimalRounds.compareTo(decimalResult)).to.equal(0,  `rounding operation failed; expected = ${decimalResult}, actual=${decimalRounds}`);
         });
       });
     });
@@ -218,7 +219,7 @@ describe('BigDecimal Rounding Test', () => {
         const decimalRounds = OperationsRound.decRoundUp50(decimalTarget);
 
         it(`rounding value should equal ${tt.testResult}`, () => {
-          assert.equal(decimalRounds.compareTo(decimalResult), 0, `rounding operation failed; expected = ${decimalResult}, actual=${decimalRounds}`)
+          expect(decimalRounds.compareTo(decimalResult)).to.equal(0,  `rounding operation failed; expected = ${decimalResult}, actual=${decimalRounds}`);
         });
       });
     });
@@ -316,7 +317,7 @@ describe('BigDecimal Rounding Test', () => {
         const decimalRounds = OperationsRound.decRoundUp25(decimalTarget);
 
         it(`rounding value should equal ${tt.testResult}`, () => {
-          assert.equal(decimalRounds.compareTo(decimalResult), 0, `rounding operation failed; expected = ${decimalResult}, actual=${decimalRounds}`)
+          expect(decimalRounds.compareTo(decimalResult)).to.equal(0,  `rounding operation failed; expected = ${decimalResult}, actual=${decimalRounds}`);
         });
       });
     });
@@ -354,7 +355,7 @@ describe('BigDecimal Rounding Test', () => {
         const decimalRounds = OperationsRound.decRoundUp01(decimalTarget);
 
         it(`rounding value should equal ${tt.testResult}`, () => {
-          assert.equal(decimalRounds.compareTo(decimalResult), 0, `rounding operation failed; expected = ${decimalResult}, actual=${decimalRounds}`)
+          expect(decimalRounds.compareTo(decimalResult)).to.equal(0,  `rounding operation failed; expected = ${decimalResult}, actual=${decimalRounds}`);
         });
       });
     });
@@ -432,7 +433,7 @@ describe('BigDecimal Rounding Test', () => {
         const decimalRounds = OperationsRound.decRoundDown50(decimalTarget);
 
         it(`rounding value should equal ${tt.testResult}`, () => {
-          assert.equal(decimalRounds.compareTo(decimalResult), 0, `rounding operation failed; expected = ${decimalResult}, actual=${decimalRounds}`)
+          expect(decimalRounds.compareTo(decimalResult)).to.equal(0,  `rounding operation failed; expected = ${decimalResult}, actual=${decimalRounds}`);
         });
       });
     });
@@ -530,7 +531,7 @@ describe('BigDecimal Rounding Test', () => {
         const decimalRounds = OperationsRound.decRoundDown25(decimalTarget);
 
         it(`rounding value should equal ${tt.testResult}`, () => {
-          assert.equal(decimalRounds.compareTo(decimalResult), 0, `rounding operation failed; expected = ${decimalResult}, actual=${decimalRounds}`)
+          expect(decimalRounds.compareTo(decimalResult)).to.equal(0,  `rounding operation failed; expected = ${decimalResult}, actual=${decimalRounds}`);
         });
       });
     });
@@ -568,7 +569,7 @@ describe('BigDecimal Rounding Test', () => {
         const decimalRounds = OperationsRound.decRoundDown01(decimalTarget);
 
         it(`rounding value should equal ${tt.testResult}`, () => {
-          assert.equal(decimalRounds.compareTo(decimalResult), 0, `rounding operation failed; expected = ${decimalResult}, actual=${decimalRounds}`)
+          expect(decimalRounds.compareTo(decimalResult)).to.equal(0,  `rounding operation failed; expected = ${decimalResult}, actual=${decimalRounds}`);
         });
       });
     });
@@ -646,7 +647,7 @@ describe('BigDecimal Rounding Test', () => {
         const decimalRounds = OperationsRound.decRoundNorm50(decimalTarget);
 
         it(`rounding value should equal ${tt.testResult}`, () => {
-          assert.equal(decimalRounds.compareTo(decimalResult), 0, `rounding operation failed; expected = ${decimalResult}, actual=${decimalRounds}`)
+          expect(decimalRounds.compareTo(decimalResult)).to.equal(0,  `rounding operation failed; expected = ${decimalResult}, actual=${decimalRounds}`);
         });
       });
     });
@@ -744,7 +745,7 @@ describe('BigDecimal Rounding Test', () => {
         const decimalRounds = OperationsRound.decRoundNorm25(decimalTarget);
 
         it(`rounding value should equal ${tt.testResult}`, () => {
-          assert.equal(decimalRounds.compareTo(decimalResult), 0, `rounding operation failed; expected = ${decimalResult}, actual=${decimalRounds}`)
+          expect(decimalRounds.compareTo(decimalResult)).to.equal(0,  `rounding operation failed; expected = ${decimalResult}, actual=${decimalRounds}`);
         });
       });
     });
@@ -782,7 +783,7 @@ describe('BigDecimal Rounding Test', () => {
         const decimalRounds = OperationsRound.decRoundNorm01(decimalTarget);
 
         it(`rounding value should equal ${tt.testResult}`, () => {
-          assert.equal(decimalRounds.compareTo(decimalResult), 0, `rounding operation failed; expected = ${decimalResult}, actual=${decimalRounds}`)
+          expect(decimalRounds.compareTo(decimalResult)).to.equal(0,  `rounding operation failed; expected = ${decimalResult}, actual=${decimalRounds}`);
         });
       });
     });

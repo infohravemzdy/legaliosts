@@ -203,7 +203,7 @@ describe('Service Taxing For Year 2010-2022 FactorTaxRate2', () => {
         tt.testBasicResult(result, bundle, props, error);
 
         it(`GetProps should return value = ${tt.expected}`, () => {
-          expect(props.FactorSolidary()).to.eql(tt.expected);
+          expect(props.FactorTaxRate2()).to.eql(tt.expected);
         });
       });
     });

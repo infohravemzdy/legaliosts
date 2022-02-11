@@ -21,7 +21,7 @@ export class HistoryConstSocial2011 {
 
   public static readonly MAX_ANNUALS_BASIS: number = 1781280;
   public static readonly FACTOR_EMPLOYER: bigDecimal = HistoryConstSocial2010.FACTOR_EMPLOYER;
-  public static readonly FACTOR_EMPLOYER_HIGHER: bigDecimal = HistoryConstSocial2010.FACTOR_EMPLOYER_HIGHER;
+  public static readonly FACTOR_EMPLOYER_HIGHER: bigDecimal = new bigDecimal(26);
   public static readonly FACTOR_EMPLOYEE: bigDecimal = HistoryConstSocial2010.FACTOR_EMPLOYEE;
   public static readonly FACTOR_EMPLOYEE_REDUCE: bigDecimal = HistoryConstSocial2010.FACTOR_EMPLOYEE_REDUCE;
   public static readonly FACTOR_EMPLOYEE_GARANT: bigDecimal = HistoryConstSocial2010.FACTOR_EMPLOYEE_GARANT;

@@ -4,21 +4,26 @@ import { FactorySocial } from '../../proj/factories/FactorySocial';
 import { FactoryTaxing } from '../../proj/factories/FactoryTaxing';
 import { IPropsHealth, IPropsSalary, IPropsSocial, IPropsTaxing, Period } from '../../proj';
 import { IProviderFactory } from '../../proj/factories/ProviderFactory';
-import fs from 'fs';
-import path from 'path';
+import * as path from 'path';
+import * as fs from 'fs';
 import bigDecimal = require('js-big-decimal');
+import { IProviderSalary } from '../../proj/providers/IProviderSalary';
+import { IProviderHealth } from '../../proj/providers/IProviderHealth';
+import { IProviderSocial } from '../../proj/providers/IProviderSocial';
+import { IProviderTaxing } from '../../proj/providers/IProviderTaxing';
+import { TestYearsScenario } from '../TestStructs';
 
 export const __TEST_HISTORY_FILE__: boolean = true;
 
-const HISTORY_TEST_FOLDER = "../../../test_history";
+const HISTORY_TEST_FOLDER = "./test_history";
 const HISTORY_FOLDER_NAME = "test_history";
 const PARENT_HISTORY_FOLDER_NAME = "legalios";
 
 describe('Factories History Test', () => {
-  const _sutSalary : IProviderFactory<IPropsSalary> = FactorySalary();
-  const _sutHealth : IProviderFactory<IPropsHealth> = FactoryHealth();
-  const _sutSocial : IProviderFactory<IPropsSocial> = FactorySocial();
-  const _sutTaxing : IProviderFactory<IPropsTaxing> = FactoryTaxing();
+  const _sutSalary : IProviderFactory<IProviderSalary, IPropsSalary> = new FactorySalary();
+  const _sutHealth : IProviderFactory<IProviderHealth, IPropsHealth> = new FactoryHealth();
+  const _sutSocial : IProviderFactory<IProviderSocial, IPropsSocial> = new FactorySocial();
+  const _sutTaxing : IProviderFactory<IProviderTaxing, IPropsTaxing> = new FactoryTaxing();
 
   describe("GetProps_ShouldExport_History", () => {
     const scenarios = [
@@ -36,18 +41,18 @@ describe('Factories History Test', () => {
 
             const testPeriod = Period.getWithYearMonth(testYear, 1);
 
-            let testSalaryProp = _sutSalary.getProps(testPeriod);
-            let testHealthProp = _sutHealth.getProps(testPeriod);
-            let testSocialProp = _sutSocial.getProps(testPeriod);
-            let testTaxingProp = _sutTaxing.getProps(testPeriod);
+            let testSalaryProp = _sutSalary.GetProps(testPeriod);
+            let testHealthProp = _sutHealth.GetProps(testPeriod);
+            let testSocialProp = _sutSocial.GetProps(testPeriod);
+            let testTaxingProp = _sutTaxing.GetProps(testPeriod);
 
             for (let testMonth = 2; testMonth <= 12; testMonth++) {
               const nextPeriod = Period.getWithYearMonth(testYear, testMonth);
 
-              const testSalaryNext = _sutSalary.getProps(nextPeriod);
-              const testHealthNext = _sutHealth.getProps(nextPeriod);
-              const testSocialNext = _sutSocial.getProps(nextPeriod);
-              const testTaxingNext = _sutTaxing.getProps(nextPeriod);
+              const testSalaryNext = _sutSalary.GetProps(nextPeriod);
+              const testHealthNext = _sutHealth.GetProps(nextPeriod);
+              const testSocialNext = _sutSocial.GetProps(nextPeriod);
+              const testTaxingNext = _sutTaxing.GetProps(nextPeriod);
 
               if (testSalaryNext.valueEquals(testSalaryProp) === false) {
                 yearWithChanges = true
@@ -113,7 +118,7 @@ describe('Factories History Test', () => {
           const VECT_TAXING_MARGIN_INCOME_OF_WHT_EMP = Array<[number, number, string, string]>();
           const VECT_TAXING_MARGIN_INCOME_OF_WHT_AGR = Array<[number, number, string, string]>();
 
-          const tableData = [
+          const tableData: [number, [number, number, string, string][]][] = [
             [HEALTH_MIN_MONTHLY_BASIS         , VECT_HEALTH_MIN_MONTHLY_BASIS],
             [HEALTH_MAX_ANNUALS_BASIS         , VECT_HEALTH_MAX_ANNUALS_BASIS],
             [HEALTH_LIM_MONTHLY_STATE         , VECT_HEALTH_LIM_MONTHLY_STATE],
@@ -157,7 +162,7 @@ describe('Factories History Test', () => {
             [TAXING_MARGIN_INCOME_OF_WHT_AGR  , VECT_TAXING_MARGIN_INCOME_OF_WHT_AGR],
           ];
 
-          for (let testYear = minYear; testYear <= maxYear; testYear++) {
+          for (let testYear = tt.minYear; testYear <= tt.maxYear; testYear++) {
             let MES_HEALTH_MIN_MONTHLY_BASIS         = 0;
             let MES_HEALTH_MAX_ANNUALS_BASIS         = 0;
             let MES_HEALTH_LIM_MONTHLY_STATE         = 0;
@@ -202,152 +207,152 @@ describe('Factories History Test', () => {
 
             const testPeriod = Period.getWithYearMonth(testYear, 1);
 
-            let testSalaryProp = _sutSalary.getProps(testPeriod);
-            let testHealthProp = _sutHealth.getProps(testPeriod);
-            let testSocialProp = _sutSocial.getProps(testPeriod);
-            let testTaxingProp = _sutTaxing.getProps(testPeriod);
+            let testSalaryProp = _sutSalary.GetProps(testPeriod);
+            let testHealthProp = _sutHealth.GetProps(testPeriod);
+            let testSocialProp = _sutSocial.GetProps(testPeriod);
+            let testTaxingProp = _sutTaxing.GetProps(testPeriod);
 
-            const JAN_HEALTH_MIN_MONTHLY_BASIS         = propsValueToString(testHealthProp.minMonthlyBasis);
-            const JAN_HEALTH_MAX_ANNUALS_BASIS         = propsValueToString(testHealthProp.maxAnnualsBasis);
-            const JAN_HEALTH_LIM_MONTHLY_STATE         = propsValueToString(testHealthProp.limMonthlyState);
-            const JAN_HEALTH_LIM_MONTHLY_DIS50         = propsValueToString(testHealthProp.limMonthlyDis50);
-            const JAN_HEALTH_FACTOR_COMPOUND           = propsValueToString(testHealthProp.factorCompound );
-            const JAN_HEALTH_FACTOR_EMPLOYEE           = propsValueToString(testHealthProp.factorEmployee );
-            const JAN_HEALTH_MARGIN_INCOME_EMP         = propsValueToString(testHealthProp.marginIncomeEmp);
-            const JAN_HEALTH_MARGIN_INCOME_AGR         = propsValueToString(testHealthProp.marginIncomeAgr);
-            const JAN_SALARY_WORKING_SHIFT_WEEK        = propsValueToString(testSalaryProp.workingShiftWeek);
-            const JAN_SALARY_WORKING_SHIFT_TIME        = propsValueToString(testSalaryProp.workingShiftTime);
-            const JAN_SALARY_MIN_MONTHLY_WAGE          = propsValueToString(testSalaryProp.minMonthlyWage);
-            const JAN_SALARY_MIN_HOURLY_WAGE           = propsValueToString(testSalaryProp.minHourlyWage  );
-            const JAN_SOCIAL_MAX_ANNUALS_BASIS         = propsValueToString(testSocialProp.maxAnnualsBasis);
-            const JAN_SOCIAL_FACTOR_EMPLOYER           = propsValueToString(testSocialProp.factorEmployer);
-            const JAN_SOCIAL_FACTOR_EMPLOYER_HIGHER    = propsValueToString(testSocialProp.factorEmployerHigher);
-            const JAN_SOCIAL_FACTOR_EMPLOYEE           = propsValueToString(testSocialProp.factorEmployee);
-            const JAN_SOCIAL_FACTOR_EMPLOYEE_GARANT    = propsValueToString(testSocialProp.factorEmployeeGarant);
-            const JAN_SOCIAL_FACTOR_EMPLOYEE_REDUCE    = propsValueToString(testSocialProp.factorEmployeeReduce);
-            const JAN_SOCIAL_MARGIN_INCOME_EMP         = propsValueToString(testSocialProp.marginIncomeEmp);
-            const JAN_SOCIAL_MARGIN_INCOME_AGR         = propsValueToString(testSocialProp.marginIncomeAgr);
-            const JAN_TAXING_ALLOWANCE_PAYER           = propsValueToString(testTaxingProp.allowancePayer);
-            const JAN_TAXING_ALLOWANCE_DISAB_1ST       = propsValueToString(testTaxingProp.allowanceDisab1st );
-            const JAN_TAXING_ALLOWANCE_DISAB_2ND       = propsValueToString(testTaxingProp.allowanceDisab2nd );
-            const JAN_TAXING_ALLOWANCE_DISAB_3RD       = propsValueToString(testTaxingProp.allowanceDisab3rd );
-            const JAN_TAXING_ALLOWANCE_STUDY           = propsValueToString(testTaxingProp.allowanceStudy );
-            const JAN_TAXING_ALLOWANCE_CHILD_1ST       = propsValueToString(testTaxingProp.allowanceChild1st );
-            const JAN_TAXING_ALLOWANCE_CHILD_2ND       = propsValueToString(testTaxingProp.allowanceChild2nd );
-            const JAN_TAXING_ALLOWANCE_CHILD_3RD       = propsValueToString(testTaxingProp.allowanceChild3rd );
-            const JAN_TAXING_FACTOR_ADVANCES           = propsValueToString(testTaxingProp.factorAdvances );
-            const JAN_TAXING_FACTOR_WITHHOLD           = propsValueToString(testTaxingProp.factorWithhold );
-            const JAN_TAXING_FACTOR_SOLIDARY           = propsValueToString(testTaxingProp.factorSolidary );
-            const JAN_TAXING_FACTOR_TAXRATE2           = propsValueToString(testTaxingProp.factorTaxRate2 );
-            const JAN_TAXING_MIN_AMOUNT_OF_TAXBONUS    = propsValueToString(testTaxingProp.minAmountOfTaxBonus );
-            const JAN_TAXING_MAX_AMOUNT_OF_TAXBONUS    = propsValueToString(testTaxingProp.maxAmountOfTaxBonus );
-            const JAN_TAXING_MARGIN_INCOME_OF_TAXBONUS = propsValueToString(testTaxingProp.marginIncomeOfTaxBonus );
-            const JAN_TAXING_MARGIN_INCOME_OF_ROUNDING = propsValueToString(testTaxingProp.marginIncomeOfRounding );
-            const JAN_TAXING_MARGIN_INCOME_OF_WITHHOLD = propsValueToString(testTaxingProp.marginIncomeOfWithhold );
-            const JAN_TAXING_MARGIN_INCOME_OF_SOLIDARY = propsValueToString(testTaxingProp.marginIncomeOfSolidary );
-            const JAN_TAXING_MARGIN_INCOME_OF_TAXRATE2 = propsValueToString(testTaxingProp.marginIncomeOfTaxRate2 );
-            const JAN_TAXING_MARGIN_INCOME_OF_WHT_EMP  = propsValueToString(testTaxingProp.marginIncomeOfWthEmp );
-            const JAN_TAXING_MARGIN_INCOME_OF_WHT_AGR  = propsValueToString(testTaxingProp.marginIncomeOfWthAgr );
+            const JAN_HEALTH_MIN_MONTHLY_BASIS         = propsValueToString(testHealthProp.MinMonthlyBasis());
+            const JAN_HEALTH_MAX_ANNUALS_BASIS         = propsValueToString(testHealthProp.MaxAnnualsBasis());
+            const JAN_HEALTH_LIM_MONTHLY_STATE         = propsValueToString(testHealthProp.LimMonthlyState());
+            const JAN_HEALTH_LIM_MONTHLY_DIS50         = propsValueToString(testHealthProp.LimMonthlyDis50());
+            const JAN_HEALTH_FACTOR_COMPOUND           = propsDecValueToString(testHealthProp.FactorCompound ());
+            const JAN_HEALTH_FACTOR_EMPLOYEE           = propsDecValueToString(testHealthProp.FactorEmployee ());
+            const JAN_HEALTH_MARGIN_INCOME_EMP         = propsValueToString(testHealthProp.MarginIncomeEmp());
+            const JAN_HEALTH_MARGIN_INCOME_AGR         = propsValueToString(testHealthProp.MarginIncomeAgr());
+            const JAN_SALARY_WORKING_SHIFT_WEEK        = propsValueToString(testSalaryProp.WorkingShiftWeek());
+            const JAN_SALARY_WORKING_SHIFT_TIME        = propsValueToString(testSalaryProp.WorkingShiftTime());
+            const JAN_SALARY_MIN_MONTHLY_WAGE          = propsValueToString(testSalaryProp.MinMonthlyWage());
+            const JAN_SALARY_MIN_HOURLY_WAGE           = propsValueToString(testSalaryProp.MinHourlyWage  ());
+            const JAN_SOCIAL_MAX_ANNUALS_BASIS         = propsValueToString(testSocialProp.MaxAnnualsBasis());
+            const JAN_SOCIAL_FACTOR_EMPLOYER           = propsDecValueToString(testSocialProp.FactorEmployer());
+            const JAN_SOCIAL_FACTOR_EMPLOYER_HIGHER    = propsDecValueToString(testSocialProp.FactorEmployerHigher());
+            const JAN_SOCIAL_FACTOR_EMPLOYEE           = propsDecValueToString(testSocialProp.FactorEmployee());
+            const JAN_SOCIAL_FACTOR_EMPLOYEE_GARANT    = propsDecValueToString(testSocialProp.FactorEmployeeGarant());
+            const JAN_SOCIAL_FACTOR_EMPLOYEE_REDUCE    = propsDecValueToString(testSocialProp.FactorEmployeeReduce());
+            const JAN_SOCIAL_MARGIN_INCOME_EMP         = propsValueToString(testSocialProp.MarginIncomeEmp());
+            const JAN_SOCIAL_MARGIN_INCOME_AGR         = propsValueToString(testSocialProp.MarginIncomeAgr());
+            const JAN_TAXING_ALLOWANCE_PAYER           = propsValueToString(testTaxingProp.AllowancePayer());
+            const JAN_TAXING_ALLOWANCE_DISAB_1ST       = propsValueToString(testTaxingProp.AllowanceDisab1st ());
+            const JAN_TAXING_ALLOWANCE_DISAB_2ND       = propsValueToString(testTaxingProp.AllowanceDisab2nd ());
+            const JAN_TAXING_ALLOWANCE_DISAB_3RD       = propsValueToString(testTaxingProp.AllowanceDisab3rd ());
+            const JAN_TAXING_ALLOWANCE_STUDY           = propsValueToString(testTaxingProp.AllowanceStudy ());
+            const JAN_TAXING_ALLOWANCE_CHILD_1ST       = propsValueToString(testTaxingProp.AllowanceChild1st ());
+            const JAN_TAXING_ALLOWANCE_CHILD_2ND       = propsValueToString(testTaxingProp.AllowanceChild2nd ());
+            const JAN_TAXING_ALLOWANCE_CHILD_3RD       = propsValueToString(testTaxingProp.AllowanceChild3rd ());
+            const JAN_TAXING_FACTOR_ADVANCES           = propsDecValueToString(testTaxingProp.FactorAdvances ());
+            const JAN_TAXING_FACTOR_WITHHOLD           = propsDecValueToString(testTaxingProp.FactorWithhold ());
+            const JAN_TAXING_FACTOR_SOLIDARY           = propsDecValueToString(testTaxingProp.FactorSolidary ());
+            const JAN_TAXING_FACTOR_TAXRATE2           = propsDecValueToString(testTaxingProp.FactorTaxRate2 ());
+            const JAN_TAXING_MIN_AMOUNT_OF_TAXBONUS    = propsValueToString(testTaxingProp.MinAmountOfTaxBonus ());
+            const JAN_TAXING_MAX_AMOUNT_OF_TAXBONUS    = propsValueToString(testTaxingProp.MaxAmountOfTaxBonus ());
+            const JAN_TAXING_MARGIN_INCOME_OF_TAXBONUS = propsValueToString(testTaxingProp.MarginIncomeOfTaxBonus ());
+            const JAN_TAXING_MARGIN_INCOME_OF_ROUNDING = propsValueToString(testTaxingProp.MarginIncomeOfRounding ());
+            const JAN_TAXING_MARGIN_INCOME_OF_WITHHOLD = propsValueToString(testTaxingProp.MarginIncomeOfWithhold ());
+            const JAN_TAXING_MARGIN_INCOME_OF_SOLIDARY = propsValueToString(testTaxingProp.MarginIncomeOfSolidary ());
+            const JAN_TAXING_MARGIN_INCOME_OF_TAXRATE2 = propsValueToString(testTaxingProp.MarginIncomeOfTaxRate2 ());
+            const JAN_TAXING_MARGIN_INCOME_OF_WHT_EMP  = propsValueToString(testTaxingProp.MarginIncomeOfWthEmp ());
+            const JAN_TAXING_MARGIN_INCOME_OF_WHT_AGR  = propsValueToString(testTaxingProp.MarginIncomeOfWthAgr ());
 
             for (let testMonth = 2; testMonth <= 12; testMonth++) {
               const nextPeriod = Period.getWithYearMonth(testYear, testMonth);
 
-              const testSalaryNext = _sutSalary.getProps(nextPeriod);
-              const testHealthNext = _sutHealth.getProps(nextPeriod);
-              const testSocialNext = _sutSocial.getProps(nextPeriod);
-              const testTaxingNext = _sutTaxing.getProps(nextPeriod);
+              const testSalaryNext = _sutSalary.GetProps(nextPeriod);
+              const testHealthNext = _sutHealth.GetProps(nextPeriod);
+              const testSocialNext = _sutSocial.GetProps(nextPeriod);
+              const testTaxingNext = _sutTaxing.GetProps(nextPeriod);
 
-              if (testHealthNext.minMonthlyBasis.equals(testHealthProp.minMonthlyBasis)===false) { MES_HEALTH_MIN_MONTHLY_BASIS = testMonth }
-              if (testHealthNext.maxAnnualsBasis.equals(testHealthProp.maxAnnualsBasis)===false) { MES_HEALTH_MAX_ANNUALS_BASIS = testMonth }
-              if (testHealthNext.limMonthlyState.equals(testHealthProp.limMonthlyState)===false) { MES_HEALTH_LIM_MONTHLY_STATE = testMonth }
-              if (testHealthNext.limMonthlyDis50.equals(testHealthProp.limMonthlyDis50)===false) { MES_HEALTH_LIM_MONTHLY_DIS50 = testMonth }
-              if (testHealthNext.factorCompound.equals(testHealthProp.factorCompound)===false) { MES_HEALTH_FACTOR_COMPOUND = testMonth }
-              if (testHealthNext.factorEmployee.equals(testHealthProp.factorEmployee)===false) { MES_HEALTH_FACTOR_EMPLOYEE = testMonth }
-              if (testHealthNext.marginIncomeEmp.equals(testHealthProp.marginIncomeEmp)===false) { MES_HEALTH_MARGIN_INCOME_EMP = testMonth }
-              if (testHealthNext.marginIncomeAgr.equals(testHealthProp.marginIncomeAgr)===false) { MES_HEALTH_MARGIN_INCOME_AGR = testMonth }
-              if (testSalaryNext.workingShiftWeek.equals(testSalaryProp.workingShiftWeek)===false) { MES_SALARY_WORKING_SHIFT_WEEK = testMonth }
-              if (testSalaryNext.workingShiftTime.equals(testSalaryProp.workingShiftTime)===false) { MES_SALARY_WORKING_SHIFT_TIME = testMonth }
-              if (testSalaryNext.minMonthlyWage.equals(testSalaryProp.minMonthlyWage)===false) { MES_SALARY_MIN_MONTHLY_WAGE = testMonth }
-              if (testSalaryNext.minHourlyWage .equals(testSalaryProp.minHourlyWage)===false) { MES_SALARY_MIN_HOURLY_WAGE = testMonth }
-              if (testSocialNext.maxAnnualsBasis.equals(testSocialProp.maxAnnualsBasis)===false) { MES_SOCIAL_MAX_ANNUALS_BASIS = testMonth }
-              if (testSocialNext.factorEmployer.equals(testSocialProp.factorEmployer)===false) { MES_SOCIAL_FACTOR_EMPLOYER = testMonth }
-              if (testSocialNext.factorEmployerHigher.equals(testSocialProp.factorEmployerHigher)===false) { MES_SOCIAL_FACTOR_EMPLOYER_HIGHER = testMonth }
-              if (testSocialNext.factorEmployee.equals(testSocialProp.factorEmployee)===false) { MES_SOCIAL_FACTOR_EMPLOYEE = testMonth }
-              if (testSocialNext.factorEmployeeReduce.equals(testSocialProp.factorEmployeeReduce)===false) { MES_SOCIAL_FACTOR_EMPLOYEE_REDUCE = testMonth }
-              if (testSocialNext.factorEmployeeGarant.equals(testSocialProp.factorEmployeeGarant)===false) { MES_SOCIAL_FACTOR_EMPLOYEE_GARANT = testMonth }
-              if (testSocialNext.marginIncomeEmp.equals(testSocialProp.marginIncomeEmp)===false) { MES_SOCIAL_MARGIN_INCOME_EMP = testMonth }
-              if (testSocialNext.marginIncomeAgr.equals(testSocialProp.marginIncomeAgr)===false) { MES_SOCIAL_MARGIN_INCOME_AGR = testMonth }
-              if (testTaxingNext.allowancePayer.equals(testTaxingProp.allowancePayer)===false) { MES_TAXING_ALLOWANCE_PAYER = testMonth }
-              if (testTaxingNext.allowanceDisab1st.equals(testTaxingProp.allowanceDisab1st)===false) { MES_TAXING_ALLOWANCE_DISAB_1ST = testMonth }
-              if (testTaxingNext.allowanceDisab2nd.equals(testTaxingProp.allowanceDisab2nd)===false) { MES_TAXING_ALLOWANCE_DISAB_2ND = testMonth }
-              if (testTaxingNext.allowanceDisab3rd.equals(testTaxingProp.allowanceDisab3rd)===false) { MES_TAXING_ALLOWANCE_DISAB_3RD = testMonth }
-              if (testTaxingNext.allowanceStudy.equals(testTaxingProp.allowanceStudy)===false) { MES_TAXING_ALLOWANCE_STUDY = testMonth }
-              if (testTaxingNext.allowanceChild1st.equals(testTaxingProp.allowanceChild1st)===false) { MES_TAXING_ALLOWANCE_CHILD_1ST = testMonth }
-              if (testTaxingNext.allowanceChild2nd.equals(testTaxingProp.allowanceChild2nd)===false) { MES_TAXING_ALLOWANCE_CHILD_2ND = testMonth }
-              if (testTaxingNext.allowanceChild3rd.equals(testTaxingProp.allowanceChild3rd)===false) { MES_TAXING_ALLOWANCE_CHILD_3RD = testMonth }
-              if (testTaxingNext.factorAdvances.equals(testTaxingProp.factorAdvances)===false) { MES_TAXING_FACTOR_ADVANCES = testMonth }
-              if (testTaxingNext.factorWithhold.equals(testTaxingProp.factorWithhold)===false) { MES_TAXING_FACTOR_WITHHOLD = testMonth }
-              if (testTaxingNext.factorSolidary.equals(testTaxingProp.factorSolidary)===false) { MES_TAXING_FACTOR_SOLIDARY = testMonth }
-              if (testTaxingNext.factorTaxRate2.equals(testTaxingProp.factorTaxRate2)===false) { MES_TAXING_FACTOR_TAXRATE2 = testMonth }
-              if (testTaxingNext.minAmountOfTaxBonus.equals(testTaxingProp.minAmountOfTaxBonus)===false) { MES_TAXING_MIN_AMOUNT_OF_TAXBONUS = testMonth }
-              if (testTaxingNext.maxAmountOfTaxBonus.equals(testTaxingProp.maxAmountOfTaxBonus)===false) { MES_TAXING_MAX_AMOUNT_OF_TAXBONUS = testMonth }
-              if (testTaxingNext.marginIncomeOfTaxBonus.equals(testTaxingProp.marginIncomeOfTaxBonus)===false) { MES_TAXING_MARGIN_INCOME_OF_TAXBONUS = testMonth }
-              if (testTaxingNext.marginIncomeOfRounding.equals(testTaxingProp.marginIncomeOfRounding)===false) { MES_TAXING_MARGIN_INCOME_OF_ROUNDING = testMonth }
-              if (testTaxingNext.marginIncomeOfWithhold.equals(testTaxingProp.marginIncomeOfWithhold)===false) { MES_TAXING_MARGIN_INCOME_OF_WITHHOLD = testMonth }
-              if (testTaxingNext.marginIncomeOfSolidary.equals(testTaxingProp.marginIncomeOfSolidary)===false) { MES_TAXING_MARGIN_INCOME_OF_SOLIDARY = testMonth }
-              if (testTaxingNext.marginIncomeOfTaxRate2.equals(testTaxingProp.marginIncomeOfTaxRate2)===false) { MES_TAXING_MARGIN_INCOME_OF_TAXRATE2 = testMonth }
-              if (testTaxingNext.marginIncomeOfWthEmp.equals(testTaxingProp.marginIncomeOfWthEmp)===false) { MES_TAXING_MARGIN_INCOME_OF_WHT_EMP = testMonth }
-              if (testTaxingNext.marginIncomeOfWthAgr.equals(testTaxingProp.marginIncomeOfWthAgr)===false) { MES_TAXING_MARGIN_INCOME_OF_WHT_AGR = testMonth }
+              if (testHealthNext.MinMonthlyBasis()!==testHealthProp.MinMonthlyBasis()) { MES_HEALTH_MIN_MONTHLY_BASIS = testMonth }
+              if (testHealthNext.MaxAnnualsBasis()!==testHealthProp.MaxAnnualsBasis()) { MES_HEALTH_MAX_ANNUALS_BASIS = testMonth }
+              if (testHealthNext.LimMonthlyState()!==testHealthProp.LimMonthlyState()) { MES_HEALTH_LIM_MONTHLY_STATE = testMonth }
+              if (testHealthNext.LimMonthlyDis50()!==testHealthProp.LimMonthlyDis50()) { MES_HEALTH_LIM_MONTHLY_DIS50 = testMonth }
+              if (testHealthNext.FactorCompound()!==testHealthProp.FactorCompound()) { MES_HEALTH_FACTOR_COMPOUND = testMonth }
+              if (testHealthNext.FactorEmployee()!==testHealthProp.FactorEmployee()) { MES_HEALTH_FACTOR_EMPLOYEE = testMonth }
+              if (testHealthNext.MarginIncomeEmp()!==testHealthProp.MarginIncomeEmp()) { MES_HEALTH_MARGIN_INCOME_EMP = testMonth }
+              if (testHealthNext.MarginIncomeAgr()!==testHealthProp.MarginIncomeAgr()) { MES_HEALTH_MARGIN_INCOME_AGR = testMonth }
+              if (testSalaryNext.WorkingShiftWeek()!==testSalaryProp.WorkingShiftWeek()) { MES_SALARY_WORKING_SHIFT_WEEK = testMonth }
+              if (testSalaryNext.WorkingShiftTime()!==testSalaryProp.WorkingShiftTime()) { MES_SALARY_WORKING_SHIFT_TIME = testMonth }
+              if (testSalaryNext.MinMonthlyWage()!==testSalaryProp.MinMonthlyWage()) { MES_SALARY_MIN_MONTHLY_WAGE = testMonth }
+              if (testSalaryNext.MinHourlyWage ()!==testSalaryProp.MinHourlyWage()) { MES_SALARY_MIN_HOURLY_WAGE = testMonth }
+              if (testSocialNext.MaxAnnualsBasis()!==testSocialProp.MaxAnnualsBasis()) { MES_SOCIAL_MAX_ANNUALS_BASIS = testMonth }
+              if (testSocialNext.FactorEmployer()!==testSocialProp.FactorEmployer()) { MES_SOCIAL_FACTOR_EMPLOYER = testMonth }
+              if (testSocialNext.FactorEmployerHigher()!==testSocialProp.FactorEmployerHigher()) { MES_SOCIAL_FACTOR_EMPLOYER_HIGHER = testMonth }
+              if (testSocialNext.FactorEmployee()!==testSocialProp.FactorEmployee()) { MES_SOCIAL_FACTOR_EMPLOYEE = testMonth }
+              if (testSocialNext.FactorEmployeeReduce()!==testSocialProp.FactorEmployeeReduce()) { MES_SOCIAL_FACTOR_EMPLOYEE_REDUCE = testMonth }
+              if (testSocialNext.FactorEmployeeGarant()!==testSocialProp.FactorEmployeeGarant()) { MES_SOCIAL_FACTOR_EMPLOYEE_GARANT = testMonth }
+              if (testSocialNext.MarginIncomeEmp()!==testSocialProp.MarginIncomeEmp()) { MES_SOCIAL_MARGIN_INCOME_EMP = testMonth }
+              if (testSocialNext.MarginIncomeAgr()!==testSocialProp.MarginIncomeAgr()) { MES_SOCIAL_MARGIN_INCOME_AGR = testMonth }
+              if (testTaxingNext.AllowancePayer()!==testTaxingProp.AllowancePayer()) { MES_TAXING_ALLOWANCE_PAYER = testMonth }
+              if (testTaxingNext.AllowanceDisab1st()!==testTaxingProp.AllowanceDisab1st()) { MES_TAXING_ALLOWANCE_DISAB_1ST = testMonth }
+              if (testTaxingNext.AllowanceDisab2nd()!==testTaxingProp.AllowanceDisab2nd()) { MES_TAXING_ALLOWANCE_DISAB_2ND = testMonth }
+              if (testTaxingNext.AllowanceDisab3rd()!==testTaxingProp.AllowanceDisab3rd()) { MES_TAXING_ALLOWANCE_DISAB_3RD = testMonth }
+              if (testTaxingNext.AllowanceStudy()!==testTaxingProp.AllowanceStudy()) { MES_TAXING_ALLOWANCE_STUDY = testMonth }
+              if (testTaxingNext.AllowanceChild1st()!==testTaxingProp.AllowanceChild1st()) { MES_TAXING_ALLOWANCE_CHILD_1ST = testMonth }
+              if (testTaxingNext.AllowanceChild2nd()!==testTaxingProp.AllowanceChild2nd()) { MES_TAXING_ALLOWANCE_CHILD_2ND = testMonth }
+              if (testTaxingNext.AllowanceChild3rd()!==testTaxingProp.AllowanceChild3rd()) { MES_TAXING_ALLOWANCE_CHILD_3RD = testMonth }
+              if (testTaxingNext.FactorAdvances()!==testTaxingProp.FactorAdvances()) { MES_TAXING_FACTOR_ADVANCES = testMonth }
+              if (testTaxingNext.FactorWithhold()!==testTaxingProp.FactorWithhold()) { MES_TAXING_FACTOR_WITHHOLD = testMonth }
+              if (testTaxingNext.FactorSolidary()!==testTaxingProp.FactorSolidary()) { MES_TAXING_FACTOR_SOLIDARY = testMonth }
+              if (testTaxingNext.FactorTaxRate2()!==testTaxingProp.FactorTaxRate2()) { MES_TAXING_FACTOR_TAXRATE2 = testMonth }
+              if (testTaxingNext.MinAmountOfTaxBonus()!==testTaxingProp.MinAmountOfTaxBonus()) { MES_TAXING_MIN_AMOUNT_OF_TAXBONUS = testMonth }
+              if (testTaxingNext.MaxAmountOfTaxBonus()!==testTaxingProp.MaxAmountOfTaxBonus()) { MES_TAXING_MAX_AMOUNT_OF_TAXBONUS = testMonth }
+              if (testTaxingNext.MarginIncomeOfTaxBonus()!==testTaxingProp.MarginIncomeOfTaxBonus()) { MES_TAXING_MARGIN_INCOME_OF_TAXBONUS = testMonth }
+              if (testTaxingNext.MarginIncomeOfRounding()!==testTaxingProp.MarginIncomeOfRounding()) { MES_TAXING_MARGIN_INCOME_OF_ROUNDING = testMonth }
+              if (testTaxingNext.MarginIncomeOfWithhold()!==testTaxingProp.MarginIncomeOfWithhold()) { MES_TAXING_MARGIN_INCOME_OF_WITHHOLD = testMonth }
+              if (testTaxingNext.MarginIncomeOfSolidary()!==testTaxingProp.MarginIncomeOfSolidary()) { MES_TAXING_MARGIN_INCOME_OF_SOLIDARY = testMonth }
+              if (testTaxingNext.MarginIncomeOfTaxRate2()!==testTaxingProp.MarginIncomeOfTaxRate2()) { MES_TAXING_MARGIN_INCOME_OF_TAXRATE2 = testMonth }
+              if (testTaxingNext.MarginIncomeOfWthEmp()!==testTaxingProp.MarginIncomeOfWthEmp()) { MES_TAXING_MARGIN_INCOME_OF_WHT_EMP = testMonth }
+              if (testTaxingNext.MarginIncomeOfWthAgr()!==testTaxingProp.MarginIncomeOfWthAgr()) { MES_TAXING_MARGIN_INCOME_OF_WHT_AGR = testMonth }
 
               testSalaryProp = testSalaryNext;
               testHealthProp = testHealthNext;
               testSocialProp = testSocialNext;
               testTaxingProp = testTaxingNext;
             }
-            VECT_HEALTH_MIN_MONTHLY_BASIS.push([testYear, MES_HEALTH_MIN_MONTHLY_BASIS, JAN_HEALTH_MIN_MONTHLY_BASIS, propsValueToString(testHealthProp.minMonthlyBasis)]);
-            VECT_HEALTH_MAX_ANNUALS_BASIS.push([testYear, MES_HEALTH_MAX_ANNUALS_BASIS,JAN_HEALTH_MAX_ANNUALS_BASIS, propsValueToString(testHealthProp.maxAnnualsBasis)]);
-            VECT_HEALTH_LIM_MONTHLY_STATE.push([testYear, MES_HEALTH_LIM_MONTHLY_STATE,JAN_HEALTH_LIM_MONTHLY_STATE, propsValueToString(testHealthProp.limMonthlyState)]);
-            VECT_HEALTH_LIM_MONTHLY_DIS50.push([testYear, MES_HEALTH_LIM_MONTHLY_DIS50,JAN_HEALTH_LIM_MONTHLY_DIS50, propsValueToString(testHealthProp.limMonthlyDis50)]);
-            VECT_HEALTH_FACTOR_COMPOUND.push([testYear, MES_HEALTH_FACTOR_COMPOUND,JAN_HEALTH_FACTOR_COMPOUND, propsValueToString(testHealthProp.factorCompound)]);
-            VECT_HEALTH_FACTOR_EMPLOYEE.push([testYear, MES_HEALTH_FACTOR_EMPLOYEE,JAN_HEALTH_FACTOR_EMPLOYEE, propsValueToString(testHealthProp.factorEmployee)]);
-            VECT_HEALTH_MARGIN_INCOME_EMP.push([testYear, MES_HEALTH_MARGIN_INCOME_EMP,JAN_HEALTH_MARGIN_INCOME_EMP, propsValueToString(testHealthProp.marginIncomeEmp)]);
-            VECT_HEALTH_MARGIN_INCOME_AGR.push([testYear, MES_HEALTH_MARGIN_INCOME_AGR,JAN_HEALTH_MARGIN_INCOME_AGR, propsValueToString(testHealthProp.marginIncomeAgr)]);
-            VECT_SALARY_WORKING_SHIFT_WEEK.push([testYear, MES_SALARY_WORKING_SHIFT_WEEK,JAN_SALARY_WORKING_SHIFT_WEEK, propsValueToString(testSalaryProp.workingShiftWeek)]);
-            VECT_SALARY_WORKING_SHIFT_TIME.push([testYear, MES_SALARY_WORKING_SHIFT_TIME,JAN_SALARY_WORKING_SHIFT_TIME, propsValueToString(testSalaryProp.workingShiftTime)]);
-            VECT_SALARY_MIN_MONTHLY_WAGE.push([testYear, MES_SALARY_MIN_MONTHLY_WAGE,JAN_SALARY_MIN_MONTHLY_WAGE, propsValueToString(testSalaryProp.minMonthlyWage)]);
-            VECT_SALARY_MIN_HOURLY_WAGE.push([testYear, MES_SALARY_MIN_HOURLY_WAGE,JAN_SALARY_MIN_HOURLY_WAGE, propsValueToString(testSalaryProp.minHourlyWage)]);
-            VECT_SOCIAL_MAX_ANNUALS_BASIS.push([testYear, MES_SOCIAL_MAX_ANNUALS_BASIS,JAN_SOCIAL_MAX_ANNUALS_BASIS, propsValueToString(testSocialProp.maxAnnualsBasis)]);
-            VECT_SOCIAL_FACTOR_EMPLOYER.push([testYear, MES_SOCIAL_FACTOR_EMPLOYER,JAN_SOCIAL_FACTOR_EMPLOYER, propsValueToString(testSocialProp.factorEmployer)]);
-            VECT_SOCIAL_FACTOR_EMPLOYER_HIGHER.push([testYear, MES_SOCIAL_FACTOR_EMPLOYER_HIGHER,JAN_SOCIAL_FACTOR_EMPLOYER_HIGHER, propsValueToString(testSocialProp.factorEmployerHigher)]);
-            VECT_SOCIAL_FACTOR_EMPLOYEE.push([testYear, MES_SOCIAL_FACTOR_EMPLOYEE,JAN_SOCIAL_FACTOR_EMPLOYEE, propsValueToString(testSocialProp.factorEmployee)]);
-            VECT_SOCIAL_FACTOR_EMPLOYEE_GARANT.push([testYear, MES_SOCIAL_FACTOR_EMPLOYEE_GARANT,JAN_SOCIAL_FACTOR_EMPLOYEE_GARANT, propsValueToString(testSocialProp.factorEmployeeGarant)]);
-            VECT_SOCIAL_FACTOR_EMPLOYEE_REDUCE.push([testYear, MES_SOCIAL_FACTOR_EMPLOYEE_REDUCE,JAN_SOCIAL_FACTOR_EMPLOYEE_REDUCE, propsValueToString(testSocialProp.factorEmployeeReduce)]);
-            VECT_SOCIAL_MARGIN_INCOME_EMP.push([testYear, MES_SOCIAL_MARGIN_INCOME_EMP,JAN_SOCIAL_MARGIN_INCOME_EMP, propsValueToString(testSocialProp.marginIncomeEmp)]);
-            VECT_SOCIAL_MARGIN_INCOME_AGR.push([testYear, MES_SOCIAL_MARGIN_INCOME_AGR,JAN_SOCIAL_MARGIN_INCOME_AGR, propsValueToString(testSocialProp.marginIncomeAgr)]);
-            VECT_TAXING_ALLOWANCE_PAYER.push([testYear, MES_TAXING_ALLOWANCE_PAYER,JAN_TAXING_ALLOWANCE_PAYER, propsValueToString(testTaxingProp.allowancePayer)]);
-            VECT_TAXING_ALLOWANCE_DISAB_1ST.push([testYear, MES_TAXING_ALLOWANCE_DISAB_1ST,JAN_TAXING_ALLOWANCE_DISAB_1ST, propsValueToString(testTaxingProp.allowanceDisab1st)]);
-            VECT_TAXING_ALLOWANCE_DISAB_2ND.push([testYear, MES_TAXING_ALLOWANCE_DISAB_2ND,JAN_TAXING_ALLOWANCE_DISAB_2ND, propsValueToString(testTaxingProp.allowanceDisab2nd)]);
-            VECT_TAXING_ALLOWANCE_DISAB_3RD.push([testYear, MES_TAXING_ALLOWANCE_DISAB_3RD,JAN_TAXING_ALLOWANCE_DISAB_3RD, propsValueToString(testTaxingProp.allowanceDisab3rd)]);
-            VECT_TAXING_ALLOWANCE_STUDY.push([testYear, MES_TAXING_ALLOWANCE_STUDY,JAN_TAXING_ALLOWANCE_STUDY, propsValueToString(testTaxingProp.allowanceStudy)]);
-            VECT_TAXING_ALLOWANCE_CHILD_1ST.push([testYear, MES_TAXING_ALLOWANCE_CHILD_1ST,JAN_TAXING_ALLOWANCE_CHILD_1ST, propsValueToString(testTaxingProp.allowanceChild1st)]);
-            VECT_TAXING_ALLOWANCE_CHILD_2ND.push([testYear, MES_TAXING_ALLOWANCE_CHILD_2ND,JAN_TAXING_ALLOWANCE_CHILD_2ND, propsValueToString(testTaxingProp.allowanceChild2nd)]);
-            VECT_TAXING_ALLOWANCE_CHILD_3RD.push([testYear, MES_TAXING_ALLOWANCE_CHILD_3RD,JAN_TAXING_ALLOWANCE_CHILD_3RD, propsValueToString(testTaxingProp.allowanceChild3rd)]);
-            VECT_TAXING_FACTOR_ADVANCES.push([testYear, MES_TAXING_FACTOR_ADVANCES,JAN_TAXING_FACTOR_ADVANCES, propsValueToString(testTaxingProp.factorAdvances)]);
-            VECT_TAXING_FACTOR_WITHHOLD.push([testYear, MES_TAXING_FACTOR_WITHHOLD,JAN_TAXING_FACTOR_WITHHOLD, propsValueToString(testTaxingProp.factorWithhold)]);
-            VECT_TAXING_FACTOR_SOLIDARY.push([testYear, MES_TAXING_FACTOR_SOLIDARY,JAN_TAXING_FACTOR_SOLIDARY, propsValueToString(testTaxingProp.factorSolidary)]);
-            VECT_TAXING_FACTOR_TAXRATE2.push([testYear, MES_TAXING_FACTOR_TAXRATE2,JAN_TAXING_FACTOR_TAXRATE2, propsValueToString(testTaxingProp.factorTaxRate2)]);
-            VECT_TAXING_MIN_AMOUNT_OF_TAXBONUS.push([testYear, MES_TAXING_MIN_AMOUNT_OF_TAXBONUS,JAN_TAXING_MIN_AMOUNT_OF_TAXBONUS, propsValueToString(testTaxingProp.minAmountOfTaxBonus)]);
-            VECT_TAXING_MAX_AMOUNT_OF_TAXBONUS.push([testYear, MES_TAXING_MAX_AMOUNT_OF_TAXBONUS,JAN_TAXING_MAX_AMOUNT_OF_TAXBONUS, propsValueToString(testTaxingProp.maxAmountOfTaxBonus)]);
-            VECT_TAXING_MARGIN_INCOME_OF_TAXBONUS.push([testYear, MES_TAXING_MARGIN_INCOME_OF_TAXBONUS,JAN_TAXING_MARGIN_INCOME_OF_TAXBONUS, propsValueToString(testTaxingProp.marginIncomeOfTaxBonus)]);
-            VECT_TAXING_MARGIN_INCOME_OF_ROUNDING.push([testYear, MES_TAXING_MARGIN_INCOME_OF_ROUNDING,JAN_TAXING_MARGIN_INCOME_OF_ROUNDING, propsValueToString(testTaxingProp.marginIncomeOfRounding)]);
-            VECT_TAXING_MARGIN_INCOME_OF_WITHHOLD.push([testYear, MES_TAXING_MARGIN_INCOME_OF_WITHHOLD,JAN_TAXING_MARGIN_INCOME_OF_WITHHOLD, propsValueToString(testTaxingProp.marginIncomeOfWithhold)]);
-            VECT_TAXING_MARGIN_INCOME_OF_SOLIDARY.push([testYear, MES_TAXING_MARGIN_INCOME_OF_SOLIDARY,JAN_TAXING_MARGIN_INCOME_OF_SOLIDARY, propsValueToString(testTaxingProp.marginIncomeOfSolidary)]);
-            VECT_TAXING_MARGIN_INCOME_OF_TAXRATE2.push([testYear, MES_TAXING_MARGIN_INCOME_OF_TAXRATE2,JAN_TAXING_MARGIN_INCOME_OF_TAXRATE2, propsValueToString(testTaxingProp.marginIncomeOfTaxRate2)]);
-            VECT_TAXING_MARGIN_INCOME_OF_WHT_EMP.push([testYear, MES_TAXING_MARGIN_INCOME_OF_WHT_EMP,JAN_TAXING_MARGIN_INCOME_OF_WHT_EMP, propsValueToString(testTaxingProp.marginIncomeOfWthEmp)]);
-            VECT_TAXING_MARGIN_INCOME_OF_WHT_AGR.push([testYear, MES_TAXING_MARGIN_INCOME_OF_WHT_AGR,JAN_TAXING_MARGIN_INCOME_OF_WHT_AGR, propsValueToString(testTaxingProp.marginIncomeOfWthAgr)]);
+            VECT_HEALTH_MIN_MONTHLY_BASIS.push([testYear, MES_HEALTH_MIN_MONTHLY_BASIS, JAN_HEALTH_MIN_MONTHLY_BASIS, propsValueToString(testHealthProp.MinMonthlyBasis())]);
+            VECT_HEALTH_MAX_ANNUALS_BASIS.push([testYear, MES_HEALTH_MAX_ANNUALS_BASIS,JAN_HEALTH_MAX_ANNUALS_BASIS, propsValueToString(testHealthProp.MaxAnnualsBasis())]);
+            VECT_HEALTH_LIM_MONTHLY_STATE.push([testYear, MES_HEALTH_LIM_MONTHLY_STATE,JAN_HEALTH_LIM_MONTHLY_STATE, propsValueToString(testHealthProp.LimMonthlyState())]);
+            VECT_HEALTH_LIM_MONTHLY_DIS50.push([testYear, MES_HEALTH_LIM_MONTHLY_DIS50,JAN_HEALTH_LIM_MONTHLY_DIS50, propsValueToString(testHealthProp.LimMonthlyDis50())]);
+            VECT_HEALTH_FACTOR_COMPOUND.push([testYear, MES_HEALTH_FACTOR_COMPOUND,JAN_HEALTH_FACTOR_COMPOUND, propsDecValueToString(testHealthProp.FactorCompound())]);
+            VECT_HEALTH_FACTOR_EMPLOYEE.push([testYear, MES_HEALTH_FACTOR_EMPLOYEE,JAN_HEALTH_FACTOR_EMPLOYEE, propsDecValueToString(testHealthProp.FactorEmployee())]);
+            VECT_HEALTH_MARGIN_INCOME_EMP.push([testYear, MES_HEALTH_MARGIN_INCOME_EMP,JAN_HEALTH_MARGIN_INCOME_EMP, propsValueToString(testHealthProp.MarginIncomeEmp())]);
+            VECT_HEALTH_MARGIN_INCOME_AGR.push([testYear, MES_HEALTH_MARGIN_INCOME_AGR,JAN_HEALTH_MARGIN_INCOME_AGR, propsValueToString(testHealthProp.MarginIncomeAgr())]);
+            VECT_SALARY_WORKING_SHIFT_WEEK.push([testYear, MES_SALARY_WORKING_SHIFT_WEEK,JAN_SALARY_WORKING_SHIFT_WEEK, propsValueToString(testSalaryProp.WorkingShiftWeek())]);
+            VECT_SALARY_WORKING_SHIFT_TIME.push([testYear, MES_SALARY_WORKING_SHIFT_TIME,JAN_SALARY_WORKING_SHIFT_TIME, propsValueToString(testSalaryProp.WorkingShiftTime())]);
+            VECT_SALARY_MIN_MONTHLY_WAGE.push([testYear, MES_SALARY_MIN_MONTHLY_WAGE,JAN_SALARY_MIN_MONTHLY_WAGE, propsValueToString(testSalaryProp.MinMonthlyWage())]);
+            VECT_SALARY_MIN_HOURLY_WAGE.push([testYear, MES_SALARY_MIN_HOURLY_WAGE,JAN_SALARY_MIN_HOURLY_WAGE, propsValueToString(testSalaryProp.MinHourlyWage())]);
+            VECT_SOCIAL_MAX_ANNUALS_BASIS.push([testYear, MES_SOCIAL_MAX_ANNUALS_BASIS,JAN_SOCIAL_MAX_ANNUALS_BASIS, propsValueToString(testSocialProp.MaxAnnualsBasis())]);
+            VECT_SOCIAL_FACTOR_EMPLOYER.push([testYear, MES_SOCIAL_FACTOR_EMPLOYER,JAN_SOCIAL_FACTOR_EMPLOYER, propsDecValueToString(testSocialProp.FactorEmployer())]);
+            VECT_SOCIAL_FACTOR_EMPLOYER_HIGHER.push([testYear, MES_SOCIAL_FACTOR_EMPLOYER_HIGHER,JAN_SOCIAL_FACTOR_EMPLOYER_HIGHER, propsDecValueToString(testSocialProp.FactorEmployerHigher())]);
+            VECT_SOCIAL_FACTOR_EMPLOYEE.push([testYear, MES_SOCIAL_FACTOR_EMPLOYEE,JAN_SOCIAL_FACTOR_EMPLOYEE, propsDecValueToString(testSocialProp.FactorEmployee())]);
+            VECT_SOCIAL_FACTOR_EMPLOYEE_GARANT.push([testYear, MES_SOCIAL_FACTOR_EMPLOYEE_GARANT,JAN_SOCIAL_FACTOR_EMPLOYEE_GARANT, propsDecValueToString(testSocialProp.FactorEmployeeGarant())]);
+            VECT_SOCIAL_FACTOR_EMPLOYEE_REDUCE.push([testYear, MES_SOCIAL_FACTOR_EMPLOYEE_REDUCE,JAN_SOCIAL_FACTOR_EMPLOYEE_REDUCE, propsDecValueToString(testSocialProp.FactorEmployeeReduce())]);
+            VECT_SOCIAL_MARGIN_INCOME_EMP.push([testYear, MES_SOCIAL_MARGIN_INCOME_EMP,JAN_SOCIAL_MARGIN_INCOME_EMP, propsValueToString(testSocialProp.MarginIncomeEmp())]);
+            VECT_SOCIAL_MARGIN_INCOME_AGR.push([testYear, MES_SOCIAL_MARGIN_INCOME_AGR,JAN_SOCIAL_MARGIN_INCOME_AGR, propsValueToString(testSocialProp.MarginIncomeAgr())]);
+            VECT_TAXING_ALLOWANCE_PAYER.push([testYear, MES_TAXING_ALLOWANCE_PAYER,JAN_TAXING_ALLOWANCE_PAYER, propsValueToString(testTaxingProp.AllowancePayer())]);
+            VECT_TAXING_ALLOWANCE_DISAB_1ST.push([testYear, MES_TAXING_ALLOWANCE_DISAB_1ST,JAN_TAXING_ALLOWANCE_DISAB_1ST, propsValueToString(testTaxingProp.AllowanceDisab1st())]);
+            VECT_TAXING_ALLOWANCE_DISAB_2ND.push([testYear, MES_TAXING_ALLOWANCE_DISAB_2ND,JAN_TAXING_ALLOWANCE_DISAB_2ND, propsValueToString(testTaxingProp.AllowanceDisab2nd())]);
+            VECT_TAXING_ALLOWANCE_DISAB_3RD.push([testYear, MES_TAXING_ALLOWANCE_DISAB_3RD,JAN_TAXING_ALLOWANCE_DISAB_3RD, propsValueToString(testTaxingProp.AllowanceDisab3rd())]);
+            VECT_TAXING_ALLOWANCE_STUDY.push([testYear, MES_TAXING_ALLOWANCE_STUDY,JAN_TAXING_ALLOWANCE_STUDY, propsValueToString(testTaxingProp.AllowanceStudy())]);
+            VECT_TAXING_ALLOWANCE_CHILD_1ST.push([testYear, MES_TAXING_ALLOWANCE_CHILD_1ST,JAN_TAXING_ALLOWANCE_CHILD_1ST, propsValueToString(testTaxingProp.AllowanceChild1st())]);
+            VECT_TAXING_ALLOWANCE_CHILD_2ND.push([testYear, MES_TAXING_ALLOWANCE_CHILD_2ND,JAN_TAXING_ALLOWANCE_CHILD_2ND, propsValueToString(testTaxingProp.AllowanceChild2nd())]);
+            VECT_TAXING_ALLOWANCE_CHILD_3RD.push([testYear, MES_TAXING_ALLOWANCE_CHILD_3RD,JAN_TAXING_ALLOWANCE_CHILD_3RD, propsValueToString(testTaxingProp.AllowanceChild3rd())]);
+            VECT_TAXING_FACTOR_ADVANCES.push([testYear, MES_TAXING_FACTOR_ADVANCES,JAN_TAXING_FACTOR_ADVANCES, propsDecValueToString(testTaxingProp.FactorAdvances())]);
+            VECT_TAXING_FACTOR_WITHHOLD.push([testYear, MES_TAXING_FACTOR_WITHHOLD,JAN_TAXING_FACTOR_WITHHOLD, propsDecValueToString(testTaxingProp.FactorWithhold())]);
+            VECT_TAXING_FACTOR_SOLIDARY.push([testYear, MES_TAXING_FACTOR_SOLIDARY,JAN_TAXING_FACTOR_SOLIDARY, propsDecValueToString(testTaxingProp.FactorSolidary())]);
+            VECT_TAXING_FACTOR_TAXRATE2.push([testYear, MES_TAXING_FACTOR_TAXRATE2,JAN_TAXING_FACTOR_TAXRATE2, propsDecValueToString(testTaxingProp.FactorTaxRate2())]);
+            VECT_TAXING_MIN_AMOUNT_OF_TAXBONUS.push([testYear, MES_TAXING_MIN_AMOUNT_OF_TAXBONUS,JAN_TAXING_MIN_AMOUNT_OF_TAXBONUS, propsValueToString(testTaxingProp.MinAmountOfTaxBonus())]);
+            VECT_TAXING_MAX_AMOUNT_OF_TAXBONUS.push([testYear, MES_TAXING_MAX_AMOUNT_OF_TAXBONUS,JAN_TAXING_MAX_AMOUNT_OF_TAXBONUS, propsValueToString(testTaxingProp.MaxAmountOfTaxBonus())]);
+            VECT_TAXING_MARGIN_INCOME_OF_TAXBONUS.push([testYear, MES_TAXING_MARGIN_INCOME_OF_TAXBONUS,JAN_TAXING_MARGIN_INCOME_OF_TAXBONUS, propsValueToString(testTaxingProp.MarginIncomeOfTaxBonus())]);
+            VECT_TAXING_MARGIN_INCOME_OF_ROUNDING.push([testYear, MES_TAXING_MARGIN_INCOME_OF_ROUNDING,JAN_TAXING_MARGIN_INCOME_OF_ROUNDING, propsValueToString(testTaxingProp.MarginIncomeOfRounding())]);
+            VECT_TAXING_MARGIN_INCOME_OF_WITHHOLD.push([testYear, MES_TAXING_MARGIN_INCOME_OF_WITHHOLD,JAN_TAXING_MARGIN_INCOME_OF_WITHHOLD, propsValueToString(testTaxingProp.MarginIncomeOfWithhold())]);
+            VECT_TAXING_MARGIN_INCOME_OF_SOLIDARY.push([testYear, MES_TAXING_MARGIN_INCOME_OF_SOLIDARY,JAN_TAXING_MARGIN_INCOME_OF_SOLIDARY, propsValueToString(testTaxingProp.MarginIncomeOfSolidary())]);
+            VECT_TAXING_MARGIN_INCOME_OF_TAXRATE2.push([testYear, MES_TAXING_MARGIN_INCOME_OF_TAXRATE2,JAN_TAXING_MARGIN_INCOME_OF_TAXRATE2, propsValueToString(testTaxingProp.MarginIncomeOfTaxRate2())]);
+            VECT_TAXING_MARGIN_INCOME_OF_WHT_EMP.push([testYear, MES_TAXING_MARGIN_INCOME_OF_WHT_EMP,JAN_TAXING_MARGIN_INCOME_OF_WHT_EMP, propsValueToString(testTaxingProp.MarginIncomeOfWthEmp())]);
+            VECT_TAXING_MARGIN_INCOME_OF_WHT_AGR.push([testYear, MES_TAXING_MARGIN_INCOME_OF_WHT_AGR,JAN_TAXING_MARGIN_INCOME_OF_WHT_AGR, propsValueToString(testTaxingProp.MarginIncomeOfWthAgr())]);
           }
 
-          tableData.forEach((data) => {
+          tableData.forEach((data: [number, [number, number, string, string][]]) => {
             exportHistoryTerm(testProtokol, headerData, data);
           });
         }
@@ -550,8 +555,9 @@ function propsValueToString(value: number): string {
   return `${value}`;
 }
 
-function propsValueToString(value: bigDecimal): string {
-  const intValue: number = (value.multiply(100)).floor(0, RoundingModes.FLOOR);
+function propsDecValueToString(value: bigDecimal): string {
+  const intValue: number = Number((value.multiply(new bigDecimal(100)))
+    .round(0, bigDecimal.RoundingModes.FLOOR).getValue());
   return `${intValue}`;
 }
 

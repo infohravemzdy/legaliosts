@@ -194,7 +194,7 @@ describe('Protokol Taxing For Year 2010-2022', () => {
         tt.maxYear,
         factory,
         (prop: IPropsTaxing): bigDecimal => {
-          return prop.FactorSolidary();
+          return prop.FactorTaxRate2();
         },
       );
     });
@@ -306,7 +306,7 @@ describe('Protokol Taxing For Year 2010-2022', () => {
         tt.maxYear,
         factory,
         (prop: IPropsTaxing): number => {
-          return prop.MarginIncomeOfSolidary();
+          return prop.MarginIncomeOfTaxRate2();
         },
       );
     });

@@ -2,7 +2,7 @@
 import { IPeriod } from '../service_types/period';
 import { ProviderBase } from '../providers/ProviderBase';
 import { IProviderTaxing } from '../providers/IProviderTaxing';
-import { PropsTaxing } from '../props/PropsTaxing';
+import { PropsTaxing2018 } from '../props/PropsTaxing2018';
 import { IPropsTaxing } from '../service_interfaces/IPropsTaxing';
 import { HistoryConstTaxing2020 } from './HistoryConstTaxing2020';
 import bigDecimal = require('js-big-decimal');
@@ -12,7 +12,7 @@ export class ProviderTaxing2020 extends ProviderBase implements IProviderTaxing 
     super(VersionId.get(HistoryConstTaxing2020.VERSION_CODE));
   }
   GetProps(period: IPeriod): IPropsTaxing {
-    return new PropsTaxing(
+    return new PropsTaxing2018(
       this.Version(),
       this.AllowancePayer(period),
       this.AllowanceDisab1st(period),
@@ -25,12 +25,14 @@ export class ProviderTaxing2020 extends ProviderBase implements IProviderTaxing 
       this.FactorAdvances(period),
       this.FactorWithhold(period),
       this.FactorSolidary(period),
+      this.FactorTaxRate2(period),
       this.MinAmountOfTaxBonus(period),
       this.MaxAmountOfTaxBonus(period),
       this.MarginIncomeOfTaxBonus(period),
       this.MarginIncomeOfRounding(period),
       this.MarginIncomeOfWithhold(period),
       this.MarginIncomeOfSolidary(period),
+      this.MarginIncomeOfTaxRate2(period),
       this.MarginIncomeOfWthEmp(period),
       this.MarginIncomeOfWthAgr(period),
     );

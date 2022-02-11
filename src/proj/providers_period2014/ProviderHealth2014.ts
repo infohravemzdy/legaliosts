@@ -3,17 +3,16 @@ import { IPeriod } from '../service_types/period';
 import { ProviderBase } from '../providers/ProviderBase';
 import { IProviderHealth } from '../providers/IProviderHealth';
 import { IPropsHealth } from '../service_interfaces/IPropsHealth';
-import { PropsHealth } from '../props/PropsHealth';
+import { PropsHealth2014 } from '../props/PropsHealth2014';
 import {HistoryConstHealth2014, HistoryConstHealth2014var07} from './HistoryConstHealth2014';
 import bigDecimal = require('js-big-decimal');
-import {HistoryConstHealth2013var08} from "../providers_period2013/HistoryConstHealth2013";
 
 export class ProviderHealth2014 extends ProviderBase implements IProviderHealth {
   constructor() {
     super(VersionId.get(HistoryConstHealth2014.VERSION_CODE));
   }
   GetProps(period: IPeriod): IPropsHealth {
-    return new PropsHealth(
+    return new PropsHealth2014(
       this.Version(),
       this.MinMonthlyBasis(period),
       this.MaxAnnualsBasis(period),

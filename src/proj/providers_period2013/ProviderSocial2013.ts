@@ -3,7 +3,7 @@ import { IPeriod } from '../service_types/period';
 import { ProviderBase } from '../providers/ProviderBase';
 import { IProviderSocial } from '../providers/IProviderSocial';
 import { IPropsSocial } from '../service_interfaces/IPropsSocial';
-import { PropsSocial } from '../props/PropsSocial';
+import { PropsSocial2012 } from '../props/PropsSocial2012';
 import {HistoryConstSocial2013, HistoryConstSocial2013var02} from './HistoryConstSocial2013';
 import bigDecimal = require('js-big-decimal');
 import {HistoryConstHealth2013var08} from "./HistoryConstHealth2013";
@@ -13,7 +13,7 @@ export class ProviderSocial2013 extends ProviderBase implements IProviderSocial 
     super(VersionId.get(HistoryConstSocial2013.VERSION_CODE));
   }
   GetProps(period: IPeriod): IPropsSocial {
-    return new PropsSocial(
+    return new PropsSocial2012(
       this.Version(),
       this.MaxAnnualsBasis(period),
       this.FactorEmployer(period),

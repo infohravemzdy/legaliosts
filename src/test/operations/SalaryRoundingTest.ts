@@ -1,4 +1,6 @@
 import bigDecimal = require('js-big-decimal');
+import { PropsSalary } from '../../proj/props/PropsSalary';
+import { expect } from 'chai';
 
 describe('Salary Rounding Test', () => {
   class TestSpecParams {
@@ -78,7 +80,7 @@ describe('Salary Rounding Test', () => {
         const decimalRounds = _sut.hoursToHalfHoursUp(decimalTarget);
 
         it(`rounding value should equal ${tt.testResult}`, () => {
-          assert.equals(decimalRounds.compareTo(decimalResult), 0,`rounding operation failed; expected = ${decimalResult}, actual=${decimalRounds}`);
+          expect(decimalRounds.compareTo(decimalResult)).to.equal(0, `rounding operation failed; expected = ${decimalResult}, actual=${decimalRounds}`);
         });
       });
     });
@@ -177,7 +179,7 @@ describe('Salary Rounding Test', () => {
         const decimalRounds = _sut.hoursToQuartHoursUp(decimalTarget)
 
         it(`rounding value should equal ${tt.testResult}`, () => {
-          assert.equals(decimalRounds.compareTo(decimalResult), 0,`rounding operation failed; expected = ${decimalResult}, actual=${decimalRounds}`)
+          expect(decimalRounds.compareTo(decimalResult)).to.equal(0, `rounding operation failed; expected = ${decimalResult}, actual=${decimalRounds}`)
         });
       });
     });
@@ -256,7 +258,7 @@ describe('Salary Rounding Test', () => {
         const decimalRounds = _sut.hoursToHalfHoursDown(decimalTarget)
 
         it(`rounding value should equal ${tt.testResult}`, () => {
-          assert.equals(decimalRounds.compareTo(decimalResult), 0,`rounding operation failed; expected = ${decimalResult}, actual=${decimalRounds}`)
+          expect(decimalRounds.compareTo(decimalResult)).to.equal(0, `rounding operation failed; expected = ${decimalResult}, actual=${decimalRounds}`)
         });
       });
     });
@@ -355,7 +357,7 @@ describe('Salary Rounding Test', () => {
         const decimalRounds = _sut.hoursToQuartHoursDown(decimalTarget)
 
         it(`rounding value should equal ${tt.testResult}`, () => {
-          assert.equals(decimalRounds.compareTo(decimalResult), 0,`rounding operation failed; expected = ${decimalResult}, actual=${decimalRounds}`)
+          expect(decimalRounds.compareTo(decimalResult)).to.equal(0, `rounding operation failed; expected = ${decimalResult}, actual=${decimalRounds}`)
         });
       });
     });
@@ -434,7 +436,7 @@ describe('Salary Rounding Test', () => {
         const decimalRounds = _sut.hoursToHalfHoursNorm(decimalTarget)
 
         it(`rounding value should equal ${tt.testResult}`, () => {
-          assert.equals(decimalRounds.compareTo(decimalResult), 0,`rounding operation failed; expected = ${decimalResult}, actual=${decimalRounds}`)
+          expect(decimalRounds.compareTo(decimalResult)).to.equal(0, `rounding operation failed; expected = ${decimalResult}, actual=${decimalRounds}`)
         });
       });
     });
@@ -533,7 +535,7 @@ describe('Salary Rounding Test', () => {
         const decimalRounds = _sut.hoursToQuartHoursNorm(decimalTarget)
 
         it(`rounding value should equal ${tt.testResult}`, () => {
-          assert.equals(decimalRounds.compareTo(decimalResult), 0,`rounding operation failed; expected = ${decimalResult}, actual=${decimalRounds}`)
+          expect(decimalRounds.compareTo(decimalResult)).to.equal(0, `rounding operation failed; expected = ${decimalResult}, actual=${decimalRounds}`)
         });
       });
     });
@@ -572,7 +574,7 @@ describe('Salary Rounding Test', () => {
         const decimalRounds = _sut.moneyToRoundDown(decimalTarget)
 
         it(`rounding value should equal ${tt.testResult}`, () => {
-          assert.equals(decimalRounds.compareTo(decimalResult), 0,`rounding operation failed; expected = ${decimalResult}, actual=${decimalRounds}`)
+          expect(decimalRounds.compareTo(decimalResult)).to.equal(0, `rounding operation failed; expected = ${decimalResult}, actual=${decimalRounds}`)
         });
       });
     });
@@ -611,7 +613,7 @@ describe('Salary Rounding Test', () => {
         const decimalRounds = _sut.moneyToRoundUp(decimalTarget)
 
         it(`rounding value should equal ${tt.testResult}`, () => {
-          assert.equals(decimalRounds.compareTo(decimalResult), 0,`rounding operation failed; expected = ${decimalResult}, actual=${decimalRounds}`)
+          expect(decimalRounds.compareTo(decimalResult)).to.equal(0, `rounding operation failed; expected = ${decimalResult}, actual=${decimalRounds}`)
         });
       });
     });
@@ -650,7 +652,7 @@ describe('Salary Rounding Test', () => {
         const decimalRounds = _sut.moneyToRoundNorm(decimalTarget)
 
         it(`rounding value should equal ${tt.testResult}`, () => {
-          assert.equals(decimalRounds.compareTo(decimalResult), 0,`rounding operation failed; expected = ${decimalResult}, actual=${decimalRounds}`)
+          expect(decimalRounds.compareTo(decimalResult)).to.equal(0, `rounding operation failed; expected = ${decimalResult}, actual=${decimalRounds}`)
         });
       });
     });

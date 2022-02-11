@@ -2,6 +2,7 @@ import { IPropsTaxing } from '../service_interfaces/IPropsTaxing';
 import { IProviderTaxing } from '../providers/IProviderTaxing';
 import { PropsTaxing } from '../props/PropsTaxing';
 import { ProviderFactory, IProviderFactory } from './ProviderFactory';
+import { HistoryConstTaxing2010 } from '../providers_period2010/HistoryConstTaxing2010';
 import { HistoryConstTaxing2011 } from '../providers_period2011/HistoryConstTaxing2011';
 import { HistoryConstTaxing2012 } from '../providers_period2012/HistoryConstTaxing2012';
 import { HistoryConstTaxing2013 } from '../providers_period2013/HistoryConstTaxing2013';
@@ -14,6 +15,7 @@ import { HistoryConstTaxing2019 } from '../providers_period2019/HistoryConstTaxi
 import { HistoryConstTaxing2020 } from '../providers_period2020/HistoryConstTaxing2020';
 import { HistoryConstTaxing2021 } from '../providers_period2021/HistoryConstTaxing2021';
 import { HistoryConstTaxing2022 } from '../providers_period2022/HistoryConstTaxing2022';
+import { ProviderTaxing2010 } from '../providers_period2010/ProviderTaxing2010';
 import { ProviderTaxing2011 } from '../providers_period2011/ProviderTaxing2011';
 import { ProviderTaxing2012 } from '../providers_period2012/ProviderTaxing2012';
 import { ProviderTaxing2013 } from '../providers_period2013/ProviderTaxing2013';
@@ -38,6 +40,7 @@ export class FactoryTaxing extends ProviderFactory<IProviderTaxing, IPropsTaxing
   }
   BuildFactory(): boolean {
     this.Versions = new Map<VERSION, IProviderTaxing>();
+    this.Versions.set(HistoryConstTaxing2010.VERSION_CODE, new ProviderTaxing2010());
     this.Versions.set(HistoryConstTaxing2011.VERSION_CODE, new ProviderTaxing2011());
     this.Versions.set(HistoryConstTaxing2012.VERSION_CODE, new ProviderTaxing2012());
     this.Versions.set(HistoryConstTaxing2013.VERSION_CODE, new ProviderTaxing2013());

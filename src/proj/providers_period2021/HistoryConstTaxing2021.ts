@@ -60,14 +60,14 @@ export class HistoryConstTaxing2021 {
   public static readonly FACTOR_ADVANCES: bigDecimal = HistoryConstTaxing2020.FACTOR_ADVANCES;
   public static readonly FACTOR_WITHHOLD: bigDecimal = HistoryConstTaxing2020.FACTOR_WITHHOLD;
   public static readonly FACTOR_SOLIDARY: bigDecimal = new bigDecimal(0);
-  public static readonly FACTOR_TAXRATE2: bigDecimal = HistoryConstTaxing2020.FACTOR_TAXRATE2;
+  public static readonly FACTOR_TAXRATE2: bigDecimal = new bigDecimal(23);
   public static readonly MIN_AMOUNT_OF_TAXBONUS: number = HistoryConstTaxing2020.MIN_AMOUNT_OF_TAXBONUS;
   public static readonly MAX_AMOUNT_OF_TAXBONUS: number = HistoryConstTaxing2020.MAX_AMOUNT_OF_TAXBONUS;
   public static readonly MARGIN_INCOME_OF_TAXBONUS: number = HistoryConstSalary2021.MIN_MONTHLY_WAGE / 2;
   public static readonly MARGIN_INCOME_OF_ROUNDING: number = HistoryConstTaxing2020.MARGIN_INCOME_OF_ROUNDING;
   public static readonly MARGIN_INCOME_OF_WITHHOLD: number = HistoryConstTaxing2020.MARGIN_INCOME_OF_WITHHOLD;
   public static readonly MARGIN_INCOME_OF_SOLIDARY: number = 0;
-  public static readonly MARGIN_INCOME_OF_TAXRATE2: number = HistoryConstTaxing2020.MARGIN_INCOME_OF_TAXRATE2;
+  public static readonly MARGIN_INCOME_OF_TAXRATE2: number = (4 * 35441);
   public static readonly MARGIN_INCOME_OF_WHT_EMP: number = 3500;
   public static readonly MARGIN_INCOME_OF_WHT_AGR: number = HistoryConstTaxing2020.MARGIN_INCOME_OF_WHT_AGR;
 }

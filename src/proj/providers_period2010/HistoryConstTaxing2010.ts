@@ -46,7 +46,7 @@ import bigDecimal = require('js-big-decimal');
 export class HistoryConstTaxing2010 {
   public static readonly VERSION_CODE: number = 2010;
 
-  public static readonly ALLOWANCE_PAYER: number = 1970;
+  public static readonly ALLOWANCE_PAYER: number = 2070;
   public static readonly ALLOWANCE_DISAB_1ST: number = 210;
   public static readonly ALLOWANCE_DISAB_2ND: number = 420;
   public static readonly ALLOWANCE_DISAB_3RD: number = 1345;

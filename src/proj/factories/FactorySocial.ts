@@ -2,6 +2,7 @@ import { IPropsSocial } from '../service_interfaces/IPropsSocial';
 import { IProviderSocial } from '../providers/IProviderSocial';
 import { PropsSocial } from '../props/PropsSocial';
 import { ProviderFactory, IProviderFactory } from './ProviderFactory';
+import { HistoryConstSocial2010 } from '../providers_period2010/HistoryConstSocial2010';
 import { HistoryConstSocial2011 } from '../providers_period2011/HistoryConstSocial2011';
 import { HistoryConstSocial2012 } from '../providers_period2012/HistoryConstSocial2012';
 import { HistoryConstSocial2013 } from '../providers_period2013/HistoryConstSocial2013';
@@ -14,6 +15,7 @@ import { HistoryConstSocial2019 } from '../providers_period2019/HistoryConstSoci
 import { HistoryConstSocial2020 } from '../providers_period2020/HistoryConstSocial2020';
 import { HistoryConstSocial2021 } from '../providers_period2021/HistoryConstSocial2021';
 import { HistoryConstSocial2022 } from '../providers_period2022/HistoryConstSocial2022';
+import { ProviderSocial2010 } from '../providers_period2010/ProviderSocial2010';
 import { ProviderSocial2011 } from '../providers_period2011/ProviderSocial2011';
 import { ProviderSocial2012 } from '../providers_period2012/ProviderSocial2012';
 import { ProviderSocial2013 } from '../providers_period2013/ProviderSocial2013';
@@ -36,6 +38,7 @@ export class FactorySocial extends ProviderFactory<IProviderSocial, IPropsSocial
   }
   BuildFactory(): boolean {
     this.Versions = new Map<number, IProviderSocial>();
+    this.Versions.set(HistoryConstSocial2010.VERSION_CODE, new ProviderSocial2010());
     this.Versions.set(HistoryConstSocial2011.VERSION_CODE, new ProviderSocial2011());
     this.Versions.set(HistoryConstSocial2012.VERSION_CODE, new ProviderSocial2012());
     this.Versions.set(HistoryConstSocial2013.VERSION_CODE, new ProviderSocial2013());

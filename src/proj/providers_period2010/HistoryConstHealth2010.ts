@@ -20,7 +20,7 @@ export class HistoryConstHealth2010 {
   public static readonly VERSION_CODE: number = 2010;
 
   public static readonly MIN_MONTHLY_BASIS: number = HistoryConstSalary2010.MIN_MONTHLY_WAGE;
-  public static readonly MAX_ANNUALS_BASIS: number = 1781280;
+  public static readonly MAX_ANNUALS_BASIS: number = 1707048;
   public static readonly LIM_MONTHLY_STATE: number = 0;
   public static readonly LIM_MONTHLY_DIS50: number = 5355;
   public static readonly FACTOR_COMPOUND: bigDecimal = new bigDecimal(13.5);
