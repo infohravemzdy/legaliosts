@@ -1,7 +1,7 @@
 import { IProps } from './IProps';
 import bigDecimal = require('js-big-decimal');
-import { IParticyResult } from './IParticyResult';
 import { WorkSocialTerms } from '../service_types/ContractTerms';
+import { ParticySocialResult, ParticySocialTarget } from '../props/ParticyResults';
 
 export interface IPropsSocial extends IProps {
   MaxAnnualsBasis(): number;
@@ -18,5 +18,5 @@ export interface IPropsSocial extends IProps {
   roundedEmployeePaym(basisResult: number): number;
   roundedEmployerPaym(basisResult: number): number;
   resultOvercaps(baseSuma: number, overCaps: number): [number, number];
-  annualsBasisCut<T extends IParticyResult>(particyList: Iterable<T>, incomeList: Iterable<T>, annuityBasis: number): [number, number, Iterable<T>];
+  annualsBasisCut(incomeList: Iterable<ParticySocialTarget>, annuityBasis: number): [number, number, Iterable<ParticySocialResult>];
 }

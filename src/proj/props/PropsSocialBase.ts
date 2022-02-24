@@ -2,10 +2,10 @@ import { VersionId } from '../service_types/versionid';
 import { PropsBase } from './PropsBase';
 import { IPropsSocial } from '../service_interfaces/IPropsSocial';
 import bigDecimal = require('js-big-decimal');
-import { IParticyResult } from '../service_interfaces/IParticyResult';
 import { WorkSocialTerms } from '../service_types/ContractTerms';
 import { OperationsRound } from '../service_types/OperationsRound';
 import { OperationsDec } from '../service_types/OperationDec';
+import { ParticySocialResult, ParticySocialTarget } from './ParticyResults';
 
 export abstract class PropsSocialBase extends PropsBase implements IPropsSocial {
   private static BIG_100 = new bigDecimal(100);
@@ -138,8 +138,33 @@ export abstract class PropsSocialBase extends PropsBase implements IPropsSocial 
     const valBaseOvercaps = Math.max(0, overCaps - empBaseOvercaps);
     return [maxBaseEmployee, valBaseOvercaps];
   }
-  
-  annualsBasisCut<T extends IParticyResult>(particyList: Iterable<T>, incomeList: Iterable<T>, annuityBasis: number): [number, number, Iterable<T>] {
-    return this.maximResultCut<T>(particyList, incomeList, annuityBasis, this.maxAnnualsBasis);
+
+  annualsBasisCut(incomeList: Iterable<ParticySocialTarget>, annuityBasis: number): [number, number, Iterable<ParticySocialResult>] {
+    const annualyMaxim: number = this.maxAnnualsBasis;
+    const annualsBasis = Math.max(0, annualyMaxim - annuityBasis);
+    const resultInit: [number, number, Iterable<ParticySocialResult>] = [annualyMaxim, annualsBasis, new Array<ParticySocialResult>()];
+
+    const resultList = Array.from<ParticySocialTarget>(incomeList).reduce<[number, number, Iterable<ParticySocialResult>]>((agr, x) => {
+      let cutAnnualsBasis: number = 0;
+      const rawAnnualsBasis: number = x.targetsBase;
+      let remAnnualsBasis: number = agr[1];
+
+      if (x.particyCode !== 0) {
+        cutAnnualsBasis = rawAnnualsBasis;
+        if (agr[0] > 0) {
+          const ovrAnnualsBasis = Math.max(0, rawAnnualsBasis - agr[1]);
+          cutAnnualsBasis = (rawAnnualsBasis - ovrAnnualsBasis)
+        }
+        remAnnualsBasis = Math.max(0, (agr[1] - cutAnnualsBasis));
+      }
+
+      const r = new ParticySocialResult(x.contractCode, x.subjectType, x.interestCode,
+        x.subjectTerm, x.particyCode, x.targetsBase, Math.max(0, cutAnnualsBasis));
+
+      const result: Iterable<ParticySocialResult> = Array.from(agr[2]).concat(r);
+      return [agr[0], remAnnualsBasis, result];
+    }, resultInit);
+
+    return resultList;
   }
 }
