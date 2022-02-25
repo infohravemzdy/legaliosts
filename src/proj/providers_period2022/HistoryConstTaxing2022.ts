@@ -65,7 +65,7 @@ export class HistoryConstTaxing2022 {
   public static readonly MARGIN_INCOME_OF_ROUNDING: number = HistoryConstTaxing2021.MARGIN_INCOME_OF_ROUNDING;
   public static readonly MARGIN_INCOME_OF_WITHHOLD: number = HistoryConstTaxing2021.MARGIN_INCOME_OF_WITHHOLD;
   public static readonly MARGIN_INCOME_OF_SOLIDARY: number = HistoryConstTaxing2021.MARGIN_INCOME_OF_SOLIDARY;
-  public static readonly MARGIN_INCOME_OF_TAXRATE2: number = (4 * 38911);
+  public static readonly MARGIN_INCOME_OF_TAXRATE2: number = 4 * 38911;
   public static readonly MARGIN_INCOME_OF_WHT_EMP: number = HistoryConstTaxing2021.MARGIN_INCOME_OF_WHT_EMP;
   public static readonly MARGIN_INCOME_OF_WHT_AGR: number = HistoryConstTaxing2021.MARGIN_INCOME_OF_WHT_AGR;
 }

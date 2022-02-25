@@ -7,7 +7,7 @@ import { PropsHealth2012 } from '../props/PropsHealth2012';
 import {
   HistoryConstHealth2013,
   HistoryConstHealth2013var08,
-  HistoryConstHealth2013var11
+  HistoryConstHealth2013var11,
 } from './HistoryConstHealth2013';
 import bigDecimal = require('js-big-decimal');
 
@@ -31,7 +31,7 @@ export class ProviderHealth2013 extends ProviderBase implements IProviderHealth 
 
   MinMonthlyBasis(period: IPeriod): number {
     if (this.IsPeriodGreaterOrEqualThan(period, 2013, 8)) {
-      return HistoryConstHealth2013var08.MIN_MONTHLY_BASIS
+      return HistoryConstHealth2013var08.MIN_MONTHLY_BASIS;
     }
     return HistoryConstHealth2013.MIN_MONTHLY_BASIS;
   }
@@ -46,7 +46,7 @@ export class ProviderHealth2013 extends ProviderBase implements IProviderHealth 
 
   LimMonthlyDis50(period: IPeriod): number {
     if (this.IsPeriodGreaterOrEqualThan(period, 2013, 11)) {
-      return HistoryConstHealth2013var11.LIM_MONTHLY_DIS50
+      return HistoryConstHealth2013var11.LIM_MONTHLY_DIS50;
     }
     return HistoryConstHealth2013.LIM_MONTHLY_DIS50;
   }

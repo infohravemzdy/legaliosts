@@ -2,7 +2,7 @@ import * as path from 'path';
 import * as fs from 'fs';
 import bigDecimal = require('js-big-decimal');
 
-export const __TEST_PROTOKOL_FILE__: boolean = true;
+export const __TEST_PROTOKOL_FILE__: boolean = false;
 
 export const PROTOKOL_TEST_FOLDER = './test_values';
 

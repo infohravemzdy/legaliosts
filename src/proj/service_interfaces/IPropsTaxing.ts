@@ -26,12 +26,21 @@ export interface IPropsTaxing extends IProps {
   MarginIncomeOfWthAgr(): number;
 
   valueEquals(other: IPropsTaxing): boolean;
-  hasWithholdIncome(termOpt: WorkTaxingTerms,
-                    signOpt: TaxDeclSignOption, noneOpt: TaxNoneSignOption, incomeSum: number): boolean;
+  hasWithholdIncome(
+    termOpt: WorkTaxingTerms,
+    signOpt: TaxDeclSignOption,
+    noneOpt: TaxNoneSignOption,
+    incomeSum: number,
+  ): boolean;
   benefitAllowancePayer(signOpts: TaxDeclSignOption, benefitOpts: TaxDeclBenfOption): number;
   benefitAllowanceDisab(signOpts: TaxDeclSignOption, benefitOpts: TaxDeclDisabOption): number;
   benefitAllowanceStudy(signOpts: TaxDeclSignOption, benefitOpts: TaxDeclBenfOption): number;
-  benefitAllowanceChild(signOpts: TaxDeclSignOption, benefitOpts: TaxDeclBenfOption, benefitOrds: number, disabelOpts: number): number;
+  benefitAllowanceChild(
+    signOpts: TaxDeclSignOption,
+    benefitOpts: TaxDeclBenfOption,
+    benefitOrds: number,
+    disabelOpts: number,
+  ): number;
   bonusChildRaw(income: number, benefit: number, rebated: number): number;
   bonusChildFix(income: number, benefit: number, rebated: number): number;
   taxableIncomeSupers(incomeResult: number, healthResult: number, socialResult: number): number;

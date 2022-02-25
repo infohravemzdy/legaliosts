@@ -29,9 +29,9 @@ export class PropsTaxing2014 extends PropsTaxingBase implements IPropsTaxing {
     marginIncomeOfTaxRate2: number,
     marginIncomeOfWthEmp: number,
     marginIncomeOfWthAgr: number,
-  )
-  {
-    super(version,
+  ) {
+    super(
+      version,
       allowancePayer,
       allowanceDisab1st,
       allowanceDisab2nd,
@@ -52,7 +52,8 @@ export class PropsTaxing2014 extends PropsTaxingBase implements IPropsTaxing {
       marginIncomeOfSolidary,
       marginIncomeOfTaxRate2,
       marginIncomeOfWthEmp,
-      marginIncomeOfWthAgr);
+      marginIncomeOfWthAgr,
+    );
   }
   public static empty(): IPropsTaxing {
     return new PropsTaxing2014(
@@ -81,7 +82,12 @@ export class PropsTaxing2014 extends PropsTaxingBase implements IPropsTaxing {
     );
   }
 
-  override hasWithholdIncome(termOpt: WorkTaxingTerms, signOpt: TaxDeclSignOption, noneOpt: TaxNoneSignOption, incomeSum: number): boolean {
+  override hasWithholdIncome(
+    termOpt: WorkTaxingTerms,
+    signOpt: TaxDeclSignOption,
+    noneOpt: TaxNoneSignOption,
+    incomeSum: number,
+  ): boolean {
     // *****************************************************************************
     // Tax income for advance from Year 2014 to Year 2017
     // *****************************************************************************
@@ -91,28 +97,20 @@ export class PropsTaxing2014 extends PropsTaxingBase implements IPropsTaxing {
     // -- income from statutory employment and non-resident is always withhold tax
 
     let withholdIncome: boolean = false;
-    if (signOpt !== TaxDeclSignOption.DECL_TAX_NO_SIGNED)
-    {
+    if (signOpt !== TaxDeclSignOption.DECL_TAX_NO_SIGNED) {
       return withholdIncome;
     }
-    if (noneOpt !== TaxNoneSignOption.NOSIGN_TAX_WITHHOLD)
-    {
+    if (noneOpt !== TaxNoneSignOption.NOSIGN_TAX_WITHHOLD) {
       return withholdIncome;
     }
-    if (termOpt === WorkTaxingTerms.TAXING_TERM_AGREEM_TASK)
-    {
-      if (this.marginIncomeOfWthAgr === 0 || incomeSum <= this.marginIncomeOfWthAgr)
-      {
-        if (incomeSum > 0)
-        {
+    if (termOpt === WorkTaxingTerms.TAXING_TERM_AGREEM_TASK) {
+      if (this.marginIncomeOfWthAgr === 0 || incomeSum <= this.marginIncomeOfWthAgr) {
+        if (incomeSum > 0) {
           withholdIncome = true;
         }
       }
-    }
-    else if (termOpt === WorkTaxingTerms.TAXING_TERM_STATUT_PART)
-    {
-      if (incomeSum > 0)
-      {
+    } else if (termOpt === WorkTaxingTerms.TAXING_TERM_STATUT_PART) {
+      if (incomeSum > 0) {
         withholdIncome = true;
       }
     }
@@ -122,12 +120,9 @@ export class PropsTaxing2014 extends PropsTaxingBase implements IPropsTaxing {
     const factorAdvances = OperationsDec.divide(this.factorAdvances, PropsTaxingBase.BIG_ZERO);
 
     let advanceTaxing: number = 0;
-    if (basisResult <= this.marginIncomeOfRounding)
-    {
+    if (basisResult <= this.marginIncomeOfRounding) {
       advanceTaxing = this.intTaxRoundUp(OperationsDec.multiply(new bigDecimal(supersResult), factorAdvances));
-    }
-    else
-    {
+    } else {
       advanceTaxing = this.intTaxRoundUp(OperationsDec.multiply(new bigDecimal(supersResult), factorAdvances));
     }
     return advanceTaxing;

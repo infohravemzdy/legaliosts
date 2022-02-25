@@ -4,10 +4,10 @@ import { ProviderBase } from '../providers/ProviderBase';
 import { IProviderHealth } from '../providers/IProviderHealth';
 import { IPropsHealth } from '../service_interfaces/IPropsHealth';
 import { PropsHealth } from '../props/PropsHealth';
-import {HistoryConstHealth2020, HistoryConstHealth2020var06} from './HistoryConstHealth2020';
+import { HistoryConstHealth2020, HistoryConstHealth2020var06 } from './HistoryConstHealth2020';
 import bigDecimal = require('js-big-decimal');
-import {HistoryConstHealth2013var08} from "../providers_period2013/HistoryConstHealth2013";
-import {HistoryConstHealth2019} from "../providers_period2019/HistoryConstHealth2019";
+import { HistoryConstHealth2013var08 } from '../providers_period2013/HistoryConstHealth2013';
+import { HistoryConstHealth2019 } from '../providers_period2019/HistoryConstHealth2019';
 
 export class ProviderHealth2020 extends ProviderBase implements IProviderHealth {
   constructor() {
@@ -41,7 +41,7 @@ export class ProviderHealth2020 extends ProviderBase implements IProviderHealth 
 
   LimMonthlyDis50(period: IPeriod): number {
     if (this.IsPeriodGreaterOrEqualThan(period, 2020, 6)) {
-      return HistoryConstHealth2020var06.LIM_MONTHLY_DIS50
+      return HistoryConstHealth2020var06.LIM_MONTHLY_DIS50;
     }
     return HistoryConstHealth2020.LIM_MONTHLY_DIS50;
   }

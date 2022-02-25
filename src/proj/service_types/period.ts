@@ -5,7 +5,7 @@ export interface IPeriod {
 }
 
 export class Period implements IPeriod {
-  public static ZeroCode: number = 0
+  public static ZeroCode: number = 0;
 
   code: number;
 

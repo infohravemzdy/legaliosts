@@ -13,5 +13,7 @@ export class PropsBase implements IProps {
     return this.version;
   }
 
-  public isValid(): boolean { return this.version.value !== PropsBase.VERSION_ZERO; }
+  public isValid(): boolean {
+    return this.version.value !== PropsBase.VERSION_ZERO;
+  }
 }

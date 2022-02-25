@@ -4,9 +4,9 @@ import { ProviderBase } from '../providers/ProviderBase';
 import { IProviderSocial } from '../providers/IProviderSocial';
 import { IPropsSocial } from '../service_interfaces/IPropsSocial';
 import { PropsSocial } from '../props/PropsSocial';
-import {HistoryConstSocial2019, HistoryConstSocial2019var07} from './HistoryConstSocial2019';
+import { HistoryConstSocial2019, HistoryConstSocial2019var07 } from './HistoryConstSocial2019';
 import bigDecimal = require('js-big-decimal');
-import {HistoryConstHealth2013var08} from "../providers_period2013/HistoryConstHealth2013";
+import { HistoryConstHealth2013var08 } from '../providers_period2013/HistoryConstHealth2013';
 
 export class ProviderSocial2019 extends ProviderBase implements IProviderSocial {
   constructor() {
@@ -32,7 +32,7 @@ export class ProviderSocial2019 extends ProviderBase implements IProviderSocial 
 
   FactorEmployer(period: IPeriod): bigDecimal {
     if (this.IsPeriodGreaterOrEqualThan(period, 2019, 7)) {
-      return HistoryConstSocial2019var07.FACTOR_EMPLOYER
+      return HistoryConstSocial2019var07.FACTOR_EMPLOYER;
     }
     return HistoryConstSocial2019.FACTOR_EMPLOYER;
   }

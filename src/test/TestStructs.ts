@@ -102,4 +102,3 @@ export class TestDecParams {
 export class TestDecScenario {
   constructor(readonly title: string, readonly tests: TestDecParams[]) {}
 }
-

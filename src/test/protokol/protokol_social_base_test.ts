@@ -10,7 +10,8 @@ import {
   exportPropsYear,
   exportPropsEnd,
   exportPropsDecValue,
-  exportPropsIntValue, __TEST_PROTOKOL_FILE__,
+  exportPropsIntValue,
+  __TEST_PROTOKOL_FILE__,
 } from './protokol_base_test';
 
 type propsSocialIntFunc = (props: IPropsSocial) => number;
@@ -44,7 +45,7 @@ export function exportSocialPropsDecFile(
   sut: IFactorySocial,
   func: propsSocialDecFunc,
 ) {
-  if (__TEST_PROTOKOL_FILE__ === true) {
+  if (__TEST_PROTOKOL_FILE__) {
     const testProtokol = createProtokolFile(baseName, fileName);
 
     exportPropsStart(testProtokol);

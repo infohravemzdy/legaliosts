@@ -11,10 +11,10 @@ import { IBundleProps } from '../../proj/service_interfaces/IBundleProps';
 import { IProps } from '../../proj/service_interfaces/IProps';
 import * as path from 'path';
 import * as fs from 'fs';
-import {assert, expect} from 'chai';
+import { assert, expect } from 'chai';
 import { TestDecScenario, TestIntScenario } from '../TestStructs';
 
-export const __TEST_EXAMPLE_FILE__: boolean = true;
+export const __TEST_EXAMPLE_FILE__: boolean = false;
 
 export const EXAMPLE_TEST_FOLDER = './test_expected';
 
@@ -152,7 +152,7 @@ function logExampleIntValue(protokol: fs.WriteStream, value: number) {
 }
 
 export function logTestNumExamples(fileName: string, examples: TestIntScenario[]) {
-  if (__TEST_EXAMPLE_FILE__ === true) {
+  if (__TEST_EXAMPLE_FILE__) {
     const testLogger = createLoggerFile(EXAMPLE_TEST_FOLDER, fileName);
 
     logTestStart(testLogger);
@@ -173,7 +173,7 @@ function logExampleDecValue(protokol: fs.WriteStream, value: bigDecimal) {
 }
 
 export function logTestDecExamples(fileName: string, examples: TestDecScenario[]) {
-  if (__TEST_EXAMPLE_FILE__ === true) {
+  if (__TEST_EXAMPLE_FILE__) {
     const testLogger = createLoggerFile(EXAMPLE_TEST_FOLDER, fileName);
 
     logTestStart(testLogger);

@@ -47,10 +47,6 @@ export class BundleProps implements IBundleProps {
   }
 
   public static empty(period: IPeriod): IBundleProps {
-    return new BundleProps(period,
-      PropsSalary.empty(),
-      PropsHealth.empty(),
-      PropsSocial.empty(),
-      PropsTaxing.empty());
+    return new BundleProps(period, PropsSalary.empty(), PropsHealth.empty(), PropsSocial.empty(), PropsTaxing.empty());
   }
 }

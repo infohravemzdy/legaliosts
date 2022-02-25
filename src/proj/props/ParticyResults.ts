@@ -1,8 +1,14 @@
 import { WorkHealthTerms, WorkSocialTerms, WorkTaxingTerms } from '../service_types/ContractTerms';
 
 export class ParticyHealthTarget {
-  constructor(_contractCode: number, _subjectType: WorkTaxingTerms, _interestCode: number,
-              _subjectTerm: WorkHealthTerms, _particyCode: number, _targetsBase: number) {
+  constructor(
+    _contractCode: number,
+    _subjectType: WorkTaxingTerms,
+    _interestCode: number,
+    _subjectTerm: WorkHealthTerms,
+    _particyCode: number,
+    _targetsBase: number,
+  ) {
     this.contractCode = _contractCode;
     this.subjectType = _subjectType;
     this.interestCode = _interestCode;
@@ -18,34 +24,50 @@ export class ParticyHealthTarget {
   targetsBase: number;
 
   addTargetBase(_targetsBase: number): number {
-    this.targetsBase += _targetsBase
-    return this.targetsBase
+    this.targetsBase += _targetsBase;
+    return this.targetsBase;
   }
 
   incomeScore(): number {
-    let resultType : number = 0;
+    let resultType: number = 0;
     switch (this.subjectType) {
-      case WorkTaxingTerms.TAXING_TERM_EMPLOYMENTS : resultType = 900; break;
-      case WorkTaxingTerms.TAXING_TERM_AGREEM_TASK : resultType = 100; break;
-      case WorkTaxingTerms.TAXING_TERM_STATUT_PART : resultType = 500; break;
-      case WorkTaxingTerms.TAXING_TERM_BY_CONTRACT : resultType = 0; break;
+      case WorkTaxingTerms.TAXING_TERM_EMPLOYMENTS:
+        resultType = 900;
+        break;
+      case WorkTaxingTerms.TAXING_TERM_AGREEM_TASK:
+        resultType = 100;
+        break;
+      case WorkTaxingTerms.TAXING_TERM_STATUT_PART:
+        resultType = 500;
+        break;
+      case WorkTaxingTerms.TAXING_TERM_BY_CONTRACT:
+        resultType = 0;
+        break;
     }
     let resultBase = 0;
     switch (this.subjectTerm) {
-      case WorkHealthTerms.HEALTH_TERM_EMPLOYMENTS : resultBase = 9000; break;
-      case WorkHealthTerms.HEALTH_TERM_AGREEM_WORK : resultBase = 5000; break;
-      case WorkHealthTerms.HEALTH_TERM_AGREEM_TASK : resultBase = 4000; break;
-      case WorkHealthTerms.HEALTH_TERM_BY_CONTRACT : resultBase = 0; break;
+      case WorkHealthTerms.HEALTH_TERM_EMPLOYMENTS:
+        resultBase = 9000;
+        break;
+      case WorkHealthTerms.HEALTH_TERM_AGREEM_WORK:
+        resultBase = 5000;
+        break;
+      case WorkHealthTerms.HEALTH_TERM_AGREEM_TASK:
+        resultBase = 4000;
+        break;
+      case WorkHealthTerms.HEALTH_TERM_BY_CONTRACT:
+        resultBase = 0;
+        break;
     }
     let interestRes: number = 0;
     if (this.interestCode === 1) {
-      interestRes = 10000
+      interestRes = 10000;
     }
     let particyRes: number = 0;
     if (this.particyCode === 1) {
-      particyRes = 100000
+      particyRes = 100000;
     }
-    return (resultType + resultBase + interestRes + particyRes)
+    return resultType + resultBase + interestRes + particyRes;
   }
   resultComparator(): (x: ParticyHealthTarget, y: ParticyHealthTarget) => number {
     return (x: ParticyHealthTarget, y: ParticyHealthTarget): number => {
@@ -65,7 +87,15 @@ export class ParticyHealthTarget {
 }
 
 export class ParticyHealthResult {
-  constructor(_contractCode: number, _subjectType: WorkTaxingTerms, _interestCode: number, _subjectTerm: WorkHealthTerms, _particyCode: number, _targetsBase: number, _resultsBase: number) {
+  constructor(
+    _contractCode: number,
+    _subjectType: WorkTaxingTerms,
+    _interestCode: number,
+    _subjectTerm: WorkHealthTerms,
+    _particyCode: number,
+    _targetsBase: number,
+    _resultsBase: number,
+  ) {
     this.contractCode = _contractCode;
     this.subjectType = _subjectType;
     this.interestCode = _interestCode;
@@ -85,7 +115,14 @@ export class ParticyHealthResult {
 }
 
 export class ParticySocialTarget {
-  constructor(_contractCode: number, _subjectType: WorkTaxingTerms, _interestCode: number, _subjectTerm: WorkSocialTerms, _particyCode: number, _targetsBase: number) {
+  constructor(
+    _contractCode: number,
+    _subjectType: WorkTaxingTerms,
+    _interestCode: number,
+    _subjectTerm: WorkSocialTerms,
+    _particyCode: number,
+    _targetsBase: number,
+  ) {
     this.contractCode = _contractCode;
     this.subjectType = _subjectType;
     this.interestCode = _interestCode;
@@ -102,36 +139,56 @@ export class ParticySocialTarget {
   targetsBase: number;
 
   addTargetBase(targetsBase: number): number {
-    this.targetsBase += targetsBase
-    return this.targetsBase
+    this.targetsBase += targetsBase;
+    return this.targetsBase;
   }
 
   incomeScore(): number {
-    let resultType : number = 0;
+    let resultType: number = 0;
     switch (this.subjectType) {
-      case WorkTaxingTerms.TAXING_TERM_EMPLOYMENTS : resultType = 900; break;
-      case WorkTaxingTerms.TAXING_TERM_AGREEM_TASK : resultType = 100; break;
-      case WorkTaxingTerms.TAXING_TERM_STATUT_PART : resultType = 500; break;
-      case WorkTaxingTerms.TAXING_TERM_BY_CONTRACT : resultType = 0; break;
+      case WorkTaxingTerms.TAXING_TERM_EMPLOYMENTS:
+        resultType = 900;
+        break;
+      case WorkTaxingTerms.TAXING_TERM_AGREEM_TASK:
+        resultType = 100;
+        break;
+      case WorkTaxingTerms.TAXING_TERM_STATUT_PART:
+        resultType = 500;
+        break;
+      case WorkTaxingTerms.TAXING_TERM_BY_CONTRACT:
+        resultType = 0;
+        break;
     }
-    let resultBase : number = 0;
+    let resultBase: number = 0;
     switch (this.subjectTerm) {
-      case WorkSocialTerms.SOCIAL_TERM_EMPLOYMENTS : resultBase = 9000; break;
-      case WorkSocialTerms.SOCIAL_TERM_SMALLS_EMPL : resultBase = 5000; break;
-      case WorkSocialTerms.SOCIAL_TERM_SHORTS_MEET : resultBase = 4000; break;
-      case WorkSocialTerms.SOCIAL_TERM_SHORTS_DENY : resultBase = 0; break;
-      case WorkSocialTerms.SOCIAL_TERM_BY_CONTRACT : resultBase = 0; break;
-      case WorkSocialTerms.SOCIAL_TERM_AGREEM_TASK : resultBase = 0; break;
+      case WorkSocialTerms.SOCIAL_TERM_EMPLOYMENTS:
+        resultBase = 9000;
+        break;
+      case WorkSocialTerms.SOCIAL_TERM_SMALLS_EMPL:
+        resultBase = 5000;
+        break;
+      case WorkSocialTerms.SOCIAL_TERM_SHORTS_MEET:
+        resultBase = 4000;
+        break;
+      case WorkSocialTerms.SOCIAL_TERM_SHORTS_DENY:
+        resultBase = 0;
+        break;
+      case WorkSocialTerms.SOCIAL_TERM_BY_CONTRACT:
+        resultBase = 0;
+        break;
+      case WorkSocialTerms.SOCIAL_TERM_AGREEM_TASK:
+        resultBase = 0;
+        break;
     }
-    let interestRes : number = 0
+    let interestRes: number = 0;
     if (this.interestCode === 1) {
       interestRes = 10000;
     }
-    let particyRes : number = 0
+    let particyRes: number = 0;
     if (this.particyCode === 1) {
       particyRes = 100000;
     }
-    return (resultType + resultBase + interestRes + particyRes)
+    return resultType + resultBase + interestRes + particyRes;
   }
   resultComparator(): (x: ParticySocialTarget, y: ParticySocialTarget) => number {
     return (x: ParticySocialTarget, y: ParticySocialTarget): number => {
@@ -151,7 +208,15 @@ export class ParticySocialTarget {
 }
 
 export class ParticySocialResult {
-  constructor(_contractCode: number, _subjectType: WorkTaxingTerms, _interestCode: number, _subjectTerm: WorkSocialTerms, _particyCode: number, _targetsBase: number, _resultsBase: number) {
+  constructor(
+    _contractCode: number,
+    _subjectType: WorkTaxingTerms,
+    _interestCode: number,
+    _subjectTerm: WorkSocialTerms,
+    _particyCode: number,
+    _targetsBase: number,
+    _resultsBase: number,
+  ) {
     this.contractCode = _contractCode;
     this.subjectType = _subjectType;
     this.interestCode = _interestCode;

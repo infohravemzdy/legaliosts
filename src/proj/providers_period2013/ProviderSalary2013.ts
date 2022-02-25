@@ -4,8 +4,8 @@ import { ProviderBase } from '../providers/ProviderBase';
 import { IProviderSalary } from '../providers/IProviderSalary';
 import { IPropsSalary } from '../service_interfaces/IPropsSalary';
 import { PropsSalary } from '../props/PropsSalary';
-import {HistoryConstSalary2013, HistoryConstSalary2013var08} from './HistoryConstSalary2013';
-import {HistoryConstHealth2013var08} from "./HistoryConstHealth2013";
+import { HistoryConstSalary2013, HistoryConstSalary2013var08 } from './HistoryConstSalary2013';
+import { HistoryConstHealth2013var08 } from './HistoryConstHealth2013';
 
 export class ProviderSalary2013 extends ProviderBase implements IProviderSalary {
   constructor() {
@@ -31,14 +31,14 @@ export class ProviderSalary2013 extends ProviderBase implements IProviderSalary 
 
   MinMonthlyWage(period: IPeriod): number {
     if (this.IsPeriodGreaterOrEqualThan(period, 2013, 8)) {
-      return HistoryConstSalary2013var08.MIN_MONTHLY_WAGE
+      return HistoryConstSalary2013var08.MIN_MONTHLY_WAGE;
     }
     return HistoryConstSalary2013.MIN_MONTHLY_WAGE;
   }
 
   MinHourlyWage(period: IPeriod): number {
     if (this.IsPeriodGreaterOrEqualThan(period, 2013, 8)) {
-      return HistoryConstSalary2013var08.MIN_HOURLY_WAGE
+      return HistoryConstSalary2013var08.MIN_HOURLY_WAGE;
     }
     return HistoryConstSalary2013.MIN_HOURLY_WAGE;
   }

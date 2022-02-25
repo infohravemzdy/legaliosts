@@ -67,7 +67,7 @@ export class HistoryConstTaxing2021 {
   public static readonly MARGIN_INCOME_OF_ROUNDING: number = HistoryConstTaxing2020.MARGIN_INCOME_OF_ROUNDING;
   public static readonly MARGIN_INCOME_OF_WITHHOLD: number = HistoryConstTaxing2020.MARGIN_INCOME_OF_WITHHOLD;
   public static readonly MARGIN_INCOME_OF_SOLIDARY: number = 0;
-  public static readonly MARGIN_INCOME_OF_TAXRATE2: number = (4 * 35441);
+  public static readonly MARGIN_INCOME_OF_TAXRATE2: number = 4 * 35441;
   public static readonly MARGIN_INCOME_OF_WHT_EMP: number = 3500;
   public static readonly MARGIN_INCOME_OF_WHT_AGR: number = HistoryConstTaxing2020.MARGIN_INCOME_OF_WHT_AGR;
 }

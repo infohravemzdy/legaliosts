@@ -1,27 +1,23 @@
 ﻿import { expect } from 'chai';
 import { TestIntParams, TestIntScenario } from '../TestStructs';
-import {
-  initSut,
-  logTestNumExamples,
-  getSalaryResults,
-} from './service_legalios_example_base_test';
+import { initSut, logTestNumExamples, getSalaryResults } from './service_legalios_example_base_test';
 
 // 02_Salary_04_MinHourlyWage
 describe('Service Salary For Year 2010-2022 MinHourlyWage', () => {
   const scenarios = [
-    new TestIntScenario("2010", [
-      new TestIntParams( "2010-1", 2010, 1, 2010, 1, 4810 ),
-      new TestIntParams( "2010-2", 2010, 2, 2010, 2, 4810 ),
-      new TestIntParams( "2010-3", 2010, 3, 2010, 3, 4810 ),
-      new TestIntParams( "2010-4", 2010, 4, 2010, 4, 4810 ),
-      new TestIntParams( "2010-5", 2010, 5, 2010, 5, 4810 ),
-      new TestIntParams( "2010-6", 2010, 6, 2010, 6, 4810 ),
-      new TestIntParams( "2010-7", 2010, 7, 2010, 7, 4810 ),
-      new TestIntParams( "2010-8", 2010, 8, 2010, 8, 4810 ),
-      new TestIntParams( "2010-9", 2010, 9, 2010, 9, 4810 ),
-      new TestIntParams( "2010-10", 2010, 10, 2010, 10, 4810 ),
-      new TestIntParams( "2010-11", 2010, 11, 2010, 11, 4810 ),
-      new TestIntParams( "2010-12", 2010, 12, 2010, 12, 4810 ),
+    new TestIntScenario('2010', [
+      new TestIntParams('2010-1', 2010, 1, 2010, 1, 4810),
+      new TestIntParams('2010-2', 2010, 2, 2010, 2, 4810),
+      new TestIntParams('2010-3', 2010, 3, 2010, 3, 4810),
+      new TestIntParams('2010-4', 2010, 4, 2010, 4, 4810),
+      new TestIntParams('2010-5', 2010, 5, 2010, 5, 4810),
+      new TestIntParams('2010-6', 2010, 6, 2010, 6, 4810),
+      new TestIntParams('2010-7', 2010, 7, 2010, 7, 4810),
+      new TestIntParams('2010-8', 2010, 8, 2010, 8, 4810),
+      new TestIntParams('2010-9', 2010, 9, 2010, 9, 4810),
+      new TestIntParams('2010-10', 2010, 10, 2010, 10, 4810),
+      new TestIntParams('2010-11', 2010, 11, 2010, 11, 4810),
+      new TestIntParams('2010-12', 2010, 12, 2010, 12, 4810),
     ]),
     new TestIntScenario('2011', [
       new TestIntParams('2011-1', 2011, 1, 2011, 1, 4810),

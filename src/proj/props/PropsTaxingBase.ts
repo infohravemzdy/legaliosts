@@ -147,7 +147,8 @@ export abstract class PropsTaxingBase extends PropsBase implements IPropsTaxing 
     if (other === null) {
       return false;
     }
-    return (this.allowancePayer === other.AllowancePayer() &&
+    return (
+      this.allowancePayer === other.AllowancePayer() &&
       this.allowanceDisab1st === other.AllowanceDisab1st() &&
       this.allowanceDisab2nd === other.AllowanceDisab2nd() &&
       this.allowanceDisab3rd === other.AllowanceDisab3rd() &&
@@ -167,7 +168,8 @@ export abstract class PropsTaxingBase extends PropsBase implements IPropsTaxing 
       this.marginIncomeOfSolidary === other.MarginIncomeOfSolidary() &&
       this.marginIncomeOfTaxRate2 === other.MarginIncomeOfTaxRate2() &&
       this.marginIncomeOfWthEmp === other.MarginIncomeOfWthEmp() &&
-      this.marginIncomeOfWthAgr === other.MarginIncomeOfWthAgr());
+      this.marginIncomeOfWthAgr === other.MarginIncomeOfWthAgr()
+    );
   }
 
   intTaxRoundUp(valueDec: bigDecimal): number {
@@ -182,11 +184,11 @@ export abstract class PropsTaxingBase extends PropsBase implements IPropsTaxing 
   intTaxRoundNearDown(valueDec: bigDecimal, nearest: number = 100): number {
     return OperationsRound.nearRoundDown(valueDec, nearest);
   }
-  
+
   decTaxRoundUp(valueDec: bigDecimal): bigDecimal {
     return OperationsRound.decRoundUp(valueDec);
   }
-  
+
   decTaxRoundNearUp(valueDec: bigDecimal, nearest: number = 100): bigDecimal {
     return OperationsRound.decNearRoundUp(valueDec, nearest);
   }
@@ -196,15 +198,18 @@ export abstract class PropsTaxingBase extends PropsBase implements IPropsTaxing 
   decTaxRoundNearDown(valueDec: bigDecimal, nearest: number = 100): bigDecimal {
     return OperationsRound.decNearRoundDown(valueDec, nearest);
   }
-  
-  abstract hasWithholdIncome(termOpt: WorkTaxingTerms, signOpt: TaxDeclSignOption, noneOpt: TaxNoneSignOption, incomeSum: number): boolean;
-  
+
+  abstract hasWithholdIncome(
+    termOpt: WorkTaxingTerms,
+    signOpt: TaxDeclSignOption,
+    noneOpt: TaxNoneSignOption,
+    incomeSum: number,
+  ): boolean;
+
   benefitAllowancePayer(signOpts: TaxDeclSignOption, benefitOpts: TaxDeclBenfOption): number {
     let benefitValue: number = 0;
-    if (signOpts === TaxDeclSignOption.DECL_TAX_DO_SIGNED)
-    {
-      if (benefitOpts === TaxDeclBenfOption.DECL_TAX_BENEF1)
-      {
+    if (signOpts === TaxDeclSignOption.DECL_TAX_DO_SIGNED) {
+      if (benefitOpts === TaxDeclBenfOption.DECL_TAX_BENEF1) {
         benefitValue = this.allowancePayer;
       }
     }
@@ -212,46 +217,55 @@ export abstract class PropsTaxingBase extends PropsBase implements IPropsTaxing 
   }
   benefitAllowanceDisab(signOpts: TaxDeclSignOption, benefitOpts: TaxDeclDisabOption): number {
     let benefitValue: number = 0;
-    if (signOpts === TaxDeclSignOption.DECL_TAX_DO_SIGNED)
-    {
+    if (signOpts === TaxDeclSignOption.DECL_TAX_DO_SIGNED) {
       switch (benefitOpts) {
-        case TaxDeclDisabOption.DECL_TAX_DISAB1 : benefitValue = this.allowanceDisab1st; break;
-        case TaxDeclDisabOption.DECL_TAX_DISAB2 : benefitValue = this.allowanceDisab2nd; break;
-        case TaxDeclDisabOption.DECL_TAX_DISAB3 : benefitValue = this.allowanceDisab3rd; break;
+        case TaxDeclDisabOption.DECL_TAX_DISAB1:
+          benefitValue = this.allowanceDisab1st;
+          break;
+        case TaxDeclDisabOption.DECL_TAX_DISAB2:
+          benefitValue = this.allowanceDisab2nd;
+          break;
+        case TaxDeclDisabOption.DECL_TAX_DISAB3:
+          benefitValue = this.allowanceDisab3rd;
+          break;
       }
     }
     return benefitValue;
   }
   benefitAllowanceStudy(signOpts: TaxDeclSignOption, benefitOpts: TaxDeclBenfOption): number {
     let benefitValue: number = 0;
-  
-    if (signOpts === TaxDeclSignOption.DECL_TAX_DO_SIGNED)
-    {
-      if (benefitOpts === TaxDeclBenfOption.DECL_TAX_BENEF1)
-      {
+
+    if (signOpts === TaxDeclSignOption.DECL_TAX_DO_SIGNED) {
+      if (benefitOpts === TaxDeclBenfOption.DECL_TAX_BENEF1) {
         benefitValue = this.allowanceStudy;
       }
     }
     return benefitValue;
   }
-  benefitAllowanceChild(signOpts: TaxDeclSignOption, benefitOpts: TaxDeclBenfOption, benefitOrds: number, disabelOpts: number): number {
+  benefitAllowanceChild(
+    signOpts: TaxDeclSignOption,
+    benefitOpts: TaxDeclBenfOption,
+    benefitOrds: number,
+    disabelOpts: number,
+  ): number {
     let benefitValue: number = 0;
-    if (signOpts === TaxDeclSignOption.DECL_TAX_DO_SIGNED)
-    {
+    if (signOpts === TaxDeclSignOption.DECL_TAX_DO_SIGNED) {
       let benefitUnits: number = 0;
       switch (benefitOrds) {
-        case 0 : benefitUnits = this.allowanceChild1st; break;
-        case 1 : benefitUnits = this.allowanceChild2nd; break;
-        case 2 : benefitUnits = this.allowanceChild3rd; break;
+        case 0:
+          benefitUnits = this.allowanceChild1st;
+          break;
+        case 1:
+          benefitUnits = this.allowanceChild2nd;
+          break;
+        case 2:
+          benefitUnits = this.allowanceChild3rd;
+          break;
       }
-      if (benefitOpts === TaxDeclBenfOption.DECL_TAX_BENEF1)
-      {
-        if (disabelOpts === 1)
-        {
+      if (benefitOpts === TaxDeclBenfOption.DECL_TAX_BENEF1) {
+        if (disabelOpts === 1) {
           benefitValue = benefitUnits * 2;
-        }
-        else
-        {
+        } else {
           benefitValue = benefitUnits;
         }
       }
@@ -259,103 +273,94 @@ export abstract class PropsTaxingBase extends PropsBase implements IPropsTaxing 
     return benefitValue;
   }
   bonusChildRaw(income: number, benefit: number, rebated: number): number {
-    let bonusForChild: bigDecimal = OperationsDec.min(PropsTaxingBase.BIG_100, new bigDecimal(rebated - benefit)).negate();
-  
-    if (this.marginIncomeOfTaxBonus > 0)
-    {
-      if (income < this.marginIncomeOfTaxBonus)
-      {
+    let bonusForChild: bigDecimal = OperationsDec.min(
+      PropsTaxingBase.BIG_100,
+      new bigDecimal(rebated - benefit),
+    ).negate();
+
+    if (this.marginIncomeOfTaxBonus > 0) {
+      if (income < this.marginIncomeOfTaxBonus) {
         bonusForChild = PropsTaxingBase.BIG_100;
       }
     }
     return OperationsRound.roundToInt(bonusForChild);
   }
   bonusChildFix(income: number, benefit: number, rebated: number): number {
-    const childBonus = this.bonusChildRaw(income, benefit, rebated)
-  
-    if (this.minAmountOfTaxBonus > 0)
-    {
-      if (childBonus < this.minAmountOfTaxBonus)
-      {
+    const childBonus = this.bonusChildRaw(income, benefit, rebated);
+
+    if (this.minAmountOfTaxBonus > 0) {
+      if (childBonus < this.minAmountOfTaxBonus) {
         return 0;
       }
     }
-    if (this.maxAmountOfTaxBonus > 0)
-    {
-      if (childBonus > this.maxAmountOfTaxBonus)
-      {
+    if (this.maxAmountOfTaxBonus > 0) {
+      if (childBonus > this.maxAmountOfTaxBonus) {
         return this.maxAmountOfTaxBonus;
       }
     }
     return childBonus;
   }
-  
+
   taxableIncomeSupers(incomeResult: number, healthResult: number, socialResult: number): number {
     return this.taxableIncomeBasis(incomeResult + healthResult + socialResult);
   }
-  
+
   taxableIncomeBasis(incomeResult: number): number {
     const taxableSuper: number = Math.max(0, incomeResult);
     return taxableSuper;
   }
-  
+
   roundedBaseAdvances(incomeResult: number, healthResult: number, socialResult: number): number {
     const advanceBase = this.roundedRawBaseAdvances(incomeResult + healthResult + socialResult);
-  
+
     return advanceBase;
   }
-  
+
   roundedRawBaseAdvances(incomeResult: number): number {
     const amountForCalc: number = this.taxableIncomeBasis(incomeResult);
-  
+
     let advanceBase: number = 0;
-    if (amountForCalc <= this.marginIncomeOfRounding)
-    {
+    if (amountForCalc <= this.marginIncomeOfRounding) {
       advanceBase = this.intTaxRoundUp(new bigDecimal(amountForCalc));
-    }
-    else
-    {
+    } else {
       advanceBase = this.intTaxRoundNearUp(new bigDecimal(amountForCalc), 100);
     }
     return advanceBase;
   }
-  
+
   roundedBaseSolidary(incomeResult: number): number {
     let solidaryBase: number = 0;
-  
+
     const taxableIncome: number = Math.max(0, incomeResult);
-    if (this.marginIncomeOfSolidary !== 0)
-    {
+    if (this.marginIncomeOfSolidary !== 0) {
       solidaryBase = Math.max(0, taxableIncome - this.marginIncomeOfSolidary);
     }
-    return solidaryBase
+    return solidaryBase;
   }
 
   abstract roundedAdvancesPaym(supersResult: number, basisResult: number): number;
-  
+
   roundedSolidaryPaym(basisResult: number): number {
     const factorSolidary = OperationsDec.divide(this.factorSolidary, PropsTaxingBase.BIG_100);
-  
+
     let solidaryTaxing: number = 0;
-    if (this.marginIncomeOfSolidary !== 0)
-    {
+    if (this.marginIncomeOfSolidary !== 0) {
       solidaryTaxing = this.intTaxRoundUp(OperationsDec.multiply(new bigDecimal(basisResult), factorSolidary));
     }
-  
+
     return solidaryTaxing;
   }
   roundedBaseWithhold(incomeResult: number): number {
     const amountForCalc: number = Math.max(0, incomeResult);
     const withholdBase: number = this.intTaxRoundDown(new bigDecimal(amountForCalc));
-  
+
     return withholdBase;
   }
   roundedWithholdPaym(supersResult: number, basisResult: number): number {
     const factorWithhold = OperationsDec.divide(this.factorWithhold, PropsTaxingBase.BIG_100);
-  
+
     let withholdTaxing: number = Math.max(0, supersResult);
-    if (withholdTaxing > 0)
-    {
+    if (withholdTaxing > 0) {
       withholdTaxing = this.intTaxRoundDown(OperationsDec.multiply(new bigDecimal(supersResult), factorWithhold));
     }
     return withholdTaxing;

@@ -1,5 +1,5 @@
 export class VersionId {
-  public static VERSION_ZERO: number = 0
+  public static VERSION_ZERO: number = 0;
 
   readonly value: number;
 

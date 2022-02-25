@@ -27,4 +27,3 @@ export enum WorkSocialTerms {
   SOCIAL_TERM_SHORTS_DENY = 4,
   SOCIAL_TERM_AGREEM_TASK = 5,
 }
-

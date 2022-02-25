@@ -29,9 +29,9 @@ export class PropsTaxing extends PropsTaxingBase implements IPropsTaxing {
     marginIncomeOfTaxRate2: number,
     marginIncomeOfWthEmp: number,
     marginIncomeOfWthAgr: number,
-  )
-  {
-    super(version,
+  ) {
+    super(
+      version,
       allowancePayer,
       allowanceDisab1st,
       allowanceDisab2nd,
@@ -52,7 +52,8 @@ export class PropsTaxing extends PropsTaxingBase implements IPropsTaxing {
       marginIncomeOfSolidary,
       marginIncomeOfTaxRate2,
       marginIncomeOfWthEmp,
-      marginIncomeOfWthAgr);
+      marginIncomeOfWthAgr,
+    );
   }
   public static empty(): IPropsTaxing {
     return new PropsTaxing(
@@ -81,7 +82,12 @@ export class PropsTaxing extends PropsTaxingBase implements IPropsTaxing {
     );
   }
 
-  override hasWithholdIncome(termOpt: WorkTaxingTerms, signOpt: TaxDeclSignOption, noneOpt: TaxNoneSignOption, incomeSum: number): boolean {
+  override hasWithholdIncome(
+    termOpt: WorkTaxingTerms,
+    signOpt: TaxDeclSignOption,
+    noneOpt: TaxNoneSignOption,
+    incomeSum: number,
+  ): boolean {
     // *****************************************************************************
     // Tax income for advance from Year 2014 to Year 2017
     // *****************************************************************************
@@ -92,38 +98,26 @@ export class PropsTaxing extends PropsTaxingBase implements IPropsTaxing {
     // -- income from statutory employment and non-resident is always withhold tax
 
     let withholdIncome: boolean = false;
-    if (signOpt !== TaxDeclSignOption.DECL_TAX_NO_SIGNED)
-    {
+    if (signOpt !== TaxDeclSignOption.DECL_TAX_NO_SIGNED) {
       return withholdIncome;
     }
-    if (noneOpt !== TaxNoneSignOption.NOSIGN_TAX_WITHHOLD)
-    {
+    if (noneOpt !== TaxNoneSignOption.NOSIGN_TAX_WITHHOLD) {
       return withholdIncome;
     }
-    if (termOpt === WorkTaxingTerms.TAXING_TERM_AGREEM_TASK)
-    {
-      if (this.marginIncomeOfWthAgr === 0 || incomeSum <= this.marginIncomeOfWthAgr)
-      {
-        if (incomeSum > 0)
-        {
+    if (termOpt === WorkTaxingTerms.TAXING_TERM_AGREEM_TASK) {
+      if (this.marginIncomeOfWthAgr === 0 || incomeSum <= this.marginIncomeOfWthAgr) {
+        if (incomeSum > 0) {
           withholdIncome = true;
         }
       }
-    }
-    else if (termOpt === WorkTaxingTerms.TAXING_TERM_EMPLOYMENTS)
-    {
-      if (this.marginIncomeOfWthEmp === 0 || incomeSum <= this.marginIncomeOfWthEmp)
-      {
-        if (incomeSum > 0)
-        {
+    } else if (termOpt === WorkTaxingTerms.TAXING_TERM_EMPLOYMENTS) {
+      if (this.marginIncomeOfWthEmp === 0 || incomeSum <= this.marginIncomeOfWthEmp) {
+        if (incomeSum > 0) {
           withholdIncome = true;
         }
       }
-    }
-    else if (termOpt === WorkTaxingTerms.TAXING_TERM_STATUT_PART)
-    {
-      if (incomeSum > 0)
-      {
+    } else if (termOpt === WorkTaxingTerms.TAXING_TERM_STATUT_PART) {
+      if (incomeSum > 0) {
         withholdIncome = true;
       }
     }
@@ -135,23 +129,18 @@ export class PropsTaxing extends PropsTaxingBase implements IPropsTaxing {
 
     let taxRate1Basis: number = basisResult;
     let taxRate2Basis: number = 0;
-    if (this.marginIncomeOfTaxRate2 !== 0)
-    {
+    if (this.marginIncomeOfTaxRate2 !== 0) {
       taxRate1Basis = Math.min(basisResult, this.marginIncomeOfTaxRate2);
       taxRate2Basis = Math.max(0, basisResult - this.marginIncomeOfTaxRate2);
     }
     let taxRate1Taxing: bigDecimal = PropsTaxingBase.BIG_ZERO;
-    if (basisResult <= this.marginIncomeOfRounding)
-    {
+    if (basisResult <= this.marginIncomeOfRounding) {
       taxRate1Taxing = OperationsDec.multiply(new bigDecimal(taxRate1Basis), factorAdvances);
-    }
-    else
-    {
+    } else {
       taxRate1Taxing = OperationsDec.multiply(new bigDecimal(taxRate1Basis), factorAdvances);
     }
     let taxRate2Taxing: bigDecimal = PropsTaxingBase.BIG_ZERO;
-    if (this.marginIncomeOfTaxRate2 !== 0)
-    {
+    if (this.marginIncomeOfTaxRate2 !== 0) {
       taxRate2Taxing = OperationsDec.multiply(new bigDecimal(taxRate2Basis), factorTaxRate2);
     }
     return this.intTaxRoundUp(taxRate1Taxing.add(taxRate2Taxing));

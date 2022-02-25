@@ -15,9 +15,9 @@ export class PropsHealth extends PropsHealthBase implements IPropsHealth {
     factorEmployee: bigDecimal,
     marginIncomeEmp: number,
     marginIncomeAgr: number,
-  )
-  {
-    super(version,
+  ) {
+    super(
+      version,
       minMonthlyBasis,
       maxAnnualsBasis,
       limMonthlyState,
@@ -25,38 +25,31 @@ export class PropsHealth extends PropsHealthBase implements IPropsHealth {
       factorCompound,
       factorEmployee,
       marginIncomeEmp,
-      marginIncomeAgr);
+      marginIncomeAgr,
+    );
   }
   public static empty(): IPropsHealth {
-    return new PropsHealth(VersionId.new(),
-      0,
-      0,
-      0,
-      0,
-      new bigDecimal(0),
-      new bigDecimal(0),
-      0,
-      0);
+    return new PropsHealth(VersionId.new(), 0, 0, 0, 0, new bigDecimal(0), new bigDecimal(0), 0, 0);
   }
 
   override hasTermExemptionParticy(term: WorkHealthTerms): boolean {
     return false;
   }
   override hasIncomeBasedEmploymentParticy(term: WorkHealthTerms): boolean {
-    return (term === WorkHealthTerms.HEALTH_TERM_AGREEM_WORK);
+    return term === WorkHealthTerms.HEALTH_TERM_AGREEM_WORK;
   }
   override hasIncomeBasedAgreementsParticy(term: WorkHealthTerms): boolean {
-    return (term === WorkHealthTerms.HEALTH_TERM_AGREEM_TASK);
+    return term === WorkHealthTerms.HEALTH_TERM_AGREEM_TASK;
   }
   override hasIncomeCumulatedParticy(term: WorkHealthTerms): boolean {
     switch (term) {
-      case WorkHealthTerms.HEALTH_TERM_EMPLOYMENTS :
+      case WorkHealthTerms.HEALTH_TERM_EMPLOYMENTS:
         return false;
-      case WorkHealthTerms.HEALTH_TERM_AGREEM_WORK :
+      case WorkHealthTerms.HEALTH_TERM_AGREEM_WORK:
         return true;
-      case WorkHealthTerms.HEALTH_TERM_AGREEM_TASK :
+      case WorkHealthTerms.HEALTH_TERM_AGREEM_TASK:
         return true;
-      case WorkHealthTerms.HEALTH_TERM_BY_CONTRACT :
+      case WorkHealthTerms.HEALTH_TERM_BY_CONTRACT:
         return false;
     }
     return false;

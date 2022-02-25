@@ -29,9 +29,9 @@ export class PropsTaxing2010 extends PropsTaxingBase implements IPropsTaxing {
     marginIncomeOfTaxRate2: number,
     marginIncomeOfWthEmp: number,
     marginIncomeOfWthAgr: number,
-  )
-  {
-    super(version,
+  ) {
+    super(
+      version,
       allowancePayer,
       allowanceDisab1st,
       allowanceDisab2nd,
@@ -52,7 +52,8 @@ export class PropsTaxing2010 extends PropsTaxingBase implements IPropsTaxing {
       marginIncomeOfSolidary,
       marginIncomeOfTaxRate2,
       marginIncomeOfWthEmp,
-      marginIncomeOfWthAgr);
+      marginIncomeOfWthAgr,
+    );
   }
   public static empty(): IPropsTaxing {
     return new PropsTaxing2010(
@@ -81,7 +82,12 @@ export class PropsTaxing2010 extends PropsTaxingBase implements IPropsTaxing {
     );
   }
 
-  override hasWithholdIncome(termOpt: WorkTaxingTerms, signOpt: TaxDeclSignOption, noneOpt: TaxNoneSignOption, incomeSum: number): boolean {
+  override hasWithholdIncome(
+    termOpt: WorkTaxingTerms,
+    signOpt: TaxDeclSignOption,
+    noneOpt: TaxNoneSignOption,
+    incomeSum: number,
+  ): boolean {
     // *****************************************************************************
     // Tax income for advance from Year 2008 to Year 2013
     // *****************************************************************************
@@ -89,16 +95,13 @@ export class PropsTaxing2010 extends PropsTaxingBase implements IPropsTaxing {
     // *****************************************************************************
 
     let withholdIncome: boolean = false;
-    if (signOpt !== TaxDeclSignOption.DECL_TAX_NO_SIGNED)
-    {
+    if (signOpt !== TaxDeclSignOption.DECL_TAX_NO_SIGNED) {
       return withholdIncome;
     }
-    if (noneOpt !== TaxNoneSignOption.NOSIGN_TAX_WITHHOLD)
-    {
+    if (noneOpt !== TaxNoneSignOption.NOSIGN_TAX_WITHHOLD) {
       return withholdIncome;
     }
-    if (this.marginIncomeOfWithhold === 0 || incomeSum <= this.marginIncomeOfWithhold)
-    {
+    if (this.marginIncomeOfWithhold === 0 || incomeSum <= this.marginIncomeOfWithhold) {
       withholdIncome = true;
     }
     return withholdIncome;
@@ -107,12 +110,9 @@ export class PropsTaxing2010 extends PropsTaxingBase implements IPropsTaxing {
     const factorAdvances = OperationsDec.divide(this.factorAdvances, PropsTaxingBase.BIG_ZERO);
 
     let advanceTaxing: number = 0;
-    if (basisResult <= this.marginIncomeOfRounding)
-    {
+    if (basisResult <= this.marginIncomeOfRounding) {
       advanceTaxing = this.intTaxRoundUp(OperationsDec.multiply(new bigDecimal(supersResult), factorAdvances));
-    }
-    else
-    {
+    } else {
       advanceTaxing = this.intTaxRoundUp(OperationsDec.multiply(new bigDecimal(supersResult), factorAdvances));
     }
     return advanceTaxing;

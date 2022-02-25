@@ -18,5 +18,8 @@ export interface IPropsSocial extends IProps {
   roundedEmployeePaym(basisResult: number): number;
   roundedEmployerPaym(basisResult: number): number;
   resultOvercaps(baseSuma: number, overCaps: number): [number, number];
-  annualsBasisCut(incomeList: Iterable<ParticySocialTarget>, annuityBasis: number): [number, number, Iterable<ParticySocialResult>];
+  annualsBasisCut(
+    incomeList: Iterable<ParticySocialTarget>,
+    annuityBasis: number,
+  ): [number, number, Iterable<ParticySocialResult>];
 }

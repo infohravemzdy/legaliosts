@@ -4,9 +4,9 @@ import { ProviderBase } from '../providers/ProviderBase';
 import { IProviderTaxing } from '../providers/IProviderTaxing';
 import { PropsTaxing2014 } from '../props/PropsTaxing2014';
 import { IPropsTaxing } from '../service_interfaces/IPropsTaxing';
-import {HistoryConstTaxing2017, HistoryConstTaxing2017var07} from './HistoryConstTaxing2017';
+import { HistoryConstTaxing2017, HistoryConstTaxing2017var07 } from './HistoryConstTaxing2017';
 import bigDecimal = require('js-big-decimal');
-import {HistoryConstHealth2013var08} from "../providers_period2013/HistoryConstHealth2013";
+import { HistoryConstHealth2013var08 } from '../providers_period2013/HistoryConstHealth2013';
 
 export class ProviderTaxing2017 extends ProviderBase implements IProviderTaxing {
   constructor() {
@@ -59,13 +59,13 @@ export class ProviderTaxing2017 extends ProviderBase implements IProviderTaxing 
   }
   AllowanceChild2nd(period: IPeriod): number {
     if (this.IsPeriodGreaterOrEqualThan(period, 2017, 7)) {
-      return HistoryConstTaxing2017var07.ALLOWANCE_CHILD_2ND
+      return HistoryConstTaxing2017var07.ALLOWANCE_CHILD_2ND;
     }
     return HistoryConstTaxing2017.ALLOWANCE_CHILD_2ND;
   }
   AllowanceChild3rd(period: IPeriod): number {
     if (this.IsPeriodGreaterOrEqualThan(period, 2017, 7)) {
-      return HistoryConstTaxing2017var07.ALLOWANCE_CHILD_3RD
+      return HistoryConstTaxing2017var07.ALLOWANCE_CHILD_3RD;
     }
     return HistoryConstTaxing2017.ALLOWANCE_CHILD_3RD;
   }

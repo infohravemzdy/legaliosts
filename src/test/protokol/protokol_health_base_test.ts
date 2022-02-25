@@ -10,7 +10,8 @@ import {
   exportPropsYear,
   exportPropsEnd,
   exportPropsDecValue,
-  exportPropsIntValue, __TEST_PROTOKOL_FILE__,
+  exportPropsIntValue,
+  __TEST_PROTOKOL_FILE__,
 } from './protokol_base_test';
 
 type propsHealthIntFunc = (props: IPropsHealth) => number;
@@ -24,7 +25,7 @@ export function exportHealthPropsIntFile(
   sut: IFactoryHealth,
   func: propsHealthIntFunc,
 ) {
-  if (__TEST_PROTOKOL_FILE__ === true) {
+  if (__TEST_PROTOKOL_FILE__) {
     const testProtokol = createProtokolFile(baseName, fileName);
 
     exportPropsStart(testProtokol);
@@ -44,7 +45,7 @@ export function exportHealthPropsDecFile(
   sut: IFactoryHealth,
   func: propsHealthDecFunc,
 ) {
-  if (__TEST_PROTOKOL_FILE__ === true) {
+  if (__TEST_PROTOKOL_FILE__) {
     const testProtokol = createProtokolFile(baseName, fileName);
 
     exportPropsStart(testProtokol);

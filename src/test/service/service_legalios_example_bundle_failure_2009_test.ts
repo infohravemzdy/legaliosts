@@ -1,10 +1,10 @@
 import { initSut, getResults } from './service_legalios_example_base_test';
-import {assert, expect} from 'chai';
+import { assert, expect } from 'chai';
 import { TestPeriodParams, TestPeriodScenario } from '../TestStructs';
 
 describe('TestBundleFailure_ForYear2009', () => {
   const scenarios = [
-      new TestPeriodScenario('2009', [
+    new TestPeriodScenario('2009', [
       new TestPeriodParams('2009-1', 2009, 1),
       new TestPeriodParams('2009-2', 2009, 2),
       new TestPeriodParams('2009-3', 2009, 3),
