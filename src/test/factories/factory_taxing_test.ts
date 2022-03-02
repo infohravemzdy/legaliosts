@@ -1,7 +1,7 @@
 import { IPeriod, Period } from '../../proj/service_types/period';
 import { FactoryTaxing } from '../../proj/factories/FactoryTaxing';
 import { assert, expect } from 'chai';
-import { TestYearExpParams, TestYearExpScenario } from '../TestStructs';
+import { TestYearExpParams, TestYearExpScenario } from '../test_structs';
 
 describe('Factory Taxing For Year 2009-2022', () => {
   const scenarios = [

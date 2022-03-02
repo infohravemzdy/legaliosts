@@ -3,7 +3,7 @@ import { FactoryTaxing } from '../../proj/factories/FactoryTaxing';
 import { IPropsTaxing } from '../../proj/service_interfaces/IPropsTaxing';
 import { PROTOKOL_TEST_FOLDER } from './protokol_base_test';
 import { exportTaxingPropsDecFile, exportTaxingPropsIntFile } from './protokol_taxing_base_test';
-import { TestYearScenario } from '../TestStructs';
+import { TestYearScenario } from '../test_structs';
 
 describe('Protokol Taxing For Year 2010-2022', () => {
   const testExamples = [new TestYearScenario('2010-2022', 2010, 2022)];

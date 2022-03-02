@@ -3,7 +3,7 @@ import { FactoryHealth } from '../../proj/factories/FactoryHealth';
 import { IPropsHealth } from '../../proj/service_interfaces/IPropsHealth';
 import { PROTOKOL_TEST_FOLDER } from './protokol_base_test';
 import { exportHealthPropsDecFile, exportHealthPropsIntFile } from './protokol_health_base_test';
-import { TestYearScenario } from '../TestStructs';
+import { TestYearScenario } from '../test_structs';
 
 describe('Protokol Health For Year 2010-2022', () => {
   const testExamples = [new TestYearScenario('2010-2022', 2010, 2022)];

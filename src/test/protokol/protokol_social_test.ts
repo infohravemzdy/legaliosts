@@ -3,7 +3,7 @@ import { FactorySocial } from '../../proj/factories/FactorySocial';
 import { IPropsSocial } from '../../proj/service_interfaces/IPropsSocial';
 import { PROTOKOL_TEST_FOLDER } from './protokol_base_test';
 import { exportSocialPropsDecFile, exportSocialPropsIntFile } from './protokol_social_base_test';
-import { TestYearScenario } from '../TestStructs';
+import { TestYearScenario } from '../test_structs';
 
 describe('Protokol Social For Year 2010-2022', () => {
   const testExamples = [new TestYearScenario('2010-2022', 2010, 2022)];

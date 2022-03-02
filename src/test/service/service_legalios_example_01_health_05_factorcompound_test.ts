@@ -1,6 +1,6 @@
 ﻿import bigDecimal = require('js-big-decimal');
 import { expect } from 'chai';
-import { TestDecParams, TestDecScenario } from '../TestStructs';
+import { TestDecParams, TestDecScenario } from '../test_structs';
 import { initSut, logTestDecExamples, getHealthResults } from './service_legalios_example_base_test';
 
 // 01_Health_05_FactorCompound

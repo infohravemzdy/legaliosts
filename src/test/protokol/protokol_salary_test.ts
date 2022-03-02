@@ -3,7 +3,7 @@ import { FactorySalary } from '../../proj/factories/FactorySalary';
 import { IPropsSalary } from '../../proj/service_interfaces/IPropsSalary';
 import { PROTOKOL_TEST_FOLDER } from './protokol_base_test';
 import { exportSalaryPropsDecFile, exportSalaryPropsIntFile } from './protokol_salary_base_test';
-import { TestYearScenario } from '../TestStructs';
+import { TestYearScenario } from '../test_structs';
 
 describe('Protokol Salary For Year 2010-2022', () => {
   const testExamples = [new TestYearScenario('2010-2022', 2010, 2022)];

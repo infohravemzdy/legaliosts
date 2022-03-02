@@ -11,7 +11,7 @@ import { IProviderSalary } from '../../proj/providers/IProviderSalary';
 import { IProviderHealth } from '../../proj/providers/IProviderHealth';
 import { IProviderSocial } from '../../proj/providers/IProviderSocial';
 import { IProviderTaxing } from '../../proj/providers/IProviderTaxing';
-import { TestYearsScenario } from '../TestStructs';
+import { TestYearsScenario } from '../test_structs';
 
 export const __TEST_HISTORY_FILE__: boolean = false;
 

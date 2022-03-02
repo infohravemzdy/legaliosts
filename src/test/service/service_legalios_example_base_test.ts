@@ -12,7 +12,7 @@ import { IProps } from '../../proj/service_interfaces/IProps';
 import * as path from 'path';
 import * as fs from 'fs';
 import { assert, expect } from 'chai';
-import { TestDecScenario, TestIntScenario } from '../TestStructs';
+import { TestDecScenario, TestIntScenario } from '../test_structs';
 
 export const __TEST_EXAMPLE_FILE__: boolean = false;
 

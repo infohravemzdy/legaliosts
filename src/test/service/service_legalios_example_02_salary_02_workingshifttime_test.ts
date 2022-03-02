@@ -1,5 +1,5 @@
 ﻿import { expect } from 'chai';
-import { TestIntParams, TestIntScenario } from '../TestStructs';
+import { TestIntParams, TestIntScenario } from '../test_structs';
 import { initSut, logTestNumExamples, getSalaryResults } from './service_legalios_example_base_test';
 
 // 02_Salary_02_WorkingShiftTime
