@@ -1,4 +1,4 @@
-import { gulp, series, src, dest } from 'gulp';
+import { series, src, dest } from 'gulp';
 import * as shell from 'gulp-shell';
 import replace = require("gulp-replace");
 
