@@ -38,6 +38,7 @@
   "license": "Unlicense",
   "devDependencies": {
     "@types/chai": "^4.2.21",
+    "@types/gulp": "^4.0.9",
     "@types/gulp-replace": "^1.1.0",
     "@types/gulp-shell": "^0.7.0",
     "@types/mocha": "^9.0.0",
