@@ -1,6 +1,6 @@
 {
   "name": "hravemzdy.legalios",
-  "version": "0.22.6",
+  "version": "0.22.7",
   "description": "payroll-procezor Salary, Health, Social, Taxing Properties for years 2010-2022",
   "main": "index.js",
   "types": "index.d.ts",
@@ -61,6 +61,7 @@
     "typescript": "^4.4.3"
   },
   "files": [
-    "**/*"
+    "**/*",
+    "types/**/*"
   ]
 }
