@@ -4,6 +4,7 @@ import { PropsTaxingBase } from './PropsTaxingBase';
 import bigDecimal = require('js-big-decimal');
 import { WorkTaxingTerms } from '../service_types/ContractTerms';
 import { OperationsDec } from '../service_types/OperationDec';
+import { TaxDeclSignOption, TaxNoneSignOption } from '../service_types/TaxingOptions';
 
 export class PropsTaxing2010 extends PropsTaxingBase implements IPropsTaxing {
   constructor(

@@ -5,6 +5,12 @@ import bigDecimal = require('js-big-decimal');
 import { OperationsRound } from '../service_types/OperationsRound';
 import { WorkTaxingTerms } from '../service_types/ContractTerms';
 import { OperationsDec } from '../service_types/OperationDec';
+import {
+  TaxDeclBenfOption,
+  TaxDeclDisabOption,
+  TaxDeclSignOption,
+  TaxNoneSignOption,
+} from '../service_types/TaxingOptions';
 
 export abstract class PropsTaxingBase extends PropsBase implements IPropsTaxing {
   protected static BIG_100 = new bigDecimal(100);
