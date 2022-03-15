@@ -3,6 +3,7 @@ import { PropsBase } from './PropsBase';
 import { IPropsTaxing } from '../service_interfaces/IPropsTaxing';
 import bigDecimal = require('js-big-decimal');
 import { WorkTaxingTerms } from '../service_types/ContractTerms';
+import { TaxDeclBenfOption, TaxDeclDisabOption, TaxDeclSignOption, TaxNoneSignOption } from '../service_types/TaxingOptions';
 export declare abstract class PropsTaxingBase extends PropsBase implements IPropsTaxing {
     protected static BIG_100: bigDecimal;
     protected static BIG_ZERO: bigDecimal;

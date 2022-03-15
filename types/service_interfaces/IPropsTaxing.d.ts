@@ -1,6 +1,7 @@
 import { IProps } from './IProps';
 import bigDecimal = require('js-big-decimal');
 import { WorkTaxingTerms } from '../service_types/ContractTerms';
+import { TaxDeclBenfOption, TaxDeclDisabOption, TaxDeclSignOption, TaxNoneSignOption } from '../service_types/TaxingOptions';
 export interface IPropsTaxing extends IProps {
     AllowancePayer(): number;
     AllowanceDisab1st(): number;
